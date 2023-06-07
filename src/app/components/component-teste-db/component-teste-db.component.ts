@@ -5,7 +5,7 @@ import { CadastroService } from 'src/app/services/cadastro.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Componente } from 'src/app/models/componente';
-import { DialogAnimationsExampleDialog } from './dialog-confirm/dialog-confirm.component';
+import { DialogAnimationsExampleDialog } from './onSubmitDialog/dialog-confirm.component';
 
 @Component({
   selector: 'app-component-teste-db',
