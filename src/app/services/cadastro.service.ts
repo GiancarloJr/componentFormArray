@@ -19,7 +19,7 @@ export class CadastroService extends HttpServiceService implements OnInit{
   }
 
   public getPosts(): Observable<Componente[]> {
-    return this.httpGet(`${this.endPoint}`);
+    return this.httpGet(`${this.endPoint}?_sort=views&_order=asc`);
   }
 
   public savePosts(payload: Componente): Observable<Componente> {

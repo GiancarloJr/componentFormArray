@@ -5,7 +5,7 @@ import { CadastroService } from 'src/app/services/cadastro.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Componente } from 'src/app/models/componente';
-import { DialogAnimationsExampleDialog } from './onSubmitDialog/dialog.component';
+import { DialogAnimationsExampleDialog } from './dialog-confirm/dialog-confirm.component';
 
 @Component({
   selector: 'app-component-teste-db',
@@ -19,30 +19,46 @@ export class ComponentTesteDBComponent {
   public formItem!: FormGroup;
   formComponente!: FormGroup;
   formDecorator!: FormGroup;
-  disabled: boolean = true;
+  // disabled: boolean = true;
   componentitle: string = 'Button Speed Dial';
-  disabledButtonAdd: boolean = false;
+  disabledButtonAddRow: boolean = false;
   disabledButtonExclude: boolean = true;
   disabledButtonEdit: boolean = false;
   disabledButtonSave: boolean = true;
-
-
-
+  disabledButtonAddTable: boolean = false;
 
   //#region METODOS BOTOES
+
+  buttonAddRow(): void {
+    this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
+    this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
+    this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
+    this.disabledButtonExclude ? this.disabledButtonExclude = false : this.disabledButtonExclude = true;
+    this.disabledButtonAddTable ? this.disabledButtonAddTable = false : this.disabledButtonAddTable = true;
+  }
+
 
   buttonEditRow(): void {
     this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
     this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
-    this.disabledButtonAdd ? this.disabledButtonAdd = false : this.disabledButtonAdd = true;
+    this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
     this.disabledButtonExclude ? this.disabledButtonExclude = false : this.disabledButtonExclude = true;
+    this.disabledButtonAddTable ? this.disabledButtonAddTable = false : this.disabledButtonAddTable = true;
   }
 
   buttonExcludeRow(): void {
     this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
     this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
-    this.disabledButtonAdd ? this.disabledButtonAdd = false : this.disabledButtonAdd = true;
+    this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
     this.disabledButtonExclude ? this.disabledButtonExclude = true : this.disabledButtonExclude = false;
+  }
+
+  buttonAddTable(): void {
+    this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
+    this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
+    this.disabledButtonAddTable ? this.disabledButtonAddTable = false : this.disabledButtonAddTable = true;
+    this.disabledButtonExclude ? this.disabledButtonExclude = false : this.disabledButtonExclude = true;
+    this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
   }
 
   //#endregion
@@ -58,9 +74,7 @@ export class ComponentTesteDBComponent {
     });
   }
 
-  //#region
-
-  // FUNCIONANDO
+  //#region  CRIANDO FORMULARIOS
 
   initializeForm(data: Componente[]): void {
 
@@ -75,11 +89,7 @@ export class ComponentTesteDBComponent {
 
       return this._formBuilder.group({
         id: comp.id,
-        nomeComponent: comp.nomeComponent,
-        explicacaoComponent: comp.explicacaoComponent,
-        arrayInput: this._formBuilder.array(arrayInput),
-        explicacaoTest1: comp.explicacaoTest1,
-        explicacaoTest2: comp.explicacaoTest2
+        arrayInput: this._formBuilder.array(arrayInput)
       });
     }
     );
@@ -93,16 +103,26 @@ export class ComponentTesteDBComponent {
     return this.formComponente.get('components') as FormArray;
   }
 
-  get tooltipSave(): string {
-    return this.formComponente.valid ? "Clique para Salvar" : "Preenchas todos os campos para salvar";
-  }
-
   public items(index: number): FormArray {
     return this.components.at(index).get('arrayInput') as FormArray;
   }
 
-  addDecorator(empIndex: number) {
-    this.buttonExcludeRow();
+  //#region LEGENDA DOS BOTÕES
+
+  get tooltipSave(): string {
+    return this.formComponente.valid ? "Clique para Salvar" : "Preenchas todos os campos para salvar";
+  }
+
+  get tooltipAddTable(): string {
+    return "Adicionar nova tabela";
+  }
+
+  //#endregion
+
+  //#region FUNÇÕES ADICIONAR E REMOVER LINHA NA TABELA
+
+  addRow(empIndex: number) {
+    this.buttonAddRow();
 
     this.items(empIndex).push(this._formBuilder.group({
       decorator: ['', [Validators.required]],
@@ -110,54 +130,105 @@ export class ComponentTesteDBComponent {
     }));
   }
 
-  removeDecorator(empIndex: number, decoratorIndex: number) {
+  //#endregion
+
+  //#region ADICIONA NOVA TABELA
+
+  addTable() {
+    this.components.push(this._formBuilder.group({
+      arrayInput: new FormArray([this._formBuilder.group({
+        decorator: ['', [Validators.required]],
+        explicacaoDecorator: ['', [Validators.required]]
+      })
+      ])
+    }));
+    this.buttonAddTable();
+  }
+
+  //#endregion
+
+  //#region ADICIONA NOVA LINHA A TABELA
+
+  removeDecorator(empIndex: number, decoratorIndex: number, payload: Componente) {
     const dialogref = this.dialog.open(DialogAnimationsExampleDialog)
 
     dialogref.afterClosed().subscribe(ret => {
       if (ret) {
         this.items(empIndex).removeAt(decoratorIndex);
+        if (this.items(empIndex).length === 0) {
+          this.removeTable(Number(payload.id));
+          this.ngOnInit();
+          this.buttonEditRow();
+        }
       }
     });
   }
 
   //#endregion
 
-  //#region Tentativa
+  //#region INICIA FORMULARIO
 
   private createForm(): void {
     this.formComponente = this._formBuilder.group({
       components: this._formBuilder.array([])
     });
-
   }
+
   //#endregion
 
-  //#region SALVAR FORMULARIO DE FORMA INDEPENDENTE
+  //#region SALVAR TABELA DE FORMA INDEPENDENTE
+
   onSubmit(payload: Componente) {
     if (!this.formComponente.valid)
       return;
-
-    this.buttonEditRow()
-    this.cadastroService.editarPosts(payload).subscribe(data => {
+    if (payload.arrayInput.length == 0) {
+      this.removeTable(Number(payload.id));
       this.ngOnInit();
+    } else {
+
+      if (payload.id !== undefined) { // CASO TABELA NOVA TENHA SIDO CRIADA E ID VEM UNDEFINED ENTAO VAI DIRETO PRO 'ELSE' E UTILIZA METODO SAVE
+        this.buttonEditRow()
+        this.cadastroService.editarPosts(payload).subscribe(data => {
+          this.ngOnInit();
+        })
+      } else {
+        this.buttonEditRow()
+        this.cadastroService.savePosts(payload).subscribe(data => {
+          this.ngOnInit();
+        })
+      }
     }
-    )
   }
+
   //#endregion
 
-  excluir(id: number) {
+  //#region REMOVE TABELA DO BANCO
+
+  removeTable(id: number) {
     this.cadastroService.deletePosts(id).subscribe(data => {
+      this.ngOnInit();
+      this.buttonEditRow();
     })
   }
 
-  getMessage() {
-    return "error Email";
-  }
+  //#endregion
+
+  //#region METODO CHAMAR DIALOGO PARA CONFIRMAÇÃO DE EXCLUSÃO
 
   openDialog(): void {
     this.dialog.open(DialogAnimationsExampleDialog, {
       width: '400px'
     });
   }
+
+  //#endregion
+
+
+  getMessage() {
+    return "error Email";
+  }
+
 }
+
+
 
