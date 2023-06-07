@@ -1,0 +1,98 @@
+<h3> Diretivas: </h3>
+<mat-divider class="button-speed-divider"></mat-divider>
+
+<form *ngIf='components' [formGroup]="formComponente">
+  <div formArrayName="components">
+    <div *ngFor="let component of components.controls; let i = index" [formGroupName]='i'>
+
+      <!-- <button (click)="onSubmit(component.value)">SALVAR COMPONENTE</button> -->
+
+      <table class="table-button-speed-dial">
+        <div formArrayName="arrayInput">
+          <tr>
+            <th> Diretiva </th>
+            <th> Função </th>
+            <th>
+              <div  class="table--title-header">
+                <div style="align-items: center;justify-content: center;">
+                  <p>Ações</p>
+                </div>
+                <div>
+                  <button mat-icon-button
+                          (click)="buttonEditRow()"
+                          [hidden]="disabledButtonEdit">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                </div>
+                <div>
+                  <button mat-icon-button
+                          (click)="onSubmit(component.value)"
+                          [hidden]="disabledButtonSave"
+                          [matTooltip]='tooltipSave'
+                          [ngClass]="formComponente.valid ? 'btn-save-ok' : 'btn-save-error'">
+                    <mat-icon>save</mat-icon>
+                  </button>
+                </div>
+                <div>
+                  <button mat-icon-button
+                          (click)="addDecorator(i)"
+                          [disabled]="disabledButtonAdd">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+            </th>
+          </tr>
+          <tr *ngFor="let decorators of items(i).controls; let a = index" [formGroupName]="a">
+            <td>
+              <input matInput
+                     type="text"
+                     formControlName="decorator"
+                     [hidden]="!disabledButtonEdit">
+              <textarea cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5"
+                        cols="60"
+                        [value]="decorators.value.decorator"
+                        [hidden]="disabledButtonEdit"
+                        [disabled]="!disabledButtonEdit"></textarea>
+            </td>
+            <td>
+              <div>
+                <input matInput
+                       type="text"
+                       formControlName="explicacaoDecorator"
+                       [hidden]="!disabledButtonEdit">
+                <textarea cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
+                          cdkAutosizeMinRows="1"
+                          cdkAutosizeMaxRows="5"
+                          cols="60"
+                          [value]="decorators.value.explicacaoDecorator"
+                          [hidden]="disabledButtonEdit"
+                          [disabled]="!disabledButtonEdit"></textarea>
+              </div>
+            </td>
+
+            <td>
+              <div>
+                <button mat-icon-button
+                        (click)="removeDecorator(i, a)"
+                        [disabled]="disabledButtonExclude">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+        </div>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</form>
