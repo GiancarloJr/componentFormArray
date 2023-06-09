@@ -9,7 +9,7 @@ import { HttpServiceService } from '../shared/httpService/httpService.service';
 })
 export class CadastroService extends HttpServiceService implements OnInit{
 
-  private endPoint = 'componentList'
+  private endPoint = 'table'
 
   constructor(protected override injector: Injector) {
     super(injector);

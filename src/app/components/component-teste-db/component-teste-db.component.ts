@@ -5,7 +5,7 @@ import { CadastroService } from 'src/app/services/cadastro.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Componente } from 'src/app/models/componente';
-import { DialogAnimationsExampleDialog } from './onSubmitDialog/dialog-confirm.component';
+import { DialogAnimationsExampleDialog } from './dialog-confirm/dialog-confirm.component';
 
 @Component({
   selector: 'app-component-teste-db',
@@ -19,7 +19,6 @@ export class ComponentTesteDBComponent {
   public formItem!: FormGroup;
   formComponente!: FormGroup;
   formDecorator!: FormGroup;
-  // disabled: boolean = true;
   componentitle: string = 'Button Speed Dial';
   disabledButtonAddRow: boolean = false;
   disabledButtonExclude: boolean = true;
@@ -36,7 +35,6 @@ export class ComponentTesteDBComponent {
     this.disabledButtonExclude ? this.disabledButtonExclude = false : this.disabledButtonExclude = true;
     this.disabledButtonAddTable ? this.disabledButtonAddTable = false : this.disabledButtonAddTable = true;
   }
-
 
   buttonEditRow(): void {
     this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
@@ -107,6 +105,8 @@ export class ComponentTesteDBComponent {
     return this.components.at(index).get('arrayInput') as FormArray;
   }
 
+  //#endregion
+
   //#region LEGENDA DOS BOTÕES
 
   get tooltipSave(): string {
@@ -119,11 +119,10 @@ export class ComponentTesteDBComponent {
 
   //#endregion
 
-  //#region FUNÇÕES ADICIONAR E REMOVER LINHA NA TABELA
+  //#region FUNÇÕES ADICIONAR LINHA
 
   addRow(empIndex: number) {
     this.buttonAddRow();
-
     this.items(empIndex).push(this._formBuilder.group({
       decorator: ['', [Validators.required]],
       explicacaoDecorator: ['', [Validators.required]]
@@ -147,9 +146,9 @@ export class ComponentTesteDBComponent {
 
   //#endregion
 
-  //#region ADICIONA NOVA LINHA A TABELA
+  //#region REMOVER LINHA DA TABELA
 
-  removeDecorator(empIndex: number, decoratorIndex: number, payload: Componente) {
+  removeRow(empIndex: number, decoratorIndex: number, payload: Componente) {
     const dialogref = this.dialog.open(DialogAnimationsExampleDialog)
 
     dialogref.afterClosed().subscribe(ret => {
@@ -186,7 +185,7 @@ export class ComponentTesteDBComponent {
       this.ngOnInit();
     } else {
 
-      if (payload.id !== undefined) { // CASO TABELA NOVA TENHA SIDO CRIADA E ID VEM UNDEFINED ENTAO VAI DIRETO PRO 'ELSE' E UTILIZA METODO SAVE
+      if (payload.id !== undefined) { // CASO TABELA NOVA TENHA SIDO CRIADA E ID VEM UNDEFINED ENTAO VAI DIRETO PRO 'POST' E UTILIZA METODO SAVE
         this.buttonEditRow()
         this.cadastroService.editarPosts(payload).subscribe(data => {
           this.ngOnInit();
@@ -213,7 +212,7 @@ export class ComponentTesteDBComponent {
 
   //#endregion
 
-  //#region METODO CHAMAR DIALOGO PARA CONFIRMAÇÃO DE EXCLUSÃO
+ //#region METODO CHAMAR DIALOGO PARA CONFIRMAÇÃO DE EXCLUSÃO
 
   openDialog(): void {
     this.dialog.open(DialogAnimationsExampleDialog, {
@@ -222,11 +221,6 @@ export class ComponentTesteDBComponent {
   }
 
   //#endregion
-
-
-  getMessage() {
-    return "error Email";
-  }
 
 }
 

@@ -1,5 +1,9 @@
 app-component-teste-db {
 
+  .button-speed-divider{
+    width: inherit; margin: 0px 5px 0px 5px;
+  }
+
 
   .title-table {
     display: flex;
@@ -7,10 +11,10 @@ app-component-teste-db {
     align-items: center;
     background-color: #bbdefb;
     height: 100%;
-
     background: whitesmoke;
-    width: 75.1em;
+    width: inherit;
     margin: 5px 5px 5px 5px;
+    height: 4em;
 
     h3 {
       margin-top: 45px !important;
@@ -31,25 +35,13 @@ app-component-teste-db {
       height: 1.5rem;
       width: 1.5rem;
       font-weight: 900;
-      color: rgb(109, 109, 109);
-    }
 
+    }
     button {
       margin: 7px 7px 7px 7px;
-      border: 3px solid rgb(109, 109, 109);
+      border: 3px solid #1d1d1dde;
     }
-  }
-
-  .btn-save {
-    &-error {
-      color: #b53f3f;
-    }
-
-    &-ok {
-      color: #3f51b5;
-      ;
-    }
-  }
+  }  
 
   p {
     margin: 0 0 0px !important;
@@ -58,7 +50,7 @@ app-component-teste-db {
   table {
     text-indent: initial;
     border-spacing: 2px;
-    width: 100%;
+    width: inherit;
     border-spacing: 0;
     border-collapse: collapse;
     margin: 10px 5px 10px 5px;
@@ -76,6 +68,7 @@ app-component-teste-db {
           width: 31.5em;
           height: 4em;
           text-align: left;
+          margin: 15px;
         }
 
         textarea:disabled {
@@ -98,6 +91,17 @@ app-component-teste-db {
           align-items: center;
           justify-content: center;
 
+          .btn-save {
+            &-error {
+              color: #b53f3f;
+            }
+        
+            &-ok {
+              color: #3f51b5;
+              ;
+            }
+          }
+
           .mat-mdc-button>.mat-icon {
             margin-left: 0px;
             margin-right: 0px;
@@ -108,20 +112,12 @@ app-component-teste-db {
             height: 1.5rem;
             width: 1.5rem;
             font-weight: 700;
-            color: rgb(109, 109, 109);
           }
           .mdc-button {
             min-width: 20px;
-            background: rgba(0, 0, 0, 0);
           }
         }
       }
     }
   }
-
-  input {
-    margin: 15px;
-  }
-
-
 }
