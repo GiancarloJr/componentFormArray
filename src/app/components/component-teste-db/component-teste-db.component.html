@@ -70,7 +70,7 @@
                           cdkAutosizeMaxRows="5"
                           cols="60"></textarea>
 
-                  <mat-error *ngIf="isEmpty(decorators.value.decorator)">CAMPO NÃO DEVE SER VAZIO</mat-error>
+                  <mat-error *ngIf="isEmpty(decorators.value.decorator)">{{ errorMessageIsEmpty }}</mat-error>
               </td>
               <td>
                 <div>
@@ -86,7 +86,7 @@
                             cdkAutosizeMaxRows="5"
                             cols="60"></textarea>
                   <!-- <mat-error *ngIf="formComponente.invalid">CAMPO NÃO DEVE SER VAZIO</mat-error> -->
-                  <mat-error *ngIf="isEmpty(decorators.value.explicacaoDecorator)">CAMPO NÃO DEVE SER VAZIO</mat-error>
+                  <mat-error *ngIf="isEmpty(decorators.value.explicacaoDecorator)">{{ errorMessageIsEmpty }}</mat-error>
                 </div>
               </td>
 

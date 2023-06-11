@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 import { CadastroService } from 'src/app/services/cadastro.service';
 
@@ -15,6 +15,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ComponentTesteDBComponent {
 
+	@Input() dataBase: any[] = [];
+
   public formData!: FormGroup;
   public formItem!: FormGroup;
   formComponente!: FormGroup;
@@ -26,41 +28,6 @@ export class ComponentTesteDBComponent {
   disabledButtonSave: boolean = true;
   disabledButtonAddTable: boolean = false;
 
-  //#region METODOS BOTOES
-
-  buttonAddRow(): void {
-    this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
-    this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
-    this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
-    this.disabledButtonExclude ? this.disabledButtonExclude = false : this.disabledButtonExclude = true;
-    this.disabledButtonAddTable ? this.disabledButtonAddTable = false : this.disabledButtonAddTable = true;
-  }
-
-  buttonEditRow(): void {
-    this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
-    this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
-    this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
-    this.disabledButtonExclude ? this.disabledButtonExclude = false : this.disabledButtonExclude = true;
-    this.disabledButtonAddTable ? this.disabledButtonAddTable = false : this.disabledButtonAddTable = true;
-  }
-
-  buttonExcludeRow(): void {
-    this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
-    this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
-    this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
-    this.disabledButtonExclude ? this.disabledButtonExclude = true : this.disabledButtonExclude = false;
-  }
-
-  buttonAddTable(): void {
-    this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
-    this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
-    this.disabledButtonAddTable ? this.disabledButtonAddTable = false : this.disabledButtonAddTable = true;
-    this.disabledButtonExclude ? this.disabledButtonExclude = false : this.disabledButtonExclude = true;
-    this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
-  }
-
-  //#endregion
-
   constructor(private _formBuilder: FormBuilder,
     private cadastroService: CadastroService,
     public dialog: MatDialog) { }
@@ -68,9 +35,44 @@ export class ComponentTesteDBComponent {
   ngOnInit(): void {
     this.createForm();
     this.cadastroService.getPosts().subscribe((data) => {
-      this.initializeForm(data);
+      this.initializeForm(this.dataBase);
     });
   }
+
+	//#region METODOS BOTOES
+
+		buttonAddRow(): void {
+			this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
+			this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
+			this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
+			this.disabledButtonExclude ? this.disabledButtonExclude = false : this.disabledButtonExclude = true;
+			this.disabledButtonAddTable ? this.disabledButtonAddTable = false : this.disabledButtonAddTable = true;
+		}
+
+		buttonEditRow(): void {
+			this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
+			this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
+			this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
+			this.disabledButtonExclude ? this.disabledButtonExclude = false : this.disabledButtonExclude = true;
+			this.disabledButtonAddTable ? this.disabledButtonAddTable = false : this.disabledButtonAddTable = true;
+		}
+
+		buttonExcludeRow(): void {
+			this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
+			this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
+			this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
+			this.disabledButtonExclude ? this.disabledButtonExclude = true : this.disabledButtonExclude = false;
+		}
+
+		buttonAddTable(): void {
+			this.disabledButtonSave ? this.disabledButtonSave = false : this.disabledButtonSave = true;
+			this.disabledButtonEdit ? this.disabledButtonEdit = false : this.disabledButtonEdit = true;
+			this.disabledButtonAddTable ? this.disabledButtonAddTable = false : this.disabledButtonAddTable = true;
+			this.disabledButtonExclude ? this.disabledButtonExclude = false : this.disabledButtonExclude = true;
+			this.disabledButtonAddRow ? this.disabledButtonAddRow = false : this.disabledButtonAddRow = true;
+		}
+
+		//#endregion
 
   //#region  CRIANDO FORMULARIOS
 
@@ -226,6 +228,10 @@ export class ComponentTesteDBComponent {
   isEmpty(value: string): boolean {
     return value === '';
   }
+
+	errorMessageIsEmpty(): string {
+		return "CAMPO NÃO DEVE SER VAZIO";
+	}
 
 }
 
