@@ -15,8 +15,6 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ComponentTesteDBComponent {
 
-	@Input() dataBase: any[] = [];
-
   public formData!: FormGroup;
   public formItem!: FormGroup;
   formComponente!: FormGroup;
@@ -35,7 +33,7 @@ export class ComponentTesteDBComponent {
   ngOnInit(): void {
     this.createForm();
     this.cadastroService.getPosts().subscribe((data) => {
-      this.initializeForm(this.dataBase);
+      this.initializeForm(data);
     });
   }
 
@@ -186,15 +184,17 @@ export class ComponentTesteDBComponent {
       this.removeTable(Number(payload.id));
       this.ngOnInit();
     } else {
+			console.log(payload.id === undefined);
 
-      if (payload.id !== undefined) { // CASO TABELA NOVA TENHA SIDO CRIADA E ID VEM UNDEFINED ENTAO VAI DIRETO PRO 'POST' E UTILIZA METODO SAVE
+      if (payload.id === undefined) { // CASO TABELA NOVA TENHA SIDO CRIADA E ID VEM UNDEFINED ENTAO VAI DIRETO PRO 'POST' E UTILIZA METODO SAVE
         this.buttonEditRow()
-        this.cadastroService.editarPosts(payload).subscribe(data => {
+				this.cadastroService.savePosts(payload).subscribe(data => {
           this.ngOnInit();
-        })
+        });
       } else {
         this.buttonEditRow()
-        this.cadastroService.savePosts(payload).subscribe(data => {
+				console.log('teste');
+        this.cadastroService.editarPosts(payload).subscribe(data => {
           this.ngOnInit();
         })
       }
