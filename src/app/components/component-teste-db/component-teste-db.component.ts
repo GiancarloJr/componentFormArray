@@ -6,6 +6,7 @@ import { Componente } from 'src/app/models/componente';
 import { DialogAnimationsExampleDialog } from './dialog-confirm/dialog-confirm.component';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { decoratorObject } from 'src/app/models/decoratorArray.interface';
 
 @Component({
   selector: 'app-component-teste-db',
@@ -13,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./component-teste-db.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ComponentTesteDBComponent {
+export class ComponentTesteDBComponent{
 
   public formData!: FormGroup;
   public formItem!: FormGroup;
@@ -74,28 +75,56 @@ export class ComponentTesteDBComponent {
 
   //#region  CRIANDO FORMULARIOS
 
-  initializeForm(data: Componente[]): void {
 
-    const components = data.map(comp => {
 
-      const arrayInput = comp.arrayInput.map(input => {
-        return this._formBuilder.group({
-          decorator: [input.decorator, [Validators.required]],
-          explicacaoDecorator: [input.explicacaoDecorator, [Validators.required]]
-        });
-      });
 
-      return this._formBuilder.group({
-        id: comp.id,
-        arrayInput: this._formBuilder.array(arrayInput)
-      });
-    }
-    );
+  // initializeForm(data: Componente[]): void {
+
+  //   const components = data.map(comp => {
+
+  //     const arrayInput = comp.arrayInput.map(input => {
+  //       return this._formBuilder.group({
+  //         decorator: [input.decorator, [Validators.required]],
+  //         explicacaoDecorator: [input.explicacaoDecorator, [Validators.required]]
+  //       });
+  //     });
+
+  //     return this._formBuilder.group({
+  //       id: comp.id,
+  //       arrayInput: this._formBuilder.array(arrayInput)
+  //     });
+  //   }
+  //   );
+
+  //   this.formComponente = this._formBuilder.group({
+  //     components: this._formBuilder.array(components)
+  //   });
+  // }
+
+	initializeForm(data: Componente[]): void {
 
     this.formComponente = this._formBuilder.group({
-      components: this._formBuilder.array(components)
+      components: this.createComponentForm(data)
     });
   }
+
+
+	private createDecoratorForm(objDec: decoratorObject = { decorator: "", explicacaoDecorator: ""}){
+		return this._formBuilder.group({
+			decorator: [objDec.decorator],
+			explicacaoDecorator: [objDec.explicacaoDecorator]
+		})
+	}
+
+	private createComponentForm(data: Componente[]): FormArray{
+		return new FormArray(data.map(comp => {
+      return this._formBuilder.group({
+        id: comp.id,
+        arrayInput: this._formBuilder.array(comp.arrayInput.map(input => this.createDecoratorForm(input)))
+      });
+    }
+    ));
+	}
 
   get components(): FormArray {
     return this.formComponente.get('components') as FormArray;
