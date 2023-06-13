@@ -1,4 +1,4 @@
-export interface decoratorObject {
+export interface decorator {
   decorator: string;
   explicacaoDecorator: string;
 }

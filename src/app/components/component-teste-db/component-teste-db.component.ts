@@ -6,7 +6,7 @@ import { Componente } from 'src/app/models/componente';
 import { DialogAnimationsExampleDialog } from './dialog-confirm/dialog-confirm.component';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { decoratorObject } from 'src/app/models/decoratorArray.interface';
+import { decorator } from 'src/app/models/decoratorArray.interface';
 
 @Component({
   selector: 'app-component-teste-db',
@@ -104,27 +104,35 @@ export class ComponentTesteDBComponent{
 	initializeForm(data: Componente[]): void {
 
     this.formComponente = this._formBuilder.group({
-      components: this.createComponentForm(data)
+      components: this.createFormArrayComponent(data)
     });
   }
 
 
-	private createDecoratorForm(objDec: decoratorObject = { decorator: "", explicacaoDecorator: ""}){
+	private createFormGroupDecorator(objDec: decorator = { decorator: "", explicacaoDecorator: ""}){
 		return this._formBuilder.group({
 			decorator: [objDec.decorator],
 			explicacaoDecorator: [objDec.explicacaoDecorator]
 		})
 	}
 
-	private createComponentForm(data: Componente[]): FormArray{
-		return new FormArray(data.map(comp => {
-      return this._formBuilder.group({
-        id: comp.id,
-        arrayInput: this._formBuilder.array(comp.arrayInput.map(input => this.createDecoratorForm(input)))
-      });
-    }
-    ));
+	private createFormGroupComponente(objComponente: Componente){
+		return this._formBuilder.group({
+			id: objComponente.id,
+			arrayInput: this.createFormArrayDecorator(objComponente)
+		});
 	}
+
+	private createFormArrayComponent(data: Componente[]): FormArray{
+		return this._formBuilder.array(data.map(comp => this.createFormGroupComponente(comp)));
+	}
+
+	private createFormArrayDecorator(objComponente: Componente){
+		return this._formBuilder.array(objComponente.arrayInput.map(input => this.createFormGroupDecorator(input)))
+	}
+
+
+
 
   get components(): FormArray {
     return this.formComponente.get('components') as FormArray;

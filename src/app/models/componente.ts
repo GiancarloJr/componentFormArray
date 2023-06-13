@@ -1,6 +1,6 @@
-import { decoratorObject } from "./decoratorArray.interface";
+import { decorator} from "./decoratorArray.interface";
 
 export class Componente {
   id?: number;
-  arrayInput: decoratorObject[] = [];
+  arrayInput: decorator[] = [];
 }
