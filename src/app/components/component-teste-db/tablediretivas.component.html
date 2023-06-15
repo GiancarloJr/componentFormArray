@@ -1,0 +1,67 @@
+<div class="body-table">
+  <div class="title-table">
+    <h3> Diretivas: </h3>
+  </div>
+
+  <mat-divider class="button-speed-divider"></mat-divider>
+
+  <form [formGroup]="formData">
+
+    <table>
+      <tr>
+        <th> Diretiva
+        </th>
+        <th> Função </th>
+        <th style="display: flex; align-items: center; justify-content: center;">
+          <div>
+            <button (click)="buttonEditRow()" [hidden]="disabledButtonEdit" mat-button>
+              <i class="fad fa-edit"></i>
+            </button>
+          </div>
+          <div [hidden]="disabledButtonSave">
+            <button (click)="onSubmit()" [matTooltip]='tooltipSave' [disabled]="!formValid()" mat-button>
+              <i class="fad fa-save" [ngClass]="formData.valid ? 'btn-save-ok' : 'btn-save-error'"></i>
+            </button>
+          </div>
+          <div>
+            <button (click)="addRow()" [disabled]="disabledButtonAddRow" mat-button>
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </th>
+      </tr>
+
+      <tr formArrayName="Dados" *ngFor="let dados of formData.get('Dados')?.value; trackBy: trackbyFn; let i = index">
+        <ng-container [formGroupName]="i">
+          <td>
+            <div>
+              <textarea formControlName="Nome" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+                cols="75" matInput></textarea>
+            </div>
+            <mat-error *ngIf="isEmpty(dados.Nome)">{{ errorMessageIsEmpty() }}</mat-error>
+          </td>
+          <td>
+            <div>
+              <textarea formControlName="Descricao" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+                cols="75" matInput></textarea>
+            </div>
+            <div>
+              <mat-error *ngIf="isEmpty(dados.Descricao)">{{ errorMessageIsEmpty() }}</mat-error>
+            </div>
+          </td>
+          <td class="td-button">
+            <div>
+              <button (click)="removeRow(i)" [disabled]="disabledButtonExclude" mat-icon-button>
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+      </tr>
+
+
+    </table>
+
+  </form>
+
+</div>
