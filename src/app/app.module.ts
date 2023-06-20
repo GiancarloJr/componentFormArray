@@ -14,12 +14,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ComponentTesteDBComponent } from './components/component-teste-db/component-teste-db.component';
+import { DocTableDiretivasModule } from './components/tablediretivas/tablediretivas.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ComponentTesteDBComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +33,8 @@ import { ComponentTesteDBComponent } from './components/component-teste-db/compo
     MatIconModule,
     MatButtonModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+		DocTableDiretivasModule
   ],
   providers: [],
   bootstrap: [AppComponent]

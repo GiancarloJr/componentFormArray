@@ -1,14 +1,14 @@
 import { FormGroup } from '@angular/forms';
 import { Dados } from './../../models/componente';
-import { CadastroService } from './../../servicedoc/cadastro.service';
+
 // Angular
-import { AfterViewInit, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 // Local
+import { CadastroService } from 'src/app/services/cadastro.service';
 import { Componente } from '../../models/componente';
-import { DialogConfirm } from './dialog-confirm/dialog.component';
 
 @Component({
   selector: 'doc-tablediretivas',
@@ -20,9 +20,9 @@ export class DocTableDiretivasComponent implements OnInit {
 
   //#region Properties/Inputs/ViewChild
 
-  @Input() nameComponent: string;
+  @Input() nameComponent!: string;
 
-  @Input() sectionType: string;
+  @Input() sectionType!: string;
 
 
   private formDataComponent!: FormGroup;
@@ -53,15 +53,17 @@ export class DocTableDiretivasComponent implements OnInit {
 
   ngOnInit(): void {
     this.cadastroService.getComponents(this.returnPathComponent()).subscribe(response => {
+			console.log(response);
+
       let dataComponente = response.filter(componente => componente.Componente == this.nameComponent).at(0);
-      if (dataComponente.Dados.filter(decorator => decorator.Secao == this.sectionType).length > 0) {
+      if (dataComponente!.Dados.filter(decorator => decorator.Secao == this.sectionType).length > 0) {
         this.disableTable = false;
       }
     });
     this.createForm();
     this.initializeData();
+		// (<FormArray>this.formData.get('Dados')).controls.forEach(value => value.enable()	);
   }
-
 
   //#endregion
 
@@ -114,8 +116,8 @@ export class DocTableDiretivasComponent implements OnInit {
     this.formDataComponent = this._formBuilder.group({
       Id: [''],
       ComponenteId: ['',],
-      Descricao: ['', Validators.required],
-      Nome: ['', Validators.required],
+      Descricao: [{value: '', disabled: true}, Validators.required],
+      Nome: [{value: '', disabled: true}, Validators.required],
       SecaoId: [''],
       Secao: ['']
     });
@@ -125,8 +127,8 @@ export class DocTableDiretivasComponent implements OnInit {
     return this._formBuilder.group({
       Id: [dado.Id],
       ComponenteId: [dado.ComponenteId],
-      Descricao: [dado.Descricao, [Validators.required]],
-      Nome: [dado.Nome, [Validators.required]],
+      Descricao: [{value: dado.Descricao, disabled: true}, [Validators.required]],
+      Nome: [{value: dado.Nome, disabled: true}, [Validators.required]],
       SecaoId: [dado.SecaoId],
       Secao: [dado.Secao]
     })
@@ -141,15 +143,15 @@ export class DocTableDiretivasComponent implements OnInit {
 
   public disableInput(): any {
     if (this.disabledButtonEdit) {
-      return (<FormArray>this.formData.get('Dados')).controls.forEach(value => value.disable())
-    } else {
       return (<FormArray>this.formData.get('Dados')).controls.forEach(value => value.enable());
+    } else {
+      return (<FormArray>this.formData.get('Dados')).controls.forEach(value => value.disable());
     }
 
   }
 
   private filterComponente(data: Componente[]): Componente {
-    return data.filter(element => element.Componente == this.nameComponent).at(0);
+    return data.filter(element => element.Componente == this.nameComponent).at(0)!;
   }
 
   private removeItemFromDecoratorsArray(data: Componente, indexForm: number): void {
@@ -206,7 +208,7 @@ export class DocTableDiretivasComponent implements OnInit {
     const dados = this.formData.get('Dados') as FormArray;
     this.cadastroService.getComponents(this.returnPathComponent()).subscribe(response => {
       let componente: Componente = this.filterComponente(response);
-      const generatedId = componente.Dados.reverse().at(0).Id + 1;
+      const generatedId = componente.Dados.reverse().at(0)!.Id + 1;
       dados.push(this._formBuilder.group({
         Id: [generatedId],
         ComponenteId: [componente.ComponenteId],
@@ -219,36 +221,36 @@ export class DocTableDiretivasComponent implements OnInit {
   }
 
   // Metodo para exclusão de linha da tabela
-  public async removeRow(indexArrayForm: number): Promise<void> {
+  // public async removeRow(indexArrayForm: number): Promise<void> {
 
-    let arrayDiretivas = this.formData.get('Dados') as FormArray;
+  //   let arrayDiretivas = this.formData.get('Dados') as FormArray;
 
-    let retApi = await this.cadastroService.getComponentsAsync(this.returnPathComponent());
-    let componenteUpdate: Componente = this.filterComponente(retApi);
+  //   let retApi = await this.cadastroService.getComponentsAsync(this.returnPathComponent());
+  //   let componenteUpdate: Componente = this.filterComponente(retApi);
 
-    //FILTRAR DIRETIVAS CORRESPONDENTE AO COMPONENTE
-    componenteUpdate.Dados = componenteUpdate.Dados.filter(decorator => decorator.Secao == arrayDiretivas.value[indexArrayForm].Secao);
+  //   //FILTRAR DIRETIVAS CORRESPONDENTE AO COMPONENTE
+  //   componenteUpdate.Dados = componenteUpdate.Dados.filter(decorator => decorator.Secao == arrayDiretivas.value[indexArrayForm].Secao);
 
-    const dialogConfig = new MatDialogConfig();
-    let messageTitleA = componenteUpdate.Dados.length > 1 ? "Tem certeza que deseja remover o item?" : "Tabela com apenas um item, deseja remover tabela?";
+  //   const dialogConfig = new MatDialogConfig();
+  //   let messageTitleA = componenteUpdate.Dados.length > 1 ? "Tem certeza que deseja remover o item?" : "Tabela com apenas um item, deseja remover tabela?";
 
-    dialogConfig.data = {
-      messageTitle: messageTitleA
-    };
-    const dialogRetorno = this.dialog.open(DialogConfirm, dialogConfig);
-    dialogRetorno.afterClosed().subscribe(ret => {
-      if (ret) {
-        this.cadastroService.getComponents(this.returnPathComponent()).subscribe(response => {
-          let componenteUpdate: Componente = this.filterComponente(response);
-          this.removeItemFromDecoratorsArray(componenteUpdate, arrayDiretivas.value[indexArrayForm].Id);
-          this.cadastroService.putComponents(this.returnPathComponent(), componenteUpdate).subscribe(ret => {
-            this.ngOnInit();
-            this.buttonEditRow();
-          });
-        });
-      }
-    });
-  }
+  //   dialogConfig.data = {
+  //     messageTitle: messageTitleA
+  //   };
+  //   const dialogRetorno = this.dialog.open(DialogConfirm, dialogConfig);
+  //   dialogRetorno.afterClosed().subscribe(ret => {
+  //     if (ret) {
+  //       this.cadastroService.getComponents(this.returnPathComponent()).subscribe(response => {
+  //         let componenteUpdate: Componente = this.filterComponente(response);
+  //         this.removeItemFromDecoratorsArray(componenteUpdate, arrayDiretivas.value[indexArrayForm].Id);
+  //         this.cadastroService.putComponents(this.returnPathComponent(), componenteUpdate).subscribe(ret => {
+  //           this.ngOnInit();
+  //           this.buttonEditRow();
+  //         });
+  //       });
+  //     }
+  //   });
+  // }
 
   // Metodo Salvar Formulario
   public onSubmit(): void {
@@ -258,7 +260,7 @@ export class DocTableDiretivasComponent implements OnInit {
         componente.Dados = componente.Dados.filter(value => value.Secao != this.sectionType); //ARRAY DE DADOS QUE NÃO PERTENCE A SEÇÃO
         componente.Dados.push.apply(componente.Dados, this.formData.value.Dados);
         componente.Dados = this.orderDadosById(componente.Dados);
-        this.cadastroService.putComponents(this.returnPathComponent(), componente).subscribe(ret => {
+        this.cadastroService.editarComponente(this.returnPathComponent(), componente).subscribe(ret => {
           this.ngOnInit();
           this.buttonEditRow();
         });

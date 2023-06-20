@@ -2,8 +2,11 @@
 import { NgModule } from '@angular/core';
 
 // Local
-import { CommomModules, MaterialModules } from 'projects/virtue/lib/modules/public-api';
 import { DocTableDiretivasComponent } from './tablediretivas.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -11,11 +14,12 @@ import { DocTableDiretivasComponent } from './tablediretivas.component';
   ],
   imports: [
     // Library
-    CommomModules,
-    MaterialModules
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatIconModule,
 
     // Local
-
+		BrowserModule
   ],
   exports: [
     DocTableDiretivasComponent

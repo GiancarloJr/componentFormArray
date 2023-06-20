@@ -9,7 +9,7 @@ import { HttpServiceService } from '../shared/httpService/httpService.service';
 })
 export class CadastroService extends HttpServiceService implements OnInit{
 
-  private endPoint = 'table'
+  private endPoint = 'Componentes'
 
   constructor(protected override injector: Injector) {
     super(injector);
@@ -18,20 +18,20 @@ export class CadastroService extends HttpServiceService implements OnInit{
   ngOnInit(): void {
   }
 
-  public getPosts(): Observable<Componente[]> {
-    return this.httpGet(`${this.endPoint}?_sort=views&_order=asc`);
+  public getComponents(endpoint: string): Observable<Componente[]> {
+    return this.httpGet(`${endpoint}`);
   }
 
-  public savePosts(payload: Componente): Observable<Componente> {
-    return this.httpPost(`${this.endPoint}`, payload);
+  public saveComponente(endpoint: string,payload: Componente): Observable<Componente> {
+    return this.httpPost(`${endpoint}`, payload);
   }
 
-  public deletePosts(id: number): Observable<Componente> {
-    return this.httpDelete(`${this.endPoint}/${id}`);
+  public deleteComponente(endpoint: string,id: number): Observable<Componente> {
+    return this.httpDelete(`${endpoint}/${id}`);
   }
 
-  public editarPosts(payload: Componente): Observable<Componente> {
-    return this.httpPut(`${this.endPoint}/${payload.id}`, payload);
+  public editarComponente(endpoint: string,payload: Componente): Observable<Componente> {
+    return this.httpPut(`${endpoint}/${payload.id}`, payload);
   }
 
   public getPostsById(id: number): Observable<Componente> {

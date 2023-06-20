@@ -1,7 +1,7 @@
+import { DialogModule } from "@angular/cdk/dialog";
 import { Component, Inject } from "@angular/core";
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { DialogModule } from "@virtuetec/lib/components";
 
 
 @Component({
@@ -19,7 +19,7 @@ export class DialogConfirm {
   }
 
   constructor(private dialogRef: MatDialogRef<DialogConfirm>,
-    @Inject(MAT_DIALOG_DATA) data) {
+    @Inject(MAT_DIALOG_DATA) data: any) {
       this.messageTitle = data.messageTitle;
   }
 }
