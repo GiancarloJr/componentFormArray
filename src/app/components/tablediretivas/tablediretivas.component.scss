@@ -95,6 +95,12 @@ doc-tablediretivas {
           }
         }
 
+        .column-icons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         th {
           border-color: black;
           background: whitesmoke;
@@ -104,7 +110,7 @@ doc-tablediretivas {
             min-width: 2px;
           }
 
-          .table--title-header {
+          .table-title-header {
 
             .btn-save {
               &-error {

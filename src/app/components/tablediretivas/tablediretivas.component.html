@@ -1,6 +1,7 @@
 <div class="body-table">
 
-  <form [formGroup]="formData"  [hidden]="disableTable">
+  <form [formGroup]="formData"
+        [hidden]="disableTable">
     <div class="title-table">
       <h3 > Diretivas: </h3>
     </div>
@@ -9,17 +10,21 @@
 
     <table>
       <tr>
-        <th> Diretiva
-        </th>
-        <th> Função </th>
-        <th style="display: flex; align-items: center; justify-content: center;">
+        <th>Diretiva</th>
+        <th>Função</th>
+        <th class="column-icons">
           <div>
-            <button (click)="buttonEditRow()" [hidden]="disabledButtonEdit" mat-button>
+            <button (click)="buttonEditRow()"
+                    [hidden]="disabledButtonEdit"
+                    mat-button>
               <i class="fad fa-edit"></i>
             </button>
           </div>
           <div [hidden]="disabledButtonSave">
-            <button (click)="onSubmit()" [matTooltip]='tooltipSave' [disabled]="!formValid()" mat-button>
+            <button (click)="onSubmit()"
+                    [matTooltip]='tooltipSave'
+                    [disabled]="!formValid()"
+                    mat-button>
               <i class="fad fa-save" [ngClass]="formData.valid ? 'btn-save-ok' : 'btn-save-error'"></i>
             </button>
           </div>
@@ -31,24 +36,24 @@
         </th>
       </tr>
 
-      <tr formArrayName="Dados" *ngFor="let dados of formData.get('Dados')?.value; trackBy: trackbyFn; let i = index">
+      <tr formArrayName="Dados" *ngFor="let dados of getDadosFormArray() trackBy: trackbyFn; let i = index">
         <ng-container [formGroupName]="i">
-          <td>
+          <td class="column-directive">
             <div>
               <textarea formControlName="Nome" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
-                cols="75" matInput></textarea>
+                cols="75" matInput [disabled]="disabledButtonEdit"></textarea>
             </div>
             <div>
-              <mat-error *ngIf="isEmpty(dados.Nome)">{{ errorMessageIsEmpty() }}</mat-error>
+              <mat-error *ngIf="isEmpty(dados.value.Nome)">{{ errorMessageIsEmpty() }}</mat-error>
             </div>
           </td>
-          <td>
+          <td class="column-function">
             <div>
               <textarea formControlName="Descricao" cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
-                cols="75" matInput></textarea>
+                cols="75" matInput [disabled]="disabledButtonEdit"></textarea>
             </div>
             <div>
-              <mat-error *ngIf="isEmpty(dados.Descricao)">{{ errorMessageIsEmpty() }}</mat-error>
+              <mat-error *ngIf="isEmpty(dados.value.Descricao)">{{ errorMessageIsEmpty() }}</mat-error>
             </div>
           </td>
           <td class="td-button">
