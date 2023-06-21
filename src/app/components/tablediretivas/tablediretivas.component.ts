@@ -139,13 +139,12 @@ export class DocTableDiretivasComponent implements OnInit {
       });
   }
 
-  public disableInput(): any {
-    if (this.disabledButtonEdit) {
-      return (<FormArray>this.formData.get('Dados')).controls.forEach(value => value.enable());
-    } else {
-      return (<FormArray>this.formData.get('Dados')).controls.forEach(value => value.disable());
-    }
+  public disableInput(): void {
+      (<FormArray>this.formData.get('Dados')).controls.forEach(value => value.disable());
+  }
 
+  public enableInput(): void {
+      return (<FormArray>this.formData.get('Dados')).controls.forEach(value => value.enable());
   }
 
   private filterComponente(data: Componente[]): Componente {
@@ -203,7 +202,6 @@ export class DocTableDiretivasComponent implements OnInit {
   // Metodo para adicionar linha e gerar novo Id no banco
   public addRow(): void {
     this.buttonAddRow();
-		this.disableInput();
     const dados = this.formData.get('Dados') as FormArray;
     this.cadastroService.getComponents(this.returnPathComponent()).subscribe(response => {
       let componente: Componente = this.filterComponente(response);
@@ -257,7 +255,13 @@ export class DocTableDiretivasComponent implements OnInit {
       this.cadastroService.getComponents(this.returnPathComponent()).subscribe(response => {
         let componente: Componente = this.filterComponente(response);
         componente.Dados = componente.Dados.filter(value => value.Secao != this.sectionType); //ARRAY DE DADOS QUE NÃO PERTENCE A SEÇÃO
+				//HABILITAR CAMPO TEXTAREA DO FORMULARIO PARA PEGAR OS DADOS, POIS SE TIVER DESABILITADO NÃO É POSSIVEL
+				//PEGAR OS DADOS E ATUALIZAR O COMPONENTE
+				//FORMULARIO 'DISABLED' NÃO É POSSIVEL PEGAR OS DADOS
+				this.enableInput();
         componente.Dados.push.apply(componente.Dados, this.formData.value.Dados);
+				//BLOQUEANDO FORMULARIO NOVAMENTE
+				this.disableInput();
         this.cadastroService.editarComponente(this.returnPathComponent(), componente).subscribe(ret => {
 					console.log(2,ret);
           this.ngOnInit();
