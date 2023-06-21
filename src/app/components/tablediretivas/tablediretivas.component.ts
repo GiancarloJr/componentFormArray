@@ -53,8 +53,6 @@ export class DocTableDiretivasComponent implements OnInit {
 
   ngOnInit(): void {
     this.cadastroService.getComponents(this.returnPathComponent()).subscribe(response => {
-			console.log(response);
-
       let dataComponente = response.filter(componente => componente.Componente == this.nameComponent).at(0);
       if (dataComponente!.Dados.filter(decorator => decorator.Secao == this.sectionType).length > 0) {
         this.disableTable = false;
@@ -62,7 +60,7 @@ export class DocTableDiretivasComponent implements OnInit {
     });
     this.createForm();
     this.initializeData();
-		// (<FormArray>this.formData.get('Dados')).controls.forEach(value => value.enable()	);
+		(<FormArray>this.formData.get('Dados')).controls.forEach(value => value.disable());
   }
 
   //#endregion
@@ -116,8 +114,8 @@ export class DocTableDiretivasComponent implements OnInit {
     this.formDataComponent = this._formBuilder.group({
       Id: [''],
       ComponenteId: ['',],
-      Descricao: [{value: '', disabled: true}, Validators.required],
-      Nome: [{value: '', disabled: true}, Validators.required],
+      Descricao: [{value: '', disabled: false}, Validators.required],
+      Nome: [{value: '', disabled: false}, Validators.required],
       SecaoId: [''],
       Secao: ['']
     });
@@ -205,6 +203,7 @@ export class DocTableDiretivasComponent implements OnInit {
   // Metodo para adicionar linha e gerar novo Id no banco
   public addRow(): void {
     this.buttonAddRow();
+		this.disableInput();
     const dados = this.formData.get('Dados') as FormArray;
     this.cadastroService.getComponents(this.returnPathComponent()).subscribe(response => {
       let componente: Componente = this.filterComponente(response);
@@ -259,8 +258,8 @@ export class DocTableDiretivasComponent implements OnInit {
         let componente: Componente = this.filterComponente(response);
         componente.Dados = componente.Dados.filter(value => value.Secao != this.sectionType); //ARRAY DE DADOS QUE NÃO PERTENCE A SEÇÃO
         componente.Dados.push.apply(componente.Dados, this.formData.value.Dados);
-        componente.Dados = this.orderDadosById(componente.Dados);
         this.cadastroService.editarComponente(this.returnPathComponent(), componente).subscribe(ret => {
+					console.log(2,ret);
           this.ngOnInit();
           this.buttonEditRow();
         });
