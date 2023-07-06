@@ -1,0 +1,167 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/public-api';
+          import &#123; DocPdvsectionComponent &#125; from './doc-pdvsection.component';
+          import &#123; DocPdvsectionRoutingModule &#125; from './doc-pdvsection-routing.module';
+          <span>import &#123; PDVSectionModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+          @NgModule(&#123;
+            declarations: [
+              DocPdvsectionComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>PDVSectionModule,</span>
+
+              // Local
+              DocPdvsectionRoutingModule
+            ]
+          &#125;)
+          export class DocPdvsectionModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+          &lt;virtue-pdvsection section-title="Teste Componente PDV Section"&gt;&lt;/virtue-pdvsection&gt; </code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <virtue-pdvsection section-title="Teste Componente PDV Section"></virtue-pdvsection>
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableHostListener"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #pdvsectionhtml>
+  <pre>
+    <code>
+      &lt;div class="section"
+              fxLayout="column"&gt;
+
+        &lt;div class="section-header"
+                fxLayoutAlign="start center"&gt;
+          &lt;span class="venda-item-produto-header"&gt;&#123; &#123;title&#125;&#125;&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class="section-content"&gt;
+
+          &lt;ng-content&gt;
+          &lt;/ng-content&gt;
+
+        &lt;/div&gt;
+
+      &lt;/div&gt;</code>
+      </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #pdvsectionts>
+  <pre>
+    <code>
+        // Angular
+        import &#123; Component, ViewEncapsulation, Input  &#125; from '@angular/core';
+
+        @Component(&#123;
+          selector: 'virtue-pdvsection',
+          templateUrl: './pdvsection.component.html',
+          styleUrls: ['./pdvsection.component.scss'],
+          encapsulation: ViewEncapsulation.None,
+         &#125;)
+        export class PDVSectionComponent &#123;
+
+          //#region Input Properties
+
+          @Input("section-title") title: string;
+
+          //#endregion
+
+         &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #pdvsectioncss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>

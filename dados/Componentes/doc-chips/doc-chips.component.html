@@ -1,0 +1,334 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-stretch-tabs="false"
+               mat-align-tabs="start">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar o {{ componentitle | NameModule }} adicionando no
+        modulo destino:</p>
+
+      <p class="observation">   *Observação: MaterialModule é importado dentro do {{ componentitle | NameModule }}
+        para utilização do mesmo.</p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          <span>import &#123; ChipsModule &#125; from 'projects/virtue/lib/components/chips/chips.module';</span>
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/commom.modules';
+          import &#123; DocChipsRoutingModule &#125; from './doc-chips-routing.module';
+          import &#123; DocChipsComponent &#125; from './doc-chips.component';
+
+          @NgModule(&#123;
+            declarations: [
+              ExemploDestinoComponent
+            ],
+            imports: [
+
+              // Library
+              <span>ChipsModule,</span>
+              CommomModules,
+
+              // Local
+              DocChipsRoutingModule
+            ]
+          &#125;)
+          export class ExemploDestinoModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+          &lt;virtue-chips title="Chips" maxlength="20" [onlyNumbers]="true"&gt;
+
+          &lt;/virtue-chips&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <virtue-chips [onlyNumbers]="false"
+                      maxlength="20"
+                      title="Chips">
+        </virtue-chips>
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+
+  </div>
+</ng-template>
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #chipshtml>
+  <pre>
+    <code>
+        &lt;mat-form-field class="chip-list"
+                           appearance="fill"&gt;
+          &lt;mat-label&gt;&#123; &#123;title &#125; &#125;&lt;/mat-label&gt;
+          &lt;mat-chip-grid #chipList
+                            aria-label="Selection"&gt;
+            &lt;mat-chip-row *ngFor="let item of itemsSource"
+                             (removed)="onRemove(item)"&gt;
+            &#123; &#123;item&#125;&#125;
+                  &lt;button matChipRemove&gt;
+                    &lt;mat-icon&gt;cancel&lt;/mat-icon&gt;
+                  &lt;/button&gt;
+                &lt;/mat-chip-row&gt;
+                &lt;input #input
+                      (keypress)="onKeyPressNumbers($event)"
+                      (matChipInputTokenEnd)="onAdd($event)"
+                      [matChipInputFor]="chipList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      [matChipInputAddOnBlur]="addOnBlur"
+                      [maxLength]="maxlength"
+                      placeholder="Digite e pressione ENTER para adicionar..."&gt;
+                &lt;/mat-chip-grid&gt;
+                &lt;ng-content select="[input-errors]"&gt;&lt;/ng-content&gt;
+        &lt;/mat-form-field&gt;</code>
+          </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #chipsts>
+  <pre>
+    <code>
+          // Angular
+          import &#123; Component, ViewEncapsulation, OnInit, Injector, ViewChild, ElementRef, forwardRef, Input, Renderer2, AfterViewInit &#125; from '@angular/core';
+          import &#123; NG_VALUE_ACCESSOR, &#125; from '@angular/forms';
+          import &#123; COMMA, ENTER &#125; from '@angular/cdk/keycodes';
+
+          // Angular Material
+          import &#123; MatChipInputEvent &#125; from '@angular/material/chips';
+
+          // Virtue
+          import &#123; ValueAccessor &#125; from '@virtuetec/lib/core';
+
+          @Component(&#123;
+            selector: 'virtue-chips',
+            templateUrl: './chips.component.html',
+            styleUrls: ['./chips.component.scss'],
+            encapsulation: ViewEncapsulation.None,
+            providers: [&#123;
+              provide: NG_VALUE_ACCESSOR,
+              useExisting: forwardRef(() => ChipsComponent),
+              multi: true
+            &#125;]
+          &#125;)
+          export class ChipsComponent extends ValueAccessor implements OnInit, AfterViewInit &#123;
+
+            //#region Constructor
+
+            constructor(
+              protected _el: ElementRef,
+              protected _injector: Injector,
+              protected _renderer: Renderer2) &#123;
+              super(_el, _injector, _renderer);
+            &#125;
+
+            //#endregion
+
+            //#region AfterViewInit
+
+            ngAfterViewInit(): void &#123;
+
+              this.input.nativeElement.value = null;
+
+              if (this.control != null)
+                if (this.control.value != undefined && this.control.value != null) &#123;
+                  if (this.control.value.length > 0)
+                    this.itemsSource = this.control.value;
+                &#125;
+            &#125;
+
+            //#endregion
+
+            //#region Implementation OnInit
+
+            ngOnInit(): void &#123;
+              if (this.control != null)
+                this.control.disable();
+            &#125;
+
+            //#endregion
+
+            //#region Input Properties
+
+            @Input("maxlength") maxlength: string = "10";
+            @Input("onlyNumbers") onlyNumbers: boolean = false;
+            @Input("title") title: string = 'Não Definido';
+
+            //#endregion
+
+            //#region Public Methods
+
+            public onAdd(event: MatChipInputEvent): void &#123;
+              const value = (event.value.toString().toUpperCase() || '').trim();
+
+              // Add
+              if (value) &#123;
+                if (this.itemsSource.find(item => item.toString().toUpperCase() == value) == undefined) &#123;
+                  this.itemsSource.push(value.toString().toUpperCase());
+                  this.control.setValue(this.itemsSource);
+                &#125;
+              &#125;
+
+              // Clear the input value
+              event.chipInput!.clear();
+            &#125;
+
+            public onRemove(item: any): void &#123;
+              const index = this.itemsSource.indexOf(item);
+
+              if (index >= 0) &#123;
+                this.itemsSource.splice(index, 1);
+                this.control.setValue(this.itemsSource);
+              &#125;
+
+              this.input.nativeElement.value = null;
+            &#125;
+
+            public onKeyPressNumbers(event: any) &#123;
+              var charCode = event.which ? event.which : event.keyCode;
+
+              if (this.onlyNumbers) &#123;
+                // Only Numbers 0-9
+                if (charCode < 48 || charCode > 57) &#123;
+                  event.preventDefault();
+                  return false;
+                &#125; else &#123;
+                  return true;
+                &#125;
+              &#125;
+
+              return true;
+            &#125;
+
+            //#endregion
+
+            //#region Public Properties
+
+            public addOnBlur = true;
+            public readonly separatorKeysCodes = [ENTER, COMMA] as const;
+            public itemsSource: any[] = [];
+
+            //#endregion
+
+            //#region View Objects
+
+            @ViewChild("chipList") chipList: ElementRef;
+            @ViewChild("input") input: ElementRef;
+
+            //#endregion
+
+          &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #chipscss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-chips">
+        <div class="header-box-chips">
+
+          <span class="header-title-chips">
+            <h3 class="header-box-h3">{{ componentitle }} Code</h3>
+          </span>
+
+          <span class="button-tab-hidden">
+            <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+              <i class="fas fa-code">
+              </i>
+            </button>
+          </span>
+
+        </div>
+
+        <div class="mat-tab-group-chips" *ngIf="buttonShow">
+
+          <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+            <mat-tab label="HTML">
+              <ng-container [ngTemplateOutlet]="chipshtml">
+              </ng-container>
+            </mat-tab>
+            <mat-tab label="TYPESCRIPT">
+              <ng-container [ngTemplateOutlet]="chipsts">
+              </ng-container>
+            </mat-tab>
+            <mat-tab label="CSS">
+              <ng-container [ngTemplateOutlet]="chipscss">
+              </ng-container>
+            </mat-tab>
+          </mat-tab-group>
+          <mat-divider></mat-divider>
+          <h3>
+            Exemplo {{ componentitle }}
+          </h3>
+          <div>
+
+            <virtue-chips title="Chips" maxlength="20" [onlyNumbers]="false">
+            </virtue-chips>
+
+          </div>
+        </div>
+      </div> -->

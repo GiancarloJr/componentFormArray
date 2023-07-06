@@ -1,0 +1,581 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/public-api';
+          import &#123; DocGridComponent &#125; from './doc-grid.component';
+          import &#123; DocGridRoutingModule &#125; from './doc-grid-routing.module';
+          <span>import &#123; GridModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+
+          @NgModule(&#123;
+            declarations: [
+              DocGridComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>GridModule,</span>
+
+              // Local
+              DocGridRoutingModule
+            ]
+          &#125;)
+          export class DocGridModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+         <code>&lt;virtue-grid (gridContextMenuClick)='onGridContextMenuClick($event)'
+                        [list-allowfiltering]='false'
+                        [list-allowpaging]='true'
+                        [list-allowselection]='true'
+                        [list-allowexcel-export]='true'
+                        [list-columns]='gridColumns'
+                        [list-contextmenuitems]='gridContextMenuItems'
+                        [list-source]='gridSource'
+                        [list-selectionoptions]='selectionSettings'
+                        [list-pagesettings]='pageSettings'
+                        list-height="300px"&gt;
+              &lt;/virtue-grid&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <virtue-section section-icon="Itens do pedido"
+                        section-title="Teste Componente Grid"
+                        [section-showdivider]="false">
+
+          <virtue-grid (gridContextMenuClick)='onGridContextMenuClick($event)'
+                       [list-allowfiltering]='false'
+                       [list-allowpaging]='true'
+                       [list-allowselection]='true'
+                       [list-allowexcel-export]='true'
+                       [list-columns]='gridColumns'
+                       [list-contextmenuitems]='gridContextMenuItems'
+                       [list-source]='gridSource'
+                       [list-selectionoptions]='selectionSettings'
+                       [list-pagesettings]='pageSettings'
+                       list-height="300px">
+          </virtue-grid>
+
+        </virtue-section>
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #gridhtml>
+  <pre>
+    <code>
+         &lt;ejs-grid (actionBegin)='onActionBegin($event)'
+                      (actionComplete)='onActionComplete($event)'
+                      (actionFailure)='onActionFailed($event)'
+                      (dataBound)='onDataBound($event)'
+                      (cellSaved)='onCellSaved($event)'
+                      (contextMenuClick)='onContextMenuClicked($event)'
+                      (contextMenuOpen)='onContextMenuOpen($event)'
+                      (headerCellInfo)='headerCellInfo($event)'
+                      (keyup)='onKeyUp($event)'
+                      (queryCellInfo)='onQueryCellInfo($event)'
+                      (recordClick)='onRecordClick($event)'
+                      (recordDoubleClick)='onRecordDoubleClick($event)'
+                      (rowDataBound)='onRowDataBound($event)'
+                      (rowDeselected)='onRowDeselected($event)'
+                      (rowSelected)='onRowSelected($event)'
+                      [aggregates]='gridAggregates'
+                      [allowExcelExport]='allowExcelExport'
+                      [allowFiltering]='allowFiltering'
+                      [allowPdfExport]='allowPdfExport'
+                      [allowPaging]='allowPaging'
+                      [allowSelection]='allowSelection'
+                      [allowSorting]='allowSorting'
+                      [childGrid]='childGrid'
+                      [columns]='gridColumns'
+                      [contextMenuItems]='gridContextMenuItems'
+                      [dataSource]='gridItemsSource'
+                      [editSettings]='gridEditSettings'
+                      [filterSettings]='filterSettings'
+                      [height]='gridHeight'
+                      [pageSettings]='pageSettings'
+                      [rowHeight]='gridRowHeight'
+                      [selectionSettings]='selectionOptions'
+                      [sortSettings]='gridSortSettings'
+                      [width]='gridWidth'
+                      clipMode="EllipsisWithTooltip"&gt;
+
+             &lt;ng-container *ngTemplateOutlet='gridEditTemplate'&gt;
+             &lt;/ng-container&gt;
+
+         &lt;/ejs-grid&gt;</code>
+      </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #gridts>
+  <pre>
+    <code>
+        // Angular
+        import &#123; Component, ViewEncapsulation, Output, EventEmitter, Input, ViewChild, TemplateRef &#125; from '@angular/core';
+
+        // Models
+        import &#123; RecordData &#125; from '@virtuetec/lib/models';
+
+        // Syncfusion
+        import &#123; closest &#125; from '@syncfusion/ej2-base';
+
+        import &#123; QueryCellInfoEventArgs, RowDataBoundEventArgs, FilterSettingsModel, PageSettingsModel,
+        GridComponent, IRow, Column, ToolbarItems, RecordDoubleClickEventArgs, GridModel &#125; from '@syncfusion/ej2-angular-grids';
+
+        import &#123; SelectionSettingsModel, RowSelectEventArgs, RecordClickEventArgs, CellSaveArgs, RowDeselectEventArgs, Row &#125;
+        from '@syncfusion/ej2-angular-grids';
+
+        import &#123; Tooltip &#125; from '@syncfusion/ej2-angular-popups';
+        import &#123; MatDialog &#125; from '@angular/material/dialog';
+        import &#123; MenuEventArgs &#125; from '@syncfusion/ej2-angular-navigations';
+
+        @Component(&#123;
+          selector: "virtue-grid",
+          templateUrl: './grid.component.html',
+          styleUrls: ['./grid.component.scss'],
+          encapsulation: ViewEncapsulation.None
+        &#125;)
+        export class VGridComponent &#123;
+
+          //#region Constructor
+
+          constructor(
+            protected _dialog: MatDialog) &#123;
+
+          &#125;
+
+          //#endregion
+
+          //#region EventEmitters
+
+          @Output() gridActionBegin: EventEmitter&lt;any&gt; = new EventEmitter();
+          @Output() gridActionComplete: EventEmitter&lt;any&gt; = new EventEmitter();
+          @Output() gridActionFailed: EventEmitter&lt;any&gt; = new EventEmitter();
+          @Output() gridCellSaved: EventEmitter&lt;CellSaveArgs&gt; = new EventEmitter();
+          @Output() gridContextMenuClick: EventEmitter&lt;MenuEventArgs&gt; = new EventEmitter();
+          @Output() gridContextMenuOpen: EventEmitter&lt;any&gt; = new EventEmitter();
+          @Output() gridDataBound: EventEmitter&lt;Object&gt; = new EventEmitter();
+          @Output() gridKeyUp: EventEmitter&lt;any&gt; = new EventEmitter();
+          @Output() gridQueryCellInfo: EventEmitter&lt;QueryCellInfoEventArgs&gt; = new EventEmitter();
+          @Output() gridRecordClick: EventEmitter&lt;RecordClickEventArgs&gt; = new EventEmitter();
+          @Output() gridRecordDoubleClick: EventEmitter&lt;RecordDoubleClickEventArgs&gt; = new EventEmitter();
+          @Output() gridRowDataBound: EventEmitter&lt;RowDataBoundEventArgs&gt; = new EventEmitter();
+          @Output() gridRowSelectionChange: EventEmitter&lt;any&gt; = new EventEmitter();
+
+          //#endregion
+
+          //#region Implements LifeCycle
+
+          ngOnInit(): void &#123;
+
+            // Se permite exportar a listagem para EXCEL, exibe o botão (adiciona a propriedade no arrau toolbarOptions)
+            if (this.allowExcelExport) &#123;
+              if (this.toolbarOptions == undefined)
+                this.toolbarOptions = [];
+
+              this.toolbarOptions.push('ExcelExport');
+            &#125;
+
+            // Se permite exportar a listagem para PDF, exibe o botão (adiciona a propriedade no arrau toolbarOptions)
+            if (this.allowPdfExport) &#123;
+              if (this.toolbarOptions == undefined)
+                this.toolbarOptions = [];
+
+              this.toolbarOptions.push('PdfExport');
+            &#125;
+
+            // Se permite impressão da listagem de registros
+            if (this.allowPrint) &#123;
+              if (this.toolbarOptions == undefined)
+                this.toolbarOptions = [];
+
+              this.toolbarOptions.push('Print');
+            &#125;
+
+            this.pageSettings = &#123; pageCount: 10, pageSize: this.pageSizes[3], pageSizes: this.pageSizes &#125;;
+          &#125;
+
+          //#endregion
+
+          //#region Input Properties
+
+          @Input("list-aggregates") gridAggregates: Object[];
+          @Input("list-allowpaging") allowPaging: boolean = false;
+          @Input("list-allowexcel-export") allowExcelExport: boolean = false;
+          @Input("list-allowfiltering") allowFiltering: boolean = false;
+          @Input("list-allowpdf-export") allowPdfExport: boolean = false;
+          @Input("list-allow-print") allowPrint: boolean = false;
+          @Input("list-allowselection") allowSelection: boolean = false;
+          @Input("list-allowsorting") allowSorting: boolean = false;
+          @Input("list-childgrid") childGrid: GridModel;
+          @Input("list-columns") gridColumns: any;
+          @Input("list-contextmenuitems") gridContextMenuItems: any;
+          @Input("list-editsettings") gridEditSettings: Object;
+          @Input("list-edittemplate") gridEditTemplate: TemplateRef&lt;any&gt;;
+          @Input("list-height") gridHeight: string = "100%";
+          @Input("list-file-exportname") fileExportName: string = "virtuelist";
+          @Input("list-width") gridWidth: string = "100%";
+          @Input("list-rowheight") gridRowHeight: number = 36;
+          @Input("list-source") gridItemsSource: Object[];
+          @Input("list-sortsettings") gridSortSettings: Object;
+          @Input("list-headerstooltip") gridHeadersTooltip: any[];
+          @Input("list-filtersettings") filterSettings: FilterSettingsModel = &#123; type: 'Excel' &#125;;
+          @Input("list-pagesettings") pageSettings: PageSettingsModel = &#123; pageSizes: true, pageSize: 30 &#125;;
+          @Input("list-selectionoptions") selectionOptions: SelectionSettingsModel = &#123; mode: 'Row', type: 'Single' &#125;;
+
+          //#endregion
+
+          //#region Public Functions
+
+          public clearFiltering(): void &#123;
+            this.grid.clearFiltering();
+          &#125;
+
+          public getAllRows(): Object[] &#123;
+            return this.grid?.currentViewData;
+          &#125;
+
+          public getRowData(rowId?: string): RecordData &#123;
+
+            // Objeto que irá receber o registro seleconado
+            var data = new RecordData();
+
+            // Verifica se foi passado o ID da linha
+            if (rowId) &#123;
+              var rowObj: IRow&lt;Column&gt; = this.getRowObjectFromUID(rowId);
+
+              if (rowObj == null || rowObj == undefined)
+                return null;
+
+              data.Index = rowObj.index;
+              data.Data = rowObj.data;
+            &#125;
+            else
+              // Se não foi passado o ID da linha, buscamos do objeto de linhas selecionadas
+              if (this.getSelectedRecords().length &gt; 0)
+                data.Data = this.getSelectedRecords()[0];
+
+            return data;
+
+          &#125;
+
+          public getRowDataById(args: Event): RecordData &#123;
+
+            // Obtêm o id da item que foi clicado
+            var rowId = closest(&lt;Element&gt;args.target, ".e-row").getAttribute("data-uid");
+
+            return this.getRowData(rowId);
+
+          &#125;
+
+          public getRowObjectFromUID(uid: string, isMovable?: boolean, isFrozenRight?: boolean): Row&lt;Column&gt; &#123;
+            return this.grid.getRowObjectFromUID(uid, isMovable, isFrozenRight);
+          &#125;
+
+          //#endregion
+
+          //#region Public Getters
+
+          public get getRowsCount(): number &#123;
+
+            if (!this.grid?.currentViewData)
+              return 0;
+
+            return this.grid.currentViewData.length;
+          &#125;
+
+          //#endregion
+
+          //#region Public Methods
+
+          public onContextMenuOpen(args): void &#123;
+            this.gridContextMenuOpen.emit(args);
+          &#125;
+
+          public focusOnGrid(): void &#123;
+
+            if (this.grid.getRows().length > 0) &#123;
+              this.grid.element.focus();
+              this.grid.selectedRowIndex = 0;
+            &#125;
+          &#125;
+
+
+          public getRows(): Element[] &#123;
+            return this.grid.getRows();
+          &#125;
+
+          public getSelectedRecords(): Object[] &#123;
+            return this.grid.getSelectedRecords();
+          &#125;
+
+          public headerCellInfo(args) &#123;
+
+            // Aplica o tooltip na header do grid
+            // Objeto aguardado -> this.gridHeadersTooltip = [&#123; field: "Codigo", message: "Teste Blá Blá Blá" &#125;];
+            // Propriedade gridHeadersTooltip está na list.content.base.ts
+
+            if (this.gridHeadersTooltip != undefined)
+              this.gridHeadersTooltip.forEach(element => &#123;
+                if (args.cell.column.field === element.field) &#123;
+                  const toolcontent = element.message;
+                  this.tooltip = new Tooltip(&#123;
+                    content: toolcontent
+                  &#125;);
+                  this.tooltip.appendTo(args.node);
+                &#125;
+              &#125;);
+          &#125;
+
+          public onActionBegin(args: any): void &#123;
+            this.gridActionBegin.emit(args);
+          &#125;
+
+          public onActionComplete(args: any): void &#123;
+            this.gridActionComplete.emit(args);
+          &#125;
+
+          public onActionFailed(args: any): void &#123;
+            this.gridActionFailed.emit(args);
+          &#125;
+
+          public onCellSaved(args: CellSaveArgs): void &#123;
+            this.gridCellSaved.emit(args);
+          &#125;
+
+          public onContextMenuClicked(args: MenuEventArgs): void &#123;
+            this.gridContextMenuClick.emit(args);
+          &#125;
+
+          public onDataBound(args: Object): void &#123;
+            this.gridDataBound.emit(args);
+          &#125;
+
+          public onGridPrint(): void &#123;
+            let gridPrint: GridComponent = this.grid;
+
+            for (const columns of gridPrint.columns) &#123;
+              if ((columns as Column).headerText === "Ações") &#123;
+                (columns as Column).visible = false;
+              &#125;
+            &#125;
+
+            gridPrint.print();
+          &#125;
+
+          public onKeyUp(args: any): void &#123;
+            this.gridKeyUp.emit(args);
+          &#125;
+
+          public onQueryCellInfo(args: QueryCellInfoEventArgs): void &#123;
+            this.gridQueryCellInfo.emit(args);
+          &#125;
+
+          public onRecordClick(args: RecordClickEventArgs): void &#123;
+            this.gridRecordClick.emit(args);
+          &#125;
+
+          public onRecordDoubleClick(args: RecordDoubleClickEventArgs): void &#123;
+            this.gridRecordDoubleClick.emit(args);
+          &#125;
+
+          public onRowDataBound(args: RowDataBoundEventArgs): void &#123;
+            this.gridRowDataBound.emit(args);
+          &#125;
+
+          public onRowDeselected(args: RowDeselectEventArgs): void &#123;
+            this.gridRowSelectionChange.emit(args);
+          &#125;
+
+          public onRowSelected(args: RowSelectEventArgs): void &#123;
+            this.gridRowSelectionChange.emit(args);
+          &#125;
+
+          public print(): void &#123;
+            if (this.grid != undefined)
+              this.grid.print();
+          &#125;
+
+          public refresh(): void &#123;
+            if (this.grid != undefined)
+              this.grid.refresh();
+          &#125;
+
+          public search(searchString: string): void &#123;
+            this.grid.search(searchString)
+          &#125;
+
+          // Aplica o tooltip na header do grid
+          // Objeto aguardado -> this.gridHeadersTooltip = [&#123; field: "Codigo", message: "Teste Blá Blá Blá" &#125;];
+          // Propriedade gridHeadersTooltip está na list.content.base.ts
+          public setHeaderCellInfo(args): void &#123;
+
+            if (this.gridHeadersTooltip != undefined)
+              this.gridHeadersTooltip.forEach(element => &#123;
+                if (args.cell.column.field === element.field) &#123;
+                  const toolcontent = element.message;
+                  this.tooltip = new Tooltip(&#123;
+                    content: toolcontent
+                  &#125;);
+                  this.tooltip.appendTo(args.node);
+                &#125;
+              &#125;);
+          &#125;
+
+          public updateContextMenuItemStatus(): void &#123;
+          &#125;
+
+          //#endregion
+
+          //#region Public Properties
+
+          public get element(): HTMLElement &#123;
+            return this.grid.element;
+          &#125;
+
+          public pageSizes: any[] = [5, 10, 20, 30, 50, 'All'];
+
+          public set selectedRowIndex(index: number) &#123;
+            this.grid.selectedRowIndex = index;
+          &#125;
+
+          public toolbarOptions: ToolbarItems[];
+          public tooltip: Tooltip;
+
+          //#endregion
+
+          //#region View Objects
+
+          // TODO: Criar metodos do GRID para o GRID (Tipo REFRESH)
+          @ViewChild(GridComponent) public grid: GridComponent;
+
+          //#endregion
+
+        &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #gridcss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="gridhtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="gridts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="CSS">
+        <ng-container [ngTemplateOutlet]="gridcss">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <h3>
+      Exemplo {{ componentitle }}
+    </h3>
+    <div style="justify-content: center;">
+
+    </div>
+  </div>
+</div> -->

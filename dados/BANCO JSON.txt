@@ -1,0 +1,2380 @@
+{
+  "Componentes": [
+    {
+      "id": 1,
+      "ComponenteId": 1,
+      "Componente": "buttonspeeddial",
+      "Explicacao": "Componente responsável por gerar legendas, informações e atalhos dentro da aplicação.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 1,
+          "Descricao": "String para definir título da legenda.",
+          "Nome": "@Input('headTextModal') headTextModal: string = 'HEAD NÃO INFORMADO';",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 1,
+          "Descricao": "String para definir icone do botão.",
+          "Nome": "@Input('iconButton') iconButton: string = 'e-table-of-content';",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 1,
+          "Descricao": "Lista de itens do menu do botão.",
+          "Nome": "@Input('itemsSource') items: SpeedDialItemModel[] = [];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 1,
+          "Descricao": "String para definir o tipo de informação gerada pelo Button Speed Dial.",
+          "Nome": "@Input('labelText') labelText: string = 'LABEL NÃO INFORMADO';",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 1,
+          "Descricao": "String para definir margem inferior. Valor padrão 75px.",
+          "Nome": "@Input('marginBottom') marginBottom: string = \"75px\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "ComponenteId": 2,
+      "Componente": "chips",
+      "Explicacao": "Componente utilizado para gerar dados do tipo númericos e não númericos.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 2,
+          "Descricao": "String para definir tamanho máximo de caracteres do campo.",
+          "Nome": "@Input(\"maxlength\") maxlength: string = \"10\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 2,
+          "Descricao": "Variável para definir se campo será apenas númerico.",
+          "Nome": "@Input(\"onlyNumbers\") onlyNumbers: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 2,
+          "Descricao": "String para definir titulo do componente.",
+          "Nome": "@Input(\"title\") title: string = 'Não Definido';",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "ComponenteId": 3,
+      "Componente": "complement",
+      "Explicacao": "123",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 3,
+          "Descricao": "123",
+          "Nome": "@Input() customAddOrListVerify: boolean = true;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 3,
+          "Descricao": "Variável booleana responsável por ativar ou desativar.",
+          "Nome": "@Input() disabled: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 3,
+          "Descricao": "Variável booleana responsável por definir se botão \"Adicionar\" será visível.",
+          "Nome": "@Input() showAddButton: boolean = true;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 3,
+          "Descricao": "Variável booleana responsável por definir se botão \"Listar\" será visível.",
+          "Nome": "@Input() showListButton: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 3,
+          "Descricao": "Variável booleana responsável por definir se ícone \"Aviso\" será visível.",
+          "Nome": "@Input() showIconWarning: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 3,
+          "Descricao": "Verificar função",
+          "Nome": "@Input(\"list-aggregates\") gridAggregates: Object[];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 3,
+          "Descricao": "Verificar função",
+          "Nome": "@Input(\"list-columns\") gridColumns: any;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 3,
+          "Descricao": "Verificar função",
+          "Nome": "@Input(\"list-contextmenuitems\") gridContextMenuItems: ContextMenuItemModel[] = [];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 3,
+          "Descricao": "String responsável pelo titulo dos Chips.",
+          "Nome": "@Input(\"list-filtersettings\") gridFilterSettings: FilterSettingsModel;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 10,
+          "ComponenteId": 3,
+          "Descricao": "String responsável por gerar ícone da lista.",
+          "Nome": "@Input(\"list-icon\") icon: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 11,
+          "ComponenteId": 3,
+          "Descricao": "Lista de Objetos a ser carregado na lista.",
+          "Nome": "@Input(\"list-source\") gridItemsSource: Object[];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 12,
+          "ComponenteId": 3,
+          "Descricao": "String responsável pelo título da lista.",
+          "Nome": "@Input(\"list-title\") title: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 13,
+          "ComponenteId": 3,
+          "Descricao": "String responsável pelo título da lista.",
+          "Nome": "@Input(\"search-title\") searchTitle: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 14,
+          "ComponenteId": 3,
+          "Descricao": "String responsável pelo título da pesquisa.",
+          "Nome": "@Input(\"search-titlecomplement\") searchTitleComplement: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 15,
+          "ComponenteId": 3,
+          "Descricao": "Váriavel responsável por gerar coluna do modelo de item pesquisado.",
+          "Nome": "@Input(\"search-itemscolumns\") searchItemsColumns: any;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 16,
+          "ComponenteId": 3,
+          "Descricao": "Váriavel responsável pelo dados da tabela",
+          "Nome": "@Input(\"search-itemssource\") searchItemsSource: any;",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "ComponenteId": 4,
+      "Componente": "dialog",
+      "Explicacao": "Componente utilizado para gerar um Dialog com informações, formulários, listas de algum tipo de dado.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 4,
+          "Descricao": "Variável para definir se os dados dentro do componente são válidos. Por exemplo quando se tem um formulário é possível passar validação. (Exemplo: canConfirm=\"nomeFormulário.valid\").",
+          "Nome": "@Input() canConfirm: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 4,
+          "Descricao": "1234",
+          "Nome": "@Input() get dataToApi(): boolean { return this.isDataToApi; };",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 4,
+          "Descricao": "String para definir ícone do componente.",
+          "Nome": "@Input(\"dialog-icon\") icon: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 4,
+          "Descricao": "String para definir título do componente.",
+          "Nome": "@Input(\"dialog-title\") title: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 4,
+          "Descricao": "String para definir título complemento do componente.",
+          "Nome": "@Input(\"dialog-titlecomplement\") titleComplement: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 4,
+          "Descricao": "Variável para definir se botões serão visíveis no componente.",
+          "Nome": "@Input(\"dialog-showheaderactions\") showHeaderActions: boolean = true;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 4,
+          "Descricao": "Variável para definir se botão \"Salvar\" será visível.",
+          "Nome": "@Input(\"dialog-showsavebutton\") showSaveButton: boolean = true;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 4,
+          "Descricao": "String para definir a URL de imagem.",
+          "Nome": "@Input(\"loader-image\") loaderImageUrl: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "ComponenteId": 5,
+      "Componente": "dropdownlist",
+      "Explicacao": "Componente utilizados para gerar lista de dados do tipo Drop Down, podendo ser utilizado para preencher formulário com dados pré-definidos.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 5,
+          "Descricao": "Variável para habilitar filtro.",
+          "Nome": "@Input(\"allowFiltering\") allowFiltering: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 5,
+          "Descricao": "Data para popular os dados que serão utilizados no Drop Down List.",
+          "Nome": "@Input(\"dataSource\") dataSource: any[];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 5,
+          "Descricao": "Preencher 'text' com nome do campo que deseja criar o DropDownList e campo 'Id'.",
+          "Nome": "@Input(\"fields\") fields: Object = { text: 'Nome', value: 'Id' };",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 5,
+          "Descricao": "String para preencher o 'placeholder' do campo por filtro.",
+          "Nome": "@Input(\"filterBarPlaceholder\") filterBarPlaceholder: string = \"Pesquisar...\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 5,
+          "Descricao": "String por definir messagem ao ativar o botão informação.(showButtonInfo).",
+          "Nome": "@Input(\"infoMessage\") infoMessage: string = \"...\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 5,
+          "Descricao": "123",
+          "Nome": "@Input(\"itemTemplate\") itemTemplate: any;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 5,
+          "Descricao": "123",
+          "Nome": "@Output(\"call-modal\") callModal = new EventEmitter<DropdownListComponent>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 5,
+          "Descricao": "123",
+          "Nome": "@ViewChild(\"dropdownList\") dropdownList: DropDownListComponent;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        },
+        {
+          "Id": 10,
+          "ComponenteId": 5,
+          "Descricao": "String para preencher o placeholder do componente.",
+          "Nome": "@Input(\"placeholder\") placeholder: string = null;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 11,
+          "ComponenteId": 5,
+          "Descricao": "String para definir altura do componente.",
+          "Nome": "@Input(\"popupHeight\") popupHeight: string = \"300px\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 12,
+          "ComponenteId": 5,
+          "Descricao": "String para definir largura do componente.",
+          "Nome": "@Input(\"popupWidth\") popupWidth: string = \"100%\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 13,
+          "ComponenteId": 5,
+          "Descricao": "Variável para habilitar botão de informação.",
+          "Nome": "@Input(\"showButtonInfo\") showButtonInfo: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 14,
+          "ComponenteId": 5,
+          "Descricao": "Variável para habilitar botão Modal.",
+          "Nome": "@Input(\"showButtonModal\") showButtonModal: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 15,
+          "ComponenteId": 5,
+          "Descricao": "Variável para habilitar botão de limpar seleção feita no Drop Down List.",
+          "Nome": "@Input(\"showClearButton\") showClearButton: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 16,
+          "ComponenteId": 5,
+          "Descricao": "Variável para habilitar por gerar um  value binding.",
+          "Nome": "@Input(\"value\") valueBinding: any;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 17,
+          "ComponenteId": 5,
+          "Descricao": "String para definir mensagem gerada no tooltip do botão Modal.",
+          "Nome": "@Input(\"tooltipButton\") tooltipButton: string = \"Clique para abrir o modal\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 18,
+          "ComponenteId": 5,
+          "Descricao": "123",
+          "Nome": "@Output(\"change\") changeEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 19,
+          "ComponenteId": 5,
+          "Descricao": "123",
+          "Nome": "@Output(\"clear-value\") clearValue = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 20,
+          "ComponenteId": 5,
+          "Descricao": "123",
+          "Nome": "@Output(\"created\") createdEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 21,
+          "ComponenteId": 5,
+          "Descricao": "123",
+          "Nome": "@Output(\"filtering\") filteringEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 22,
+          "ComponenteId": 5,
+          "Descricao": "123",
+          "Nome": "@Output(\"keyup.enter\") keyupEnterEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 23,
+          "ComponenteId": 5,
+          "Descricao": "123",
+          "Nome": "@Output(\"open\") openEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 24,
+          "ComponenteId": 5,
+          "Descricao": "123",
+          "Nome": "@Output(\"select\") selectEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "ComponenteId": 6,
+      "Componente": "grid",
+      "Explicacao": "Componente responsável por gerar uma lista de dados e funções, como filtragem, paginação e exportação de dados para pdf ou excel.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 6,
+          "Descricao": "Objeto responsável por definir uma configuração para agregar dados. (Agregar por Tipo, Soma total de valores de uma coluna.)",
+          "Nome": "@Input(\"list-aggregates\") gridAggregates: Object[];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridActionBegin: EventEmitter<any> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@ViewChild(GridComponent) public grid: GridComponent;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridActionComplete: EventEmitter<any> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridActionFailed: EventEmitter<any> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridCellSaved: EventEmitter<CellSaveArgs> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 10,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridContextMenuClick: EventEmitter<MenuEventArgs> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 11,
+          "ComponenteId": 6,
+          "Descricao": "132",
+          "Nome": "@Output() gridContextMenuOpen: EventEmitter<any> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 12,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridDataBound: EventEmitter<Object> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 13,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridKeyUp: EventEmitter<any> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 14,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridQueryCellInfo: EventEmitter<QueryCellInfoEventArgs> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 15,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridRecordClick: EventEmitter<RecordClickEventArgs> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 16,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridRecordDoubleClick: EventEmitter<RecordDoubleClickEventArgs> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 17,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridRowDataBound: EventEmitter<RowDataBoundEventArgs> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 18,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Output() gridRowSelectionChange: EventEmitter<any> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 19,
+          "ComponenteId": 6,
+          "Descricao": "Variável para habilitar paginação.",
+          "Nome": "@Input(\"list-allowpaging\") allowPaging: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 20,
+          "ComponenteId": 6,
+          "Descricao": "Variável para habilitar exportação de arquivo Excel.",
+          "Nome": "@Input(\"list-allowexcel-export\") allowExcelExport: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 21,
+          "ComponenteId": 6,
+          "Descricao": "Variável para habilitar filtro de itens.",
+          "Nome": "@Input(\"list-allowfiltering\") allowFiltering: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 22,
+          "ComponenteId": 6,
+          "Descricao": "Variável para habilitar exportação de arquivo PDF.",
+          "Nome": "@Input(\"list-allowpdf-export\") allowPdfExport: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 23,
+          "ComponenteId": 6,
+          "Descricao": "Variável para habilitar print.",
+          "Nome": "@Input(\"list-allow-print\") allowPrint: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 24,
+          "ComponenteId": 6,
+          "Descricao": "Variável para habilitar seleção de múltiplos itens.",
+          "Nome": "@Input(\"list-allowselection\") allowSelection: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 25,
+          "ComponenteId": 6,
+          "Descricao": "Variável para habilitar ordenação/sorting.",
+          "Nome": "@Input(\"list-allowsorting\") allowSorting: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 26,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Input(\"list-childgrid\") childGrid: GridModel;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 27,
+          "ComponenteId": 6,
+          "Descricao": "Objeto para definir colunas da tabela.",
+          "Nome": "@Input(\"list-columns\") gridColumns: any;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 28,
+          "ComponenteId": 6,
+          "Descricao": "Objeto para definir menu ao clicar com botão direito do mouse sobre os itens da lista.",
+          "Nome": "@Input(\"list-contextmenuitems\") gridContextMenuItems: any;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 29,
+          "ComponenteId": 6,
+          "Descricao": "Objeto para definir configuraçães de edição.",
+          "Nome": "@Input(\"list-editsettings\") gridEditSettings: Object;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 30,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Input(\"list-edittemplate\") gridEditTemplate: TemplateRef<any>;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 31,
+          "ComponenteId": 6,
+          "Descricao": "String para definir altura do componente. Valor padrão: 100%.",
+          "Nome": "@Input(\"list-height\") gridHeight: string = \"100%\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 32,
+          "ComponenteId": 6,
+          "Descricao": "String para definir nome do arquivo ao solicitar exportação Pdf, Excel e outros.",
+          "Nome": "@Input(\"list-file-exportname\") fileExportName: string = \"virtuelist\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 33,
+          "ComponenteId": 6,
+          "Descricao": "String para definir comprimento do componente. Valor padrão: 100%.",
+          "Nome": "@Input(\"list-width\") gridWidth: string = \"100%\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 34,
+          "ComponenteId": 6,
+          "Descricao": "Number para definir altura da linha do componente. Valor padrão: 36px.",
+          "Nome": "@Input(\"list-rowheight\") gridRowHeight: number = 36;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 35,
+          "ComponenteId": 6,
+          "Descricao": "Váriavel para preencher dados para o componente Grid.",
+          "Nome": "@Input(\"list-source\") gridItemsSource: Object[];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 36,
+          "ComponenteId": 6,
+          "Descricao": "Objeto para criar configurações de 'Sort' de acordo com desejado. (Exemplo: Ordem: Crescente, Alfabetica, Custo, Preço, Nome).",
+          "Nome": "@Input(\"list-sortsettings\") gridSortSettings: Object;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 37,
+          "ComponenteId": 6,
+          "Descricao": "123",
+          "Nome": "@Input(\"list-headerstooltip\") gridHeadersTooltip: any[];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 38,
+          "ComponenteId": 6,
+          "Descricao": "Objeto para definir tipo de filtro. (Tipo: Excel).",
+          "Nome": "@Input(\"list-filtersettings\") filterSettings: FilterSettingsModel = { type: 'Excel' };",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 39,
+          "ComponenteId": 6,
+          "Descricao": "Objeto para personalizar paginação.(Quantidade por pagina)",
+          "Nome": "@Input(\"list-pagesettings\") pageSettings: PageSettingsModel = { pageSizes: true, pageSize: 30 };",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 40,
+          "ComponenteId": 6,
+          "Descricao": "Objeto para personalizar seleção. Usando CTRL e SHIFT para múltiplas seleções ou de única seleção. (Row, Both, Multiple)",
+          "Nome": "@Input(\"list-selectionoptions\") selectionOptions: SelectionSettingsModel = { mode: 'Row', type: 'Single' };",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "ComponenteId": 7,
+      "Componente": "fielderror",
+      "Explicacao": "testando 1234 tesstando explicação componente",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 7,
+          "Descricao": "123",
+          "Nome": "@Output() onSearchCompleted = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 7,
+          "Descricao": "String responsável pelo título da legenda.",
+          "Nome": "@ViewChild('inputSearch') public inputSearch: ElementRef;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 7,
+          "Descricao": "String responsável pelo título da legenda.",
+          "Nome": "@ViewChild(VGridComponent) public grid: VGridComponent;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "ComponenteId": 8,
+      "Componente": "dialogsearch",
+      "Explicacao": "testando 1234 tesstando explicação componente",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 8,
+          "Descricao": "123",
+          "Nome": "@Input() invalid: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 8,
+          "Descricao": "123",
+          "Nome": "@Input() errorsrequired: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "ComponenteId": 9,
+      "Componente": "header",
+      "Explicacao": "Componente utilizado para criar o header dos componentes.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 9,
+          "Descricao": "String para definir ícone do componente.",
+          "Nome": "@Input(\"header-icon\") icon: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 9,
+          "Descricao": "Váriavel para habilitar divisor. Exemplo: <mat-divider></mat-divider>.",
+          "Nome": "@Input(\"header-showdivider\") showDivider: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 9,
+          "Descricao": "String para definir título usado no componente.",
+          "Nome": "@Input(\"header-title\") title: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 9,
+          "Descricao": "String para definir título complemento usado no componente.",
+          "Nome": "@Input(\"header-titlecomplement\") titleComplement: string = \"\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "ComponenteId": 10,
+      "Componente": "inputcep",
+      "Explicacao": "Componente utilizado para preenchimento do campo CEP nos formulários ou filtros.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 10,
+          "Descricao": "123",
+          "Nome": "@HostListener('focus', ['$event']) onFocus(e) { e.target.select();}",
+          "SecaoId": 1,
+          "Secao": "hostlistener"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 10,
+          "Descricao": "123",
+          "Nome": "@HostListener('click', ['$event']) onClick(e) { try { e.target.select(); } catch { } }",
+          "SecaoId": 1,
+          "Secao": "hostlistener"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 10,
+          "Descricao": "123",
+          "Nome": "@HostListener('input', ['$event']) onInputChange(event) { this.setValue(this.control.value); }",
+          "SecaoId": 1,
+          "Secao": "hostlistener"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 10,
+          "Descricao": "123",
+          "Nome": "@HostListener('keydown', ['$event']) onKeyDown(e: KeyboardEvent, v: any) { if (!this.validateKeyboardEvent(e)) e.preventDefault(); }",
+          "SecaoId": 1,
+          "Secao": "hostlistener"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 10,
+          "Descricao": "EventEmitter para verificar se CEP é válido, retornando dados de endereço.",
+          "Nome": "@Output() 'onSearchCompleted' = new EventEmitter<CepData>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 10,
+          "Descricao": "123",
+          "Nome": "@ViewChild(\"inputCep\") inputCep: ElementRef;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "ComponenteId": 11,
+      "Componente": "inputdata",
+      "Explicacao": "Componente utilizado para preenchimento de data nos formulários ou filtros.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 11,
+          "Descricao": "String para definir o 'inputlabel' do componente.",
+          "Nome": "@Input(\"input-label\") public inputLabel: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 11,
+          "Descricao": "123",
+          "Nome": "@Output(\"onchange\") dateChange = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "ComponenteId": 12,
+      "Componente": "inputmodal",
+      "Explicacao": "Componente responsável por 'chamar' modal. Podendo utilizar para abrir informações ou formulários.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 12,
+          "Descricao": "String para definir label do componente.",
+          "Nome": "@Input(\"labelText\") labelText: string = 'Não Definido';",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 12,
+          "Descricao": "123",
+          "Nome": "@Output(\"call-modal\") callModal = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 12,
+          "Descricao": "Variável para definir se campo será apenas para leitura.",
+          "Nome": "@Input(\"readyonly\") readOnly: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 12,
+          "Descricao": "Variável para habilitar botão limpar campo.",
+          "Nome": "@Input(\"showClear\") showClear: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 12,
+          "Descricao": "String para definir uma mensagem do tooltip do botão Modal.",
+          "Nome": "@Input(\"tooltip\") tooltip: string = \"Clique para abrir o modal\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 12,
+          "Descricao": "123",
+          "Nome": "@Output(\"clear-value\") clearValue = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 12,
+          "Descricao": "123",
+          "Nome": "@Output(\"click-input\") clickInput = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "ComponenteId": 13,
+      "Componente": "inputoptionscompare",
+      "Explicacao": "Componente utilizado para efetuar filtragem de valores.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 13,
+          "Descricao": "Variável para definir se o valor do input será apenas númerico.",
+          "Nome": "@Input(\"decimal\") isDecimal: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 13,
+          "Descricao": "Emite um evento para limpar campo Input Options Compare.",
+          "Nome": "@Output(\"clear-value\") clearValue = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 13,
+          "Descricao": "Emite o valor selecionado, entre os valores disponiveis dentro do componente Input Options Compare. Exemplo: 1 - 'Começa com', 2 - 'Qualquer parte', 'Termina com'. ",
+          "Nome": "@Output(\"selection-change\") selectionChange: EventEmitter<any> = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 13,
+          "Descricao": "Variável para definir número de casas após a vírgula. Valor padrão: 2.",
+          "Nome": "@Input(\"decimalCounter\") decimalCounter: number = 2;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 13,
+          "Descricao": "Variável para habilitar botão de filtragem.",
+          "Nome": "@Input(\"disabledButton\") disabledButton: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 13,
+          "Descricao": "Váriavel de dados para gerar opções de filtragem. Sendo STRING OU NUMBER. Caso nãos seja passado o parametro do tipo de dado, será verificado e gerado as opções automáticas.",
+          "Nome": "@Input(\"itemsSource\") itemsSource: ItemModel[] = [];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 13,
+          "Descricao": "String para definir o labelText do input do componente.",
+          "Nome": "@Input(\"labelText\") labelText: string = `Não Definido (=)`;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 13,
+          "Descricao": "String para definir mensagem gerada no Tooltip.",
+          "Nome": "@Input(\"tooltip\") tooltip: string = \"Clique para selecionar a opção\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 13,
+          "Descricao": "Variável para definir input apenas para leitura.",
+          "Nome": "@Input(\"readOnly\") readOnly: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 10,
+          "ComponenteId": 13,
+          "Descricao": "123",
+          "Nome": "@Input(\"selectedOption\") selectedOption;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 11,
+          "ComponenteId": 13,
+          "Descricao": "String para definir o tipo de listagem, sendo para os tipos STRING ou NUMBER.",
+          "Nome": "@Input(\"comparisonType\") comparisonType: string = \"NUMBER\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "ComponenteId": 14,
+      "Componente": "inputreadonly",
+      "Explicacao": "Componente utilizado para mostrar dados apenas para leitura.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 14,
+          "Descricao": "Variável para permitir números negativos.",
+          "Nome": "@Input(\"allow-negative\") allowNegativeNumbers: boolean = true;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 14,
+          "Descricao": "123",
+          "Nome": "@ViewChild(\"inputReadOnly\") inputReadOnly: ElementRef;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 14,
+          "Descricao": "Variável para definir se campo será números decimais.",
+          "Nome": "@Input(\"decimal\") isDecimal: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 14,
+          "Descricao": "Variável para definir a quantidade de números após a virgula. Por padrão será 2 casas.",
+          "Nome": "@Input(\"decimal-counter\") decimalCounter: number = 2;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 14,
+          "Descricao": "String para definir o labelText do input.",
+          "Nome": "@Input(\"label-text\") labelText: string = 'Não Definido';",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 14,
+          "Descricao": "String para definir a cor do labelText.",
+          "Nome": "@Input(\"label-color-hex\") labelColorHex: string = \"#808080\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 14,
+          "Descricao": "String para definir a cor do texto ao digitar.",
+          "Nome": "@Input(\"font-color-hex\") fontColorHex: string = \"#0000000\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 14,
+          "Descricao": "String para definir o tamanho da fonte do input.",
+          "Nome": "@Input(\"font-weight\") fontWeight: string = \"normal\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 14,
+          "Descricao": "Variável para definir se campo será monetário.",
+          "Nome": "@Input(\"monetary\") isMonetary: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 10,
+          "ComponenteId": 14,
+          "Descricao": "Variável para definir se campo será apenas númerico.",
+          "Nome": "@Input(\"number\") isNumber: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 11,
+          "ComponenteId": 14,
+          "Descricao": "String para definir o alinhamento do texto no input. (left, center, right)",
+          "Nome": "@Input(\"text-align\") textAlign: string = \"left\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "ComponenteId": 15,
+      "Componente": "inputsearch",
+      "Explicacao": "Componente utilizado para selecionar dados com opção de pesquisa.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@Input(\"AutoCheck\") autoCheck: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@Output(\"call-modal\") callModal = new EventEmitter<InputSearchComponent>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@ViewChild(\"inputSearch\") inputSearch: ElementRef;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@Input(\"CheckAfterSearch\") checkAfterSearch: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 15,
+          "Descricao": "Objeto responsável para definir os campo da coluna.",
+          "Nome": "@Input(\"Columns\") gridColumns: object;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 15,
+          "Descricao": "String para definir título do componente.",
+          "Nome": "@Input(\"DialogTitle\") dialogTitle: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 15,
+          "Descricao": "String para definir título complemento do componente.",
+          "Nome": "@Input(\"DialogTitleComplement\") dialogTitleComplement: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@Input(\"DisplayMember\") displayMember: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 15,
+          "Descricao": "Variável para definir quantidade máxima de caracteres.",
+          "Nome": "@Input(\"InputMaxLength\") inputMaxLength: number;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 10,
+          "ComponenteId": 15,
+          "Descricao": "String para definir o icone do componente.",
+          "Nome": "@Input(\"Icon\") icon: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 11,
+          "ComponenteId": 15,
+          "Descricao": "Váriavel para preencher dados do componente.",
+          "Nome": "@Input(\"ItemsSource\") itemsSource: any;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 12,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@Input(\"IsValid\") isValid: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 13,
+          "ComponenteId": 15,
+          "Descricao": "String para definir o labelText do input ao pesquisar.",
+          "Nome": "@Input(\"Label\") label: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 14,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@Input(\"SelectTextAfterCheck\") selectTextAfterCheck: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 15,
+          "ComponenteId": 15,
+          "Descricao": "Váriavel booleana responsável por habilitar botão Modal.",
+          "Nome": "@Input(\"ShowButtonModal\") showButtonModal: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 16,
+          "ComponenteId": 15,
+          "Descricao": "String responsável por definir a mensagem do tooltip do botão modal.",
+          "Nome": "@Input(\"TooltipButton\") tooltipButton: string = \"Clique para abrir o modal\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 17,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@Input(\"TooltipMember\") tooltipMember: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 18,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@Input(\"ValidateField\") validateField: boolean;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 19,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@Input(\"ValueMember\") valueMember: string;`",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 20,
+          "ComponenteId": 15,
+          "Descricao": "FormControl para definir qual campo do formulário será utilizado.",
+          "Nome": "@Input() formControl: FormControl;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 21,
+          "ComponenteId": 15,
+          "Descricao": "String para definir o campo do formulário que será utilizado.",
+          "Nome": "@Input() formControlName: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 22,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@Output(\"check-value\") checkValue = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 23,
+          "ComponenteId": 15,
+          "Descricao": "123",
+          "Nome": "@Output(\"clear-value\") clearValue = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 24,
+          "ComponenteId": 15,
+          "Descricao": "String para definir a mensagem do tooltip.",
+          "Nome": "@Input(\"Tooltip\") tooltip: string = \"\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "ComponenteId": 16,
+      "Componente": "list",
+      "Explicacao": "testando 1234 tesstando explicação componente",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 16,
+          "Descricao": "Váriavel para definir se existem dados para carregamento da lista.",
+          "Nome": "@Input(\"data-loaded\") dataLoaded: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 16,
+          "Descricao": "123",
+          "Nome": "@Output() listClearFiltering: EventEmitter<any> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 16,
+          "Descricao": "123",
+          "Nome": "@ViewChild(\"inputSearch\") inputSearch: ElementRef;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 16,
+          "Descricao": "Objeto para definir uma configuração de agregar dados. (Agregar por Preço, Tipo, Soma total de valores de uma coluna.)",
+          "Nome": "@Input(\"list-aggregates\") gridAggregates: Object[];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 16,
+          "Descricao": "Váriavel para habilitar seleção de elementos da lista.",
+          "Nome": "@Input(\"list-allowselection\") allowSelection: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 16,
+          "Descricao": "Váriavel para habilitar exportação em Excel.",
+          "Nome": "@Input(\"list-allow-excelexport\") allowExcelExport: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 16,
+          "Descricao": "Váriavel para habilitar print.",
+          "Nome": "@Input(\"list-allow-print\") allowPrint: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 16,
+          "Descricao": "123",
+          "Nome": "@Input(\"list-childgrid\") childGrid: GridModel;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 16,
+          "Descricao": "Objeto para definir colunas da tabela.",
+          "Nome": "@Input(\"list-columns\") gridColumns: any;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 10,
+          "ComponenteId": 16,
+          "Descricao": "Objeto para definir menu ao clicar com botão direito do mouse sobre os itens da lista.",
+          "Nome": "@Input(\"list-contextmenuitems\") gridContextMenuItems: ContextMenuItemModel[] = [];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 11,
+          "ComponenteId": 16,
+          "Descricao": "Objeto para definir tipo de filtro. (Tipo: Excel).",
+          "Nome": "@Input(\"list-filtersettings\") gridFilterSettings: Object[];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 12,
+          "ComponenteId": 16,
+          "Descricao": "Objeto responsável por gerar tooltip para o header do componente.",
+          "Nome": "@Input(\"list-headerstooltip\") gridHeadersTooltip: any[];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 13,
+          "ComponenteId": 16,
+          "Descricao": "Váriavel para definir se botões 'Novo', 'Editar' e 'Excluir' será visível.",
+          "Nome": "@Input(\"list-hidedefaultbuttons\") hideDefaultButtons: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 14,
+          "ComponenteId": 16,
+          "Descricao": "String para definir ícone do componente.",
+          "Nome": "@Input(\"list-icon\") icon: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 15,
+          "ComponenteId": 16,
+          "Descricao": "123",
+          "Nome": "@Input(\"list-resourceid\") resourceId: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 16,
+          "ComponenteId": 16,
+          "Descricao": "Objeto para personalizar seleção. Usando CTRL e SHIFT para múltiplas seleções ou de única seleção. (Row, Both, Multiple)",
+          "Nome": "@Input(\"list-selectionoptions\") selectionOptions: SelectionSettingsModel = { mode: 'Row', type: 'Single' };",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 17,
+          "ComponenteId": 16,
+          "Descricao": "Váriavel para habilitar botão delete.",
+          "Nome": "@Input(\"list-showdeletebutton\") showDeleteButton: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 18,
+          "ComponenteId": 16,
+          "Descricao": "Váriavel para habilitar botão editar.",
+          "Nome": "@Input(\"list-showeditbutton\") showEditButton: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 19,
+          "ComponenteId": 16,
+          "Descricao": "Váriavel para habilitar botão 'novo'.",
+          "Nome": "@Input(\"list-shownewbutton\") showNewButton: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 20,
+          "ComponenteId": 16,
+          "Descricao": "Objeto para criar configurações de 'Sort' de acordo com desejado. (Exemplo: Ordem: Crescente, Alfabetica, Custo, Preço, Nome).",
+          "Nome": "@Input(\"list-sortsettings\") gridSortSettings: Object;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 21,
+          "ComponenteId": 16,
+          "Descricao": "Váriavel para preencher dados para o componente.",
+          "Nome": "@Input(\"list-source\") gridItemsSource: Object[];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 22,
+          "ComponenteId": 16,
+          "Descricao": "Váriavel para habilitar filtros avançados.",
+          "Nome": "@Input(\"list-showadvancedfilters\") showAdvancedFilters: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 23,
+          "ComponenteId": 16,
+          "Descricao": "String para definir título do componente.",
+          "Nome": "@Input(\"list-title\") title: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 24,
+          "ComponenteId": 16,
+          "Descricao": "123",
+          "Nome": "@Input(\"loader-image\") loaderImageUrl: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 25,
+          "ComponenteId": 16,
+          "Descricao": "123",
+          "Nome": "@Output() gridDataBound: EventEmitter<Object> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 26,
+          "ComponenteId": 16,
+          "Descricao": "123",
+          "Nome": "@Output() gridQueryCell: EventEmitter<QueryCellInfoEventArgs> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 27,
+          "ComponenteId": 16,
+          "Descricao": "123",
+          "Nome": "@Output() gridRowDataBound: EventEmitter<RowDataBoundEventArgs> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 28,
+          "ComponenteId": 16,
+          "Descricao": "123",
+          "Nome": "@Output() gridRowSelectionChange: EventEmitter<RowSelectEventArgs> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "ComponenteId": 17,
+      "Componente": "loader",
+      "Explicacao": "testando 1234 tesstando explicação componente",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 17,
+          "Descricao": "String para definir a url de imagem de carregamento.",
+          "Nome": "@Input() imageUrl: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 17,
+          "Descricao": "String para definir mensagem no componente.",
+          "Nome": "@Input() message: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "ComponenteId": 18,
+      "Componente": "multiselectdropdown",
+      "Explicacao": "testando 1234 tesstando explicação componente",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 18,
+          "Descricao": "Váriavel para fornecer dados para ao componente.",
+          "Nome": "@Input(\"dataSource\") dataSource: any[];",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 18,
+          "Descricao": "123",
+          "Nome": "@Output(\"change\") changeEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 18,
+          "Descricao": "123",
+          "Nome": "@ViewChild(\"multiselect\") public multiSelectDropDown: MultiSelectComponent;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 18,
+          "Descricao": "Objeto para definir o campo que será utilizado para preencher o componente. (Cargo, Nome, Tipo, Combustível).",
+          "Nome": "@Input(\"fields\") fields: Object = { text: 'Nome', value: 'Id' };",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 18,
+          "Descricao": "String para definir o placeholder do campo 'Pesquisar' dentro do componente.",
+          "Nome": "@Input(\"filterBarPlaceholder\") filterBarPlaceholder: string = \"Pesquisar...\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 18,
+          "Descricao": "String para definir o placeholder do componente.",
+          "Nome": "@Input(\"placeholder\") placeholder: string = null;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 18,
+          "Descricao": "String para definir a altura do Drop Down List.",
+          "Nome": "@Input(\"popupHeight\") popupHeight: string = \"300px\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 18,
+          "Descricao": "String para definir a largura do Drop Down List.",
+          "Nome": "@Input(\"popupWidth\") popupWidth: string = \"100%\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 18,
+          "Descricao": "Várivel para utilizar como value binding.",
+          "Nome": "@Input(\"value\") valueBinding: any;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 10,
+          "ComponenteId": 18,
+          "Descricao": "123",
+          "Nome": "@Output(\"clear-value\") clearValue = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 11,
+          "ComponenteId": 18,
+          "Descricao": "123",
+          "Nome": "@Output(\"created\") createdEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 12,
+          "ComponenteId": 18,
+          "Descricao": "123",
+          "Nome": "@Output(\"filtering\") filteringEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 13,
+          "ComponenteId": 18,
+          "Descricao": "123",
+          "Nome": "@Output(\"keyup.enter\") keyupEnterEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 14,
+          "ComponenteId": 18,
+          "Descricao": "123",
+          "Nome": "@Output(\"open\") openEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 15,
+          "ComponenteId": 18,
+          "Descricao": "123",
+          "Nome": "@Output(\"removing\") removingEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 16,
+          "ComponenteId": 18,
+          "Descricao": "123",
+          "Nome": "@Output(\"select\") selectEvent = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "ComponenteId": 19,
+      "Componente": "navigation",
+      "Explicacao": "Componente responsável por gerar menu vertical.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 19,
+          "Descricao": "Váriavel para preencher dados para o componente. Menu Vertical com informações de ícones, url, nome.",
+          "Nome": "@Input(\"menu-source\") public menuResources: Resource[];",
+          "SecaoId": 1,
+          "Secao": "input-navigation"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 19,
+          "Descricao": "123123",
+          "Nome": "@Output() public iconClicked = new EventEmitter<boolean>();",
+          "SecaoId": 1,
+          "Secao": "output-navigation"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 19,
+          "Descricao": "123",
+          "Nome": "@Input() public HideBadge: boolean;",
+          "SecaoId": 1,
+          "Secao": "input-vertical-menu"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 19,
+          "Descricao": "123",
+          "Nome": "@Output() public menuClicked = new EventEmitter<string>();",
+          "SecaoId": 1,
+          "Secao": "output-vertical-menu"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 19,
+          "Descricao": "Váriavel para habilitar barra de carregamento/progresso.",
+          "Nome": "@Input(\"menu-showprogress\") public menuShowProgress: boolean = true;",
+          "SecaoId": 1,
+          "Secao": "input-navigation"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 19,
+          "Descricao": "Váriavel para habilitar Menu.",
+          "Nome": "@Input(\"menu-show\") public menuShow: boolean = true;",
+          "SecaoId": 1,
+          "Secao": "input-navigation"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 19,
+          "Descricao": "????",
+          "Nome": "@Input(\"menu-collapse\") public menuCollapse: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input-navigation"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 19,
+          "Descricao": "123",
+          "Nome": "@Input() public HideLeftBorder: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input-vertical-menu"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 19,
+          "Descricao": "123",
+          "Nome": "@Input() public ItemDetailsShow: boolean = true;",
+          "SecaoId": 1,
+          "Secao": "input-vertical-menu"
+        },
+        {
+          "Id": 10,
+          "ComponenteId": 19,
+          "Descricao": "123",
+          "Nome": "@Input() public item: any;",
+          "SecaoId": 1,
+          "Secao": "input-vertical-menu"
+        },
+        {
+          "Id": 11,
+          "ComponenteId": 19,
+          "Descricao": "123",
+          "Nome": "@Input() public level = 1;",
+          "SecaoId": 1,
+          "Secao": "input-vertical-menu"
+        },
+        {
+          "Id": 12,
+          "ComponenteId": 19,
+          "Descricao": "123",
+          "Nome": "@Output() public iconClicked = new EventEmitter<boolean>();",
+          "SecaoId": 1,
+          "Secao": "output-vertical-menu"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "ComponenteId": 20,
+      "Componente": "pdvsection",
+      "Explicacao": "Componente PDV Section.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 20,
+          "Descricao": "String para definir título do PDV Section.",
+          "Nome": "@Input(\"section-title\") title: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "ComponenteId": 21,
+      "Componente": "reportviewer",
+      "Explicacao": "testando 1234 tesstando explicação componente",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 21,
+          "Descricao": "String para definir url do report.",
+          "Nome": "@Input() reporturl: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 21,
+          "Descricao": "123",
+          "Nome": "@Output('error') onError = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 21,
+          "Descricao": "String para definir nome do server.",
+          "Nome": "@Input() reportserver: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 21,
+          "Descricao": "String para definir se parâmetros serão visíveis.",
+          "Nome": "@Input() showparameters?: string = \"false\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 21,
+          "Descricao": "Objeto para definir modelo de parâmetros.",
+          "Nome": "@Input() parameters?: any;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 21,
+          "Descricao": "String para definir linguagem.(pt-br, en-us).",
+          "Nome": "@Input() language?: string = \"en-us\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 21,
+          "Descricao": "String para definir comprimento.",
+          "Nome": "@Input() width?: number = 100;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 21,
+          "Descricao": "String para definir altura.",
+          "Nome": "@Input() height?: number = 100;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 21,
+          "Descricao": "String para definir se toolbar será visível.",
+          "Nome": "@Input() toolbar?: string = \"true\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "ComponenteId": 22,
+      "Componente": "searchbar",
+      "Explicacao": "Search Bar",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 22,
+          "Descricao": "123",
+          "Nome": "@Output() doSearch: EventEmitter<string> = new EventEmitter();",
+          "SecaoId": 1,
+          "Secao": "output"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "ComponenteId": 23,
+      "Componente": "secondarylogin",
+      "Explicacao": "testando 1234 tesstando explicação componente",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 23,
+          "Descricao": "123",
+          "Nome": "@ViewChild(\"inputUserName\") inputUser: ElementRef;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "ComponenteId": 24,
+      "Componente": "section",
+      "Explicacao": "Componente utilizado para colocar informações no componente.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 24,
+          "Descricao": "123",
+          "Nome": "@Output(\"clicked-collapsed\") clickCollapsed = new EventEmitter<any>();",
+          "SecaoId": 1,
+          "Secao": "output"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 24,
+          "Descricao": "Váriavel para habilitar collapse do componente.",
+          "Nome": "@Input(\"section-collapsable\") collapsable: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 24,
+          "Descricao": "String para definir o ícone do componente.",
+          "Nome": "@Input(\"section-icon\") icon: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 24,
+          "Descricao": "String para definir o título.",
+          "Nome": "@Input(\"section-title\") title: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 24,
+          "Descricao": "String para definir o título complemento.",
+          "Nome": "@Input(\"section-title-complement\") titleComplement: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 24,
+          "Descricao": "Váriavel para habilitar dividor entre título e conteúdo.",
+          "Nome": "@Input(\"section-showdivider\") showDivider: boolean = true;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 24,
+          "Descricao": "Váriavel para definir se componente estará collapsed.",
+          "Nome": "@Input(\"section-collapsed\") collapsed: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "ComponenteId": 25,
+      "Componente": "sectiontotal",
+      "Explicacao": "testando 1234 tesstando explicação componente",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 25,
+          "Descricao": "String para definir o título.",
+          "Nome": "@Input() title: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 25,
+          "Descricao": "String para definir o tamanho da fonte do título, por padrão '0.96em'.",
+          "Nome": "@Input(\"title-font-size\") titleFontSize: string = \"0.96em\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 25,
+          "Descricao": "String para definir o peso/intensidade da fonte do título, por padrão '0.96em'.",
+          "Nome": "@Input(\"title-font-weight\") titleFontWeight: string = \"0.96em\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 25,
+          "Descricao": "String para definir a cor dos valores.",
+          "Nome": "@Input(\"value-color\") valueColor: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 25,
+          "Descricao": "String para definir o tamanho da fonte do valor monetário, por padrão '1.2em'.",
+          "Nome": "@Input(\"value-font-size\") valueFontSize: string = \"1.2em\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 25,
+          "Descricao": "String para definir o peso/intensidade da fonte do valor monetário, por padrão '800'.",
+          "Nome": "@Input(\"value-font-weight\") valueFontWeight: string = \"800\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "ComponenteId": 26,
+      "Componente": "sidebar",
+      "Explicacao": "testando 1234 tesstando explicação componente",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 26,
+          "Descricao": "Especifica se a barra lateral pode ser fechada ou não quando a área do documento é clicada.",
+          "Nome": "@Input(\"closeOnDocumentClick\") closeOnDocumentClick: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 26,
+          "Descricao": "123",
+          "Nome": "@ViewChild(\"sidebarInstance\") sidebarInstance: SidebarComponent;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 26,
+          "Descricao": "String para definir altura do componente.",
+          "Nome": "@Input(\"height\") height: string = \"220px\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 26,
+          "Descricao": "String para definir o ícone do componente.",
+          "Nome": "@Input(\"icon\") icon: string;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 26,
+          "Descricao": "String para definir posição do componente.",
+          "Nome": "@Input(\"position\") position: string = \"Right\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 26,
+          "Descricao": "Variável para tornar o fundo do fosco.",
+          "Nome": "@Input(\"showBackdrop\") showBackdrop: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 26,
+          "Descricao": "Variável para tornar o componente visível.",
+          "Nome": "@Input(\"sideBarVisible\") sideBarVisible: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 26,
+          "Descricao": "String para definir título do sidebar.",
+          "Nome": "@Input(\"title\") title: string = \"Título Sidebar\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 26,
+          "Descricao": "String para definir título complemento do sidebar.",
+          "Nome": "@Input(\"title-complement\") titleComplement: string = \"\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 10,
+          "ComponenteId": 26,
+          "Descricao": "123",
+          "Nome": "@Input(\"type\") type: string = \"Auto\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 11,
+          "ComponenteId": 26,
+          "Descricao": "String para definir comprimento do componente.",
+          "Nome": "@Input(\"width\") width: string = \"400px\";",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "ComponenteId": 27,
+      "Componente": "textarea",
+      "Explicacao": "testando 1234 tesstando explicação componente",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 27,
+          "Descricao": "String para definir o labelText do textarea.",
+          "Nome": "@Input(\"labelText\") labelText: string = '';",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 2,
+          "ComponenteId": 27,
+          "Descricao": "123",
+          "Nome": "@ViewChild(\"inputTextArea\") inputTextArea: ElementRef;",
+          "SecaoId": 1,
+          "Secao": "viewchild"
+        },
+        {
+          "Id": 3,
+          "ComponenteId": 27,
+          "Descricao": "123",
+          "Nome": " @HostListener('keypress', ['$event']) \n public onKeyPress(e) {\n   if ((e.keyCode || e.which) == 13 && this.preventEnter) {\n     e.preventDefault();\n   }\n   else if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey &&   \n    this.preventEnter) {\n     if (!this.inputTextArea.nativeElement.value.endsWith(\\n))\n      this.inputTextArea.nativeElement.value += '\\n';\n   else\n     e.preventDefault();\n   }\n }",
+          "SecaoId": 1,
+          "Secao": "hostlistener"
+        },
+        {
+          "Id": 4,
+          "ComponenteId": 27,
+          "Descricao": "Número para definir a quantidade máxima de caracteres do texarea.",
+          "Nome": "@Input(\"maxLength\") maxLength: number = 2000;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 5,
+          "ComponenteId": 27,
+          "Descricao": "Número para definir a quantidade mínima de caracteres do texarea.",
+          "Nome": "@Input(\"mixLength\") minLength: number = 0;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 6,
+          "ComponenteId": 27,
+          "Descricao": "Número para definir a quantidade máxima de linhas do texarea.",
+          "Nome": "@Input(\"maxRows\") maxRows: number = 4;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 7,
+          "ComponenteId": 27,
+          "Descricao": "Número para definir a quantidade mínima de linhas do texarea.",
+          "Nome": "@Input(\"minRows\") minRows: number = 1;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 8,
+          "ComponenteId": 27,
+          "Descricao": "Habilitar para utilizar tecla 'Enter' do teclado.",
+          "Nome": "@Input(\"preventEnter\") preventEnter: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 9,
+          "ComponenteId": 27,
+          "Descricao": "Variável para mostrar valor máximo de caracteres.",
+          "Nome": "@Input(\"showMaxLimitCharacter\") showMaxLimitCharacter: boolean = true;",
+          "SecaoId": 1,
+          "Secao": "input"
+        },
+        {
+          "Id": 10,
+          "ComponenteId": 27,
+          "Descricao": "Variável para mostrar valor mínimo de caracteres.",
+          "Nome": "@Input(\"showMinLimitCharacter\") showMinLimitCharacter: boolean = false;",
+          "SecaoId": 1,
+          "Secao": "input"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "ComponenteId": 28,
+      "Componente": "messagebox",
+      "Explicacao": "Componente utilizado para gerar uma mensagem no sistema.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 28,
+          "Descricao": "123",
+          "Nome": "@Input(\"labelText\") labelText: string = '';",
+          "SecaoId": 1,
+          "Secao": "teste"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "ComponenteId": 29,
+      "Componente": "errordetails",
+      "Explicacao": "Componente utilizado para gerar um Dialog contendo um aviso sobre o erro gerado no sistema.",
+      "Dados": [
+        {
+          "Id": 1,
+          "ComponenteId": 29,
+          "Descricao": "123",
+          "Nome": "@Input(\"labelText\") labelText: string = '';",
+          "SecaoId": 1,
+          "Secao": "teste"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,329 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false"
+               >
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/public-api';
+          import &#123; DocTextareaComponent &#125; from './doc-textarea.component';
+          import &#123; DocTextareaRoutingModule &#125; from './doc-textarea-routing.module';
+          <span>import &#123; TextAreaModule &#125; from 'projects/virtue/lib/public-api';</span>
+
+          @NgModule(&#123;
+            declarations: [
+              DocTextareaComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>TextAreaModule,</span>
+
+              // Local
+              DocTextareaRoutingModule
+            ]
+          &#125;)
+          export class DocTextareaModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+            &lt;div fxLayout="row"
+                fxLayoutGap="5px"&gt;
+
+              &lt;!-- DESCRIÇÃO --&gt;
+              &lt;virtue-textarea [showMinLimitCharacter]='true'
+                              formControlName="Descricao"
+                              fxFlex
+                              labelText="Descrição/Observação"
+                              [maxLength]=1000
+                              [mixLength]=0
+                              [minRows]=4
+                              [maxRows]=4&gt;
+              &lt;/virtue-textarea&gt;
+
+            &lt;/div&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <div [formGroup]="formData"
+             fxLayout="row"
+             fxLayoutGap="5px">
+
+          <!-- DESCRIÇÃO -->
+          <virtue-textarea [showMinLimitCharacter]='true'
+                           formControlName="Descricao"
+                           fxFlex
+                           labelText="Descrição/Observação"
+                           [maxLength]=1000
+                           [mixLength]=10
+                           [minRows]=4
+                           [maxRows]=4
+                           [showMinLimitCharacter]="true">
+          </virtue-textarea>
+
+        </div>
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableHostListener"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [tituloComponente]="componentitle"
+                 [paramComponente]="path_component"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #sectiontotalhtml>
+  <pre>
+    <code>
+      &lt;mat-form-field class="field-textarea"
+                          fxFlex&gt;
+
+        &lt;mat-label *ngIf="labelText !== '' && labelText !== null"&gt;&#123; &#123;labelText&#125;&#125;
+        &lt;/mat-label&gt;
+
+          &lt;textarea #inputTextArea
+                    (keypress)="onKeyPress($event)"
+                    [cdkAutosizeMinRows]='minRows'
+                    [cdkAutosizeMaxRows]='maxRows'
+                    [formControl]='control'
+                    [maxlength]='maxLength'
+                    [minlength]='minLength'
+                    cdkTextareaAutosize
+                    fxFlex
+                    matInput&gt;
+          &lt;/textarea&gt;
+
+          &lt;mat-hint align="start"
+                    class="hint-start"&gt;
+            &lt;div *ngIf='showMinLimitMessage'&gt;Obrigatório mínimo de &lt;b&gt;&#123; &#123;minCaracteresRemaining&#125;&#125;&lt;/b&gt;
+            &lt;/div&gt;
+              &lt;ng-content select="[input-errors]"&gt;
+              &lt;/ng-content&gt;
+          &lt;/mat-hint&gt;
+
+          &lt;mat-hint *ngIf="showMaxLimitCharacter && maxCaracteresRemaining &gt; 0 && control.enabled"
+                    align="end"&gt;&lt;b&gt;&#123; &#123;maxCaracteresRemaining&#125;&#125;&lt;/b&gt; caracteres restantes
+          &lt;/mat-hint&gt;
+
+      &lt;/mat-form-field&gt;</code>
+  </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #sectiontotalts>
+  <pre>
+    <code>
+        // Angular
+        import &#123; Component, ViewEncapsulation, Injector, ViewChild, ElementRef, forwardRef, Input, Renderer2, HostListener &#125; from '@angular/core';
+        import &#123; NG_VALUE_ACCESSOR, &#125; from '@angular/forms';
+
+        // Virtue
+        import &#123; ValueAccessor &#125; from '@virtuetec/lib/core';
+
+        @Component(&#123;
+          selector: 'virtue-textarea',
+          templateUrl: './textarea.component.html',
+          styleUrls: ['./textarea.component.scss'],
+          encapsulation: ViewEncapsulation.None,
+          providers: [&#123;
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => TextAreaComponent),
+            multi: true
+          &#125;]
+        &#125;)
+        export class TextAreaComponent extends ValueAccessor &#123;
+
+          //#region Constructor
+
+          constructor(
+            protected _el: ElementRef,
+            protected _injector: Injector,
+            protected _renderer: Renderer2) &#123;
+            super(_el, _injector, _renderer);
+          &#125;
+
+          //#endregion
+
+          //#region Input Properties
+
+          @Input("labelText") labelText: string = '';
+          @Input("maxLength") maxLength: number = 2000;
+          @Input("mixLength") minLength: number = 0;
+          @Input("maxRows") maxRows: number = 4;
+          @Input("minRows") minRows: number = 1;
+          @Input("preventEnter") preventEnter: boolean = false;
+          @Input("showMaxLimitCharacter") showMaxLimitCharacter: boolean = true;
+          @Input("showMinLimitCharacter") showMinLimitCharacter: boolean = false;
+
+          //#endregion
+
+          //#region Public Methods
+
+          @HostListener('keypress', ['$event'])
+          public onKeyPress(e) &#123;
+            if ((e.keyCode || e.which) == 13 && this.preventEnter) &#123;
+              e.preventDefault();
+            &#125;
+            else if ((e.keyCode == 10 || e.keyCode == 13) && e.ctrlKey && this.preventEnter) &#123;
+              if (!this.inputTextArea.nativeElement.value.endsWith('\n'))
+                this.inputTextArea.nativeElement.value += '\n';
+              else
+                e.preventDefault();
+            &#125;
+          &#125;
+
+          //#endregion
+
+          //#region Public Getters
+
+          public get minCaracteresRemaining(): number &#123;
+            return (this.minLength - this.control?.value?.length);
+          &#125;
+
+          public get maxCaracteresRemaining(): number &#123;
+            return (this.maxLength - this.control?.value?.length);
+          &#125;
+
+          public get showMinLimitMessage(): boolean &#123;
+
+            // Se o campo for obrigatório, sempre mostra a mensagem de quantidade mínima
+            if (this.control?.errors?.['required'] && this.minCaracteresRemaining >= 1)
+              return true;
+
+            // Se estiver marcado para mostrar a quantidade mínima e o campo não estiver fazio
+            if (this.showMinLimitCharacter && this.control?.value?.length > 0 && this.minCaracteresRemaining >= 1)
+              return true;
+
+            return false;
+
+          &#125;
+
+          //#endregion
+
+          //#region View Objects
+
+          @ViewChild("inputTextArea") inputTextArea: ElementRef;
+
+          //#endregion
+
+        &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #sectiontotalservice>
+  <pre>
+    <code>
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="sectiontotalhtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="sectiontotalts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="SERVICE">
+        <ng-container [ngTemplateOutlet]="sectiontotalservice">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <h3>
+      Exemplo {{ componentitle }}
+    </h3>
+    <div style="justify-content: center;">
+
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,182 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/commom.modules';
+          import &#123; DocFielderrorComponent &#125; from './doc-fielderror.component';
+          import &#123; DocFielderrorRoutingModule &#125; from './doc-fielderror-routing.module';
+          <span>import &#123; FieldErrorModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+
+          @NgModule(&#123;
+            declarations: [
+              DocFielderrorComponent
+            ],
+            imports: [
+
+              // Library
+              CommomModules,
+              <span>FieldErrorModule,</span>
+
+              // Local
+              DocFielderrorRoutingModule
+            ]
+          &#125;)
+          export class DocFielderrorModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+        </code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #fielderrorhtml>
+  <pre>
+    <code>
+        &lt;div class="virtue-error"&gt;
+          &lt;ng-content&gt;&lt;/ng-content&gt;
+        &lt;/div&gt;</code>
+      </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #fielderrorts>
+  <pre>
+    <code>
+          // Angular
+          import &#123; Component, Input, ViewEncapsulation &#125; from '@angular/core';
+
+          @Component(&#123;
+            selector: 'virtue-error',
+            templateUrl: './fielderror.component.html',
+            styleUrls: ['./fielderror.component.scss'],
+            encapsulation: ViewEncapsulation.None
+          &#125;)
+          export class FieldErrorComponent &#123;
+            @Input() invalid: boolean;
+            @Input() errorsrequired: boolean;
+          &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #fielderrorcss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code </h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="fielderrorhtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="fielderrorts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="CSS">
+        <ng-container [ngTemplateOutlet]="fielderrorcss">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+
+  </div>
+</div> -->

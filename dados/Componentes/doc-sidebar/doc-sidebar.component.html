@@ -1,0 +1,391 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/public-api';
+          import &#123; DocSidebarRoutingModule &#125; from './doc-sidebar-routing.module';
+          import &#123; DocSidebarComponent &#125; from './doc-sidebar.component';
+          <span>import &#123; SidebarModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+          @NgModule(&#123;
+            declarations: [
+              DocSidebarComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>SidebarModule,</span>
+
+              // Local
+              DocSidebarRoutingModule
+            ]
+          &#125;)
+          export class DocSidebarModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+              &lt;virtue-sidebar #sidebar
+                            [sideBarVisible]="openSidebar"
+                            icon="fad fa-comment-alt-smile"
+                            [showBackdrop]="false"
+                            title="Central de Mensagens"
+                            title-complement="Chat, Alertas, Informações do Sistema, ..."
+                            width="1000px"&gt;
+
+              &lt;div sidebar-content&gt;
+
+                &lt;div fxLayout="row"
+                    fxLayoutAlign="space-between stretch"&gt;
+
+                  &lt;!-- TOTAL ENTRADAS  --&gt;
+                  &lt;virtue-sectiontotal fxFlex
+                                      title="A - Entradas (R$)"
+                                      value-color="#3c763d"&gt;
+                    {{totalEntradas | number:'.2-2'}}
+                  &lt;/virtue-sectiontotal&gt;
+
+                  &lt;!-- TOTAL SAÍDAS  --&gt;
+                  &lt;virtue-sectiontotal fxFlex
+                                      title="B - Saídas (R$)"
+                                      value-color="#a94442"&gt;
+                    {{totalSaidas | number:'.2-2'}}
+                  &lt;/virtue-sectiontotal&gt;
+
+                  &lt;!-- SALDO  --&gt;
+                  &lt;virtue-sectiontotal fxFlex
+                                      title="(A-B) Saldo (R$)"
+                                      value-color="#a94442"&gt;
+                    {{(totalEntradas - totalSaidas) | number:'.2-2'}}
+                  &lt;/virtue-sectiontotal&gt;
+
+                &lt;/div&gt;
+
+              &lt;/div&gt;
+            &lt;/virtue-sidebar&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <virtue-sidebar #sidebar
+                        [sideBarVisible]="openSidebar"
+                        [showBackdrop]="false"
+                        icon="fad fa-comment-alt-smile"
+                        title="Central de Mensagens"
+                        title-complement="Chat, Alertas, Informações do Sistema, ..."
+                        width="1000px">
+
+          <div sidebar-content>
+
+            <div fxLayout="row"
+                 fxLayoutAlign="space-between stretch">
+
+              <!-- TOTAL ENTRADAS  -->
+              <virtue-sectiontotal fxFlex
+                                   title="A - Entradas (R$)"
+                                   value-color="#3c763d">
+                {{totalEntradas | number:'.2-2'}}
+              </virtue-sectiontotal>
+
+              <!-- TOTAL SAÍDAS  -->
+              <virtue-sectiontotal fxFlex
+                                   title="B - Saídas (R$)"
+                                   value-color="#a94442">
+                {{totalSaidas | number:'.2-2'}}
+              </virtue-sectiontotal>
+
+              <!-- SALDO  -->
+              <virtue-sectiontotal fxFlex
+                                   title="(A-B) Saldo (R$)"
+                                   value-color="#a94442">
+                {{(totalEntradas - totalSaidas) | number:'.2-2'}}
+              </virtue-sectiontotal>
+
+            </div>
+
+          </div>
+        </virtue-sidebar>
+
+        <button class="button-example mat-elevation-z4"
+                mat-button
+                (click)="openChat()"><span>TEST
+            SIDEBAR COMPONENT</span></button>
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableHostListener"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #sectiontotalhtml>
+  <pre>
+    <code>
+        &lt;ejs-sidebar #sidebarInstance
+                      *ngIf="sideBarVisible"
+                      (click)="onChangeStatus()"
+                      (created)="onCreate()"
+                      [closeOnDocumentClick]="closeOnDocumentClick"
+                      [height]="height"
+                      [matTooltip]=""
+                      [position]="position"
+                      [showBackdrop]="showBackdrop"
+                      [width]="width"
+                      id="apiSidebar"
+                      class="default-sidebar"&gt;
+
+            &lt;virtue-header [header-icon]='icon'
+                              [header-showdivider]='true'
+                              [header-title]='title'
+                              [header-titlecomplement]='titleComplement'&gt;
+
+              &lt;div class="button-actions"
+                      fxLayout="row"
+                      header-actions&gt;
+
+                  &lt;ng-content select="[header-actions]"&gt;&lt;/ng-content&gt;
+
+                  &lt;button (click)="sidebarClose()"
+                             class="close"
+                             matTooltip="Fechar [ESC]"
+                             tabindex=-1
+                             type="button"&gt;
+                    &lt;i class="fad fa-times-square"&gt;&lt;/i&gt;
+                  &lt;/button&gt;
+
+              &lt;/div&gt;
+
+            &lt;/virtue-header&gt;
+
+          &lt;div class="content"&gt;
+            &lt;ng-content select="[sidebar-content]"&gt;&lt;/ng-content&gt;
+          &lt;/div&gt;
+
+        &lt;/ejs-sidebar&gt;</code>
+  </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #sectiontotalts>
+  <pre>
+    <code>
+        // Angular
+        import &#123; AfterViewInit, ElementRef, EventEmitter, Injector, Input, OnInit, Output, Renderer2, ViewChild &#125; from "@angular/core";
+        import &#123; Component, ViewEncapsulation &#125; from "@angular/core";
+        import &#123; NG_VALUE_ACCESSOR &#125; from "@angular/forms";
+        import &#123; MatDialog &#125; from "@angular/material/dialog";
+        import &#123; SidebarComponent &#125; from "@syncfusion/ej2-angular-navigations";
+
+        // Virtue
+        import &#123; ValueAccessor &#125; from '@virtuetec/lib/core';
+
+        @Component(&#123;
+          selector: "virtue-sidebar",
+          templateUrl: './sidebar.component.html',
+          styleUrls: ['./sidebar.component.scss'],
+          encapsulation: ViewEncapsulation.None,
+          providers: [
+            &#123;
+              provide: NG_VALUE_ACCESSOR,
+              useExisting: SidebarComponent,
+              multi: true
+            &#125;
+          ]
+        &#125;)
+        export class VSidebarComponent extends ValueAccessor implements AfterViewInit, OnInit &#123;
+
+          //#region Constructor
+
+          constructor(
+            protected _dialog: MatDialog,
+            protected _el: ElementRef,
+            protected _injector: Injector,
+            protected _renderer: Renderer2) &#123;
+            super(_el, _injector, _renderer);
+          &#125;
+
+          ngOnInit(): void &#123;
+            this.sidebarClose();
+          &#125;
+
+          ngAfterViewInit(): void &#123;
+
+          &#125;
+
+          //#endregion
+
+          //#region Event Emitters
+
+
+          //#endregion
+
+          //#region Input Properties
+
+          @Input("closeOnDocumentClick") closeOnDocumentClick: boolean = false;
+          @Input("height") height: string = "220px";
+          @Input("icon") icon: string;
+          @Input("position") position: string = "Right";
+          @Input("showBackdrop") showBackdrop: boolean = false;
+          @Input("sideBarVisible") sideBarVisible: boolean = false;
+          @Input("title") title: string = "Título Sidebar";
+          @Input("title-complement") titleComplement: string = "";
+          @Input("type") type: string = "Auto";
+          @Input("width") width: string = "400px";
+
+          //#endregion
+
+          //#region Public Methods
+
+          public onChangeStatus(): void &#123;
+
+          &#125;
+
+          public onCreate(): void &#123;
+            //this.sidebarInstance.hide();
+          &#125;
+
+          public sidebarClose(): void &#123;
+            this.sidebarInstance?.hide();
+          &#125;
+
+          public sidebarOpen(): void &#123;
+            this.sideBarVisible = true;
+            this.sidebarInstance?.toggle();
+          &#125;
+
+          //#endregion
+
+          //#region Public Properties
+
+
+          //#endregion
+
+          //#region View Objects
+
+          @ViewChild("sidebarInstance") sidebarInstance: SidebarComponent;
+
+          //#endregion
+
+        &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #sectiontotalservice>
+  <pre>
+    <code>
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="sectiontotalhtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="sectiontotalts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="SERVICE">
+        <ng-container [ngTemplateOutlet]="sectiontotalservice">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <h3>
+      Exemplo {{ componentitle }}
+    </h3>
+    <div style="justify-content: center;">
+
+    </div>
+  </div>
+</div> -->

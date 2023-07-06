@@ -1,0 +1,512 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-stretch-tabs="false"
+               mat-align-tabs="start">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle">
+
+      </doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar o {{ componentitle | NameModule }} adicionando no
+        modulo
+        destino:</p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          <span>import &#123; ButtonSpeedDialModule &#125; from 'projects/virtue/lib/components/buttonspeeddial/buttonspeeddial.module';</span>
+          import &#123; DocButtonspeeddialRoutingModule &#125; from './doc-buttonspeeddial-routing.module';
+          import &#123; DocButtonspeeddialComponent &#125; from './doc-buttonspeeddial.component';
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/commom.modules';
+
+          @NgModule(&#123;
+            declarations: [
+              ExemploDestinoComponent
+            ],
+            imports: [
+
+              // Library
+              <span>ButtonSpeedDialModule,</span>
+              CommomModules,
+
+              // Local
+              DocButtonspeeddialRoutingModule
+            ]
+          &#125;)
+          export class ExemploDestinoModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+          &lt;virtue-speeddial headTextModal="Legenda - PDV" labelText="Legenda" marginBottom="75px" marginRight="10px"&gt;
+
+             &lt;div dialog-modal fxLayout="column" fxLayoutGap=5px&gt;
+
+               &lt;span&gt; &lt;strong&gt;(Ctrl + F2) &lt;/strong&gt; Venda Própria &lt;/span&gt;
+               &lt;span&gt; &lt;strong&gt;(Alt + F2) &lt;/strong&gt; Cliente Especial &lt;/span&gt;
+               &lt;span&gt; &lt;strong&gt;(Alt + G) &lt;/strong&gt; Abrir Gaveta (quando opção no PDV ativada) &lt;/span&gt;
+
+             &lt;/div&gt;
+
+           &lt;/virtue-speeddial&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <virtue-speeddial headTextModal="Legenda - PDV"
+                          labelText="Legenda">
+
+          <div dialog-modal
+               fxLayout="column"
+               fxLayoutGap=5px>
+
+            <span><strong>(Ctrl + F2)</strong> Venda Própria</span>
+            <span><strong>(Alt + F2)</strong> Cliente Especial</span>
+            <span><strong>(Alt + G)</strong> Abrir Gaveta (quando opção no PDV ativada)</span>
+
+          </div>
+
+        </virtue-speeddial>
+      </div>
+
+      <div id="diretivas">
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+
+  </div>
+</ng-template>
+
+
+<!------------------------- TEMPLATE 2 ----------------------------------->
+<!------------------------- TEMPLATE 2 ----------------------------------->
+<!------------------------- TEMPLATE 2 ----------------------------------->
+
+<ng-template #api>
+  <div class="content-sidenav-right">
+
+    <div class="api">
+
+      <h3 id="buttonspeeddial"> API referencia para Button Speed Dial </h3>
+
+      <h4>Angular Componentes</h4>
+      <pre>
+          <code>
+            import  &#123; Component, ViewEncapsulation, OnInit, Injector, ViewChild, ElementRef, forwardRef, Input, Renderer2, AfterViewInit &#125; from '@angular/core';
+            import  &#123; NG_VALUE_ACCESSOR, &#125; from '@angular/forms';</code>
+        </pre>
+
+      <h4>Sync Fusion</h4>
+      <pre>
+          <code>
+            import  &#123; SpeedDialComponent, SpeedDialItemModel &#125; from '@syncfusion/ej2-angular-buttons';</code>
+        </pre>
+
+      <h4>Virtue Library</h4>
+      <pre>
+          <code>
+            import  &#123; ValueAccessor &#125; from '@virtuetec/lib/core';</code>
+        </pre>
+
+      <h3 id="customfilter"> Component </h3>
+
+      <p>Decorador que marca uma classe como um componente Angular e fornece metadados de configuração que determinam
+        como o componente deve ser processado, instanciado e usado em tempo de execução.</p>
+
+      <h3> View Encapsulation </h3>
+
+      <p>Remove a regra do encapsulamento do CSS para o componente e adiciona as regras no estilo global.</p>
+
+      <h3> Constructor </h3>
+
+      <pre>
+        <code>
+          constructor(
+          protected _el: ElementRef,
+          protected _injector: Injector,
+          protected _renderer: Renderer2) &#123;
+          super(_el, _injector, _renderer);
+        &#125;
+        </code>
+      </pre>
+
+
+
+      <h3> Diretivas </h3>
+      <mat-divider></mat-divider>
+
+      <br>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <div class="side-nav">
+      <mat-nav-list class="sidenav-right-api">
+        <a href="/doc-buttonspeeddial#buttonspeeddial">Componente Button Speed Dial</a>
+        <a href="/autocomplete#customfilter">Adding a custom filter</a>
+        <a href="/autocomplete#settingseparate">Setting separate control and display values</a>
+        <a href="/autocomplete#automatically">Automatically highlighting the first option</a>
+        <a href="/autocomplete#autocomplete"> Autocomplete on a custom input element </a>
+        <a href="/autocomplete#attaching"> Attaching the autocomplete panel to a different element </a>
+        <a href="/autocomplete#keyboard"> Keyboard interaction </a>
+        <a href="/autocomplete#options"> Option groups </a>
+        <a href="/autocomplete#accessibility"> Accessibility </a>
+      </mat-nav-list>
+    </div>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!------------------------- TEMPLATE 3 ----------------------------------->
+<!------------------------- TEMPLATE 3 ----------------------------------->
+<!------------------------- TEMPLATE 3 ----------------------------------->
+<ng-template #example>
+  <div class="content-sidenav-right">
+
+    <div class="overview">
+
+      <h3 id="buttonspeeddial"> Componente Button Speed Dial </h3>
+
+      <p>Componente responsável pela geração de legendas dentro dos componentes da aplicação.
+      </p>
+
+      <br>
+
+      <div class="border-box">
+
+        <div class="header-box-button-speed-dial">
+          <span class="header-title-button-speed-dial">
+            <h3>Button Speed Dial</h3>
+          </span>
+          <span class="example-button-container">
+            <button (click)="hiddenTabGroupButton()"
+                    mat-fab
+                    aria-label="Example icon button with a heart icon">
+              <!-- CONFIGURAR BOTAO COM FONTAWESOME -->
+              <i class="fas fa-code">
+                <p style="font-weight: bold; font-size: 25px;">
+
+                </p>
+              </i>
+            </button>
+          </span>
+        </div>
+
+        <div *ngIf="buttonShow">
+          <mat-tab-group>
+            <mat-tab label="HTML">
+              <ng-container [ngTemplateOutlet]="buttonhtml">
+              </ng-container>
+            </mat-tab>
+            <mat-tab label="TYPESCRIPT">
+              <ng-container [ngTemplateOutlet]="buttonts">
+              </ng-container>
+            </mat-tab>
+            <mat-tab label="CSS">
+              <ng-container [ngTemplateOutlet]="buttoncss">
+              </ng-container>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div style="justify-content: center;">
+          <h1 style="text-align: center;">COLOCAR EXEMPLO DE BOTÃO</h1>
+        </div>
+
+      </div>
+
+      <br>
+
+      <div class="border-autocomplete">
+      </div>
+
+      <h3 id="customfilter"> Adding a custom filter </h3>
+
+      <p>At this point, the autocomplete panel should be toggleable on focus and options should be selectable. But if we
+        want our options to filter when we type, we need to add a custom filter.</p>
+
+      <h3 class="title-autocomplete">Filter autocomplete</h3>
+
+
+      <h3 id="settingseparate"><strong> Setting separate control and display values </strong></h3>
+
+      <p>If you want the option's control value (what is saved in the form) to be different than the option's display
+        value (what is displayed in the text field), you'll need to set the displayWith property on your autocomplete
+        element. A common use case for this might be if you want to save your data as an object, but display just one of
+        the option's string properties.</p>
+
+      <br>
+
+      <h3 id="automatically"><strong> Automatically highlighting the first option </strong></h3>
+
+      <p>If your use case requires for the first autocomplete option to be highlighted when the user opens the panel,
+        you
+        can do so by setting the autoActiveFirstOption input on the mat-autocomplete component. This behavior can be
+        configured globally using the MAT_AUTOCOMPLETE_DEFAULT_OPTIONS injection token.
+      </p>
+
+      <br>
+
+      <h3 id="autocomplete"><strong> Autocomplete on a custom input element </strong></h3>
+
+      <p>While mat-autocomplete supports attaching itself to a mat-form-field, you can also set it on any other input
+        element using the matAutocomplete attribute. This allows you to customize what the input looks like without
+        having
+        to bring in the extra functionality from mat-form-field.
+      </p>
+
+      <h3 id="options"><strong> Option groups </strong></h3>
+
+      <p>mat-option can be collected into groups using the mat-optgroup element:</p>
+
+      <div class="border-autocomplete">
+        <pre class="code-html">
+
+        &lt;mat-autocomplete #autoGroup="matAutocomplete"&gt;
+         &lt;mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter"&gt;
+            &lt;mat-option *ngFor="let name of group.names" [value]="name"&gt;
+              {{<code highlight="name"></code>}}
+              &lt;/mat-option&gt;
+          &lt;/mat-optgroup&gt;
+        &lt;/mat-autocomplete&gt;
+        </pre>
+      </div>
+
+      <br>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [tituloComponente]="componentitle"
+                 [paramComponente]="path_component"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #buttonhtml>
+  <pre>
+    <code>
+    &lt;div class="control-section"&gt;
+          &lt;button #popupSpeeddial
+                  [items]="items"
+                  [ngStyle]="styleObject()"
+                  content='&lt;span class="text-container"&gt;&lt;span class="text-internal"&gt;&nbsp;&#123; &#123;labelText&#125;&#125;&lt;/span&gt;&lt;/span&gt;'
+                  cssClass="e-info popupSpeedDial speeddial-hover"
+                  ejs-speeddial
+                  openIconCss="e-icons &#123; &#123; iconButton &#125;&#125;"
+                  popupTemplate="#popupTemplate"
+                  position="BottomRight"&gt;
+
+            &lt;ng-template #popupTemplate&gt;
+              &lt;div class="popupContent"&gt;
+                &lt;div [ngStyle]="styleObject()" class="speeddial-form"&gt;
+                  &lt;div class="head"&gt;
+                    &lt;div class="textEle"&gt;&#123; &#123;headTextModal&#125;&#125;&lt;/div&gt;
+                    &lt;div class="iconEle"&gt;
+                      &lt;span class="speeddial-icons speeddial-icon-close closeicon"
+                            (click)="closeClick()"&gt;&lt;/span&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class="content"&gt;
+                    &lt;div fxLayout="row"
+                        fxLayoutGap="5px"&gt;
+
+                      &lt;ng-content select="[dialog-modal]"&gt;&lt;/ng-content&gt;
+
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/ng-template&gt;
+
+          &lt;/button&gt;
+        &lt;/div&gt;</code>
+    </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #buttonts>
+  <pre>
+    <code>
+          // Angular
+          import  &#123; Component, ViewEncapsulation, OnInit, Injector, ViewChild, ElementRef, forwardRef, Input, Renderer2, AfterViewInit &#125; from '@angular/core';
+          import  &#123; NG_VALUE_ACCESSOR, &#125; from '@angular/forms';
+
+          // SyncFusion
+          import  &#123; SpeedDialComponent, SpeedDialItemModel &#125; from '@syncfusion/ej2-angular-buttons';
+
+          // Virtue
+          import  &#123; ValueAccessor &#125; from '@virtuetec/lib/core';
+
+          @Component( &#123;
+            selector: 'virtue-speeddial',
+            templateUrl: './buttonspeeddial.component.html',
+            styleUrls: ['./buttonspeeddial.component.scss'],
+            encapsulation: ViewEncapsulation.None,
+            providers: [ &#123;
+              provide: NG_VALUE_ACCESSOR,
+              useExisting: forwardRef(() => ButtonSpeedDialComponent),
+              multi: true
+            &#125;]
+          &#125;)
+          export class ButtonSpeedDialComponent extends ValueAccessor implements OnInit, AfterViewInit  &#123;
+
+            //#region Constructor
+
+            constructor(
+              protected _el: ElementRef,
+              protected _injector: Injector,
+              protected _renderer: Renderer2)  &#123;
+              super(_el, _injector, _renderer);
+            &#125;
+
+            //#endregion
+
+            //#region AfterViewInit
+
+            ngAfterViewInit(): void  &#123;
+
+            &#125;
+
+            //#endregion
+
+            //#region Implementation OnInit
+
+            ngOnInit(): void  &#123;
+              if (this.control != null)
+                this.control.disable();
+            &#125;
+
+            //#endregion
+
+            //#region Input Properties
+
+
+            //#endregion
+
+            //#region Public Methods
+
+            public closeClick()  &#123;
+              this.speeddialObj.hide();
+            &#125;
+
+            public styleObject(): Object  &#123;
+              return  &#123; 'margin-bottom': this.marginBottom, 'margin-right': this.marginRight &#125;;
+            &#125;
+
+            public submitClick()  &#123;
+              this.speeddialObj.hide();
+            &#125;
+
+            //#endregion
+
+            //#region View Objects
+
+            @Input('headTextModal') headTextModal: string = 'HEAD NÃO INFORMADO';
+            @Input('iconButton') iconButton: string = 'e-table-of-content';
+            @Input('itemsSource') items: SpeedDialItemModel[] = [];
+            @Input('labelText') labelText: string = 'LABEL NÃO INFORMADO';
+            @Input('marginBottom') marginBottom: string = "75px";
+            @Input('marginRight') marginRight: string = "10px";
+
+            @ViewChild('popupSpeeddial') public speeddialObj: SpeedDialComponent;
+
+            //#endregion
+          &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #buttoncss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-button-speed-dial">
+
+        <div class="header-box-button-speed-dial">
+          <span class="header-title-button-speed-dial">
+            <h3 class="header-box-h3">{{ componentitle }} Code</h3>
+          </span>
+          <span class="button-tab-hidden">
+            <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+              <i class="fas fa-code">
+              </i>
+            </button>
+          </span>
+        </div>
+
+        <div class="mat-tab-group-button-speed-dial" *ngIf="buttonShow">
+
+          <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+            <mat-tab label="HTML">
+              <ng-container [ngTemplateOutlet]="buttonhtml">
+              </ng-container>
+            </mat-tab>
+            <mat-tab label="TYPESCRIPT">
+              <ng-container [ngTemplateOutlet]="buttonts">
+              </ng-container>
+            </mat-tab>
+          </mat-tab-group>
+
+          <mat-divider></mat-divider>
+
+
+        </div>
+      </div> -->

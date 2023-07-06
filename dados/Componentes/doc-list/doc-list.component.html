@@ -1,0 +1,808 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <p class="observation">   *Observação: GridModule, HeaderModule e LoaderModule são importados dentro do {{
+        componentitle | NameModule }} para utilização do mesmo.</p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/public-api';
+          import &#123; DocListComponent &#125; from './doc-list.component';
+          import &#123; DocListRoutingModule &#125; from './doc-list-routing.module';
+          <span>import &#123; ListModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+          @NgModule(&#123;
+            declarations: [
+              DocListComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>ListModule,</span>
+
+              // Local
+              DocListRoutingModule
+            ]
+          &#125;)
+          export class DocListModule &#123; &#125;</code>
+      </pre>
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+          &lt;div class="virtue-list-example"&gt;
+
+            &lt;virtue-list  [list-allowselection]=true
+                          [list-allow-excelexport]=true
+                          [list-allow-pdfexport]=true
+                          [list-allow-print]=true
+                          [list-columns]='gridColumns'
+                          [list-contextmenuitems]='gridContextMenuItems'
+                          [list-showdeletebutton]='true'
+                          [list-showeditbutton]='true'
+                          [list-shownewbutton]='true'
+                          [list-source]='gridItemsSource'
+                          list-icon='fad fa-bullhorn'
+                          list-title='Lista Cargos Teste'
+                          [data-loaded]="true"&gt;
+
+                          &lt;div list-actions&gt;
+                            &lt;button *ngIf='true'
+                                    [matMenuTriggerFor]="toolsMenu"
+                                    mat-icon-button&gt;
+                              &lt;i class="fad fa-tools"&gt;&lt;/i&gt;
+                            &lt;/button&gt;
+                          &lt;/div&gt;
+
+            &lt;/virtue-list&gt;
+
+          &lt;/div&gt;
+
+          &lt;div list-actions&gt;
+
+            &lt;mat-menu #toolsMenu="matMenu"
+                      [overlapTrigger]="false"&gt;
+
+              &lt;button *ngIf='true'
+                      (click)='openCalcularForm()'
+                      mat-menu-item&gt;
+                &lt;i class="fad fa-calculator"&gt;&lt;/i&gt;
+                &lt;span class="menu-title"&gt;Calcular Comissionamentos&lt;/span&gt;
+              &lt;/button&gt;
+
+              &lt;button *ngIf='true'
+                      (click)='openExpurgarForm()'
+                      mat-menu-item&gt;
+                &lt;i class="fad fa-inbox-out"&gt;&lt;/i&gt;
+                &lt;span class="menu-title"&gt;Expurgar Comissionamentos&lt;/span&gt;
+              &lt;/button&gt;
+
+            &lt;/mat-menu&gt;
+          &lt;/div&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <div class="virtue-list-example">
+
+          <virtue-list (gridRowSelectionChange)='onGridRowSelectionChange($event)'
+                       [data-loaded]="true"
+                       [list-allowselection]=true
+                       [list-allow-excelexport]=true
+                       [list-allow-pdfexport]=true
+                       [list-allow-print]=true
+                       [list-columns]='gridColumns'
+                       [list-contextmenuitems]='gridContextMenuItems'
+                       [list-hidedefaultbuttons]="false"
+                       [list-showdeletebutton]='true'
+                       [list-showeditbutton]='true'
+                       [list-shownewbutton]='true'
+                       [list-source]='gridItemsSource'
+                       list-icon='fad fa-bullhorn'
+                       list-title='Lista Cargos Teste'>
+
+            <div list-actions>
+              <button *ngIf='true'
+                      [matMenuTriggerFor]="toolsMenu"
+                      mat-icon-button>
+                <i class="fad fa-tools"></i>
+              </button>
+            </div>
+
+          </virtue-list>
+
+        </div>
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #listhtml>
+  <pre>
+    <code>
+      &lt;mat-form-field [ngClass]='showButtonModal ? "input-with-modal" : ""'
+                         fxFlex
+                         tabindex=-1&gt;
+
+      &lt;virtue-loader *ngIf='busyIndicatorIsVisible'
+                        [message]='busyIndicatorMessage'&gt;
+      &lt;/virtue-loader&gt;
+
+      &lt;div fxLayout='column'
+              fxFill&gt;
+
+      &lt;!-- HEADER --&gt;
+        &lt;div fxFlex='42px'&gt;
+          &lt;virtue-header [header-icon]='icon'
+                            [header-title]='title'&gt;
+
+            &lt;div class='list-actions'
+                    fxLayout='row'
+                    header-actions&gt;
+
+              &lt;!-- LISTA DE BOTÕES CUSTOMIZADOS --&gt;
+              &lt;ng-content class='list-filters' select='[list-filters]'&gt;&lt;/ng-content&gt;
+
+              &lt;!-- BOTÃO DE FILTRO AVANÇADO --&gt;
+              &lt;button *ngIf="showAdvancedFilters"
+                         (click)='onGridAdvancedFilters()'
+                         mat-icon-button
+                         matTooltip="Filtros avançados"&gt;
+              &lt;i class="fas fa-filter"&gt;&lt;/i&gt;
+              &lt;/button&gt;
+
+              &lt;!-- BOTÃO DE LIMPAR FILTRO --&gt;
+              &lt;button (click)='onClearFiltering($event)'
+                         mat-icon-button
+                         matTooltip="Limpar filtros"&gt;
+              &lt;i class="fad fa-eraser"&gt;&lt;/i&gt;
+              &lt;/button&gt;
+
+            &lt;!-- BOTÃO DE REFRESH --&gt;
+              &lt;button (click)='onGridRefresh()'
+                         mat-icon-button
+                         matTooltip="Recarrega a lista de registros"&gt;
+                &lt;i class='fad fa-sync-alt'&gt;&lt;/i&gt;
+              &lt;/button&gt;
+
+            &lt;!-- LISTA DE BOTÕES CUSTOMIZADOS --&gt;
+              &lt;ng-content select='[list-actions]'&gt;&lt;/ng-content&gt;
+
+              &lt;!-- BOTÕES DA LISTAGEM --&gt;
+              &lt;div *ngIf='!hideDefaultButtons'&gt;
+
+                &lt;!-- NOVO --&gt;
+                &lt;button *ngIf='showNewButton'
+                           (click)='addRecord()'
+                           class='button-confirmar'
+                           mat-raised-button
+                           matTooltip="Adicionar um novo registro"&gt;
+                  Novo
+                &lt;/button&gt;
+
+                &lt;!-- EDITAR --&gt;
+                &lt;button *ngIf='showEditButton'
+                            (click)='editRecord()'
+                            [disabled]='virtueGrid?.getSelectedRecords().length == 0'
+                            class='button-editar'
+                            mat-raised-button
+                            matTooltip="Edita o registro selecionado"&gt;
+                  Editar
+                &lt;/button&gt;
+
+                &lt;!-- EXCLUIR --&gt;
+                &lt;button *ngIf='showDeleteButton'
+                           (click)='deleteRecord()'
+                           [disabled]='virtueGrid?.getSelectedRecords().length == 0'
+                           class='button-excluir'
+                           mat-raised-button
+                           matTooltip="Exclui o registro selecionado"&gt;
+                  Excluir
+                &lt;/button&gt;
+
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/virtue-header&gt;
+        &lt;/div&gt;
+
+        &lt;!-- FILTROS AVANÇADOS --&gt;
+        &lt;div *ngIf="advancedFiltersTurnedOn"
+                 class="content-advanced-filters"&gt;
+        &lt;ng-content select='[list-advanced-filters]'&gt;&lt;/ng-content&gt;
+        &lt;/div&gt;
+
+        &lt;!-- CONTENT --&gt;
+        &lt;div class='content'
+        fxFlex='100%'&gt;
+
+          &lt;virtue-grid *ngIf='dataLoaded'
+                          (gridActionFailed)='onActionFailure($event)'
+                          (gridDataBound)='onDataBound($event)'
+                          (gridContextMenuClick)='onContextMenuClicked($event)'
+                          (gridContextMenuOpen)='onGridContextMenuOpen($event)'
+                          (gridQueryCellInfo)='onGridQueryCellInfo($event)'
+                          (gridRecordClick)='onGridRecordClick($event)'
+                          (gridRecordDoubleClick)='onGridRecordDoubleClick($event)'
+                          (gridRowDataBound)='onRowDataBound($event)'
+                          (gridRowSelectionChange)='onRowDeselected($event)'
+                          (gridRowSelectionChange)='onRowSelected($event)'
+                          [list-allowfiltering]='true'
+                          [list-allowpaging]='true'
+                          [list-allowselection]='allowSelection'
+                          [list-allowsorting]='true'
+                          [list-aggregates]='gridAggregates'
+                          [list-allowexcel-export]='allowExcelExport'
+                          [list-allowpdf-export]='allowPdfExport'
+                          [list-childgrid]='childGrid'
+                          [list-columns]='gridColumns'
+                          [list-contextmenuitems]='gridContextMenuItems'
+                          [list-source]='gridItemsSource'
+                          [list-file-exportname]='title'
+                          [list-filtersettings]='filterSettings'
+                          [list-headerstooltip]='gridHeadersTooltip'
+                          [list-pagesettings]='pageSettings'
+                          [list-selectionoptions]='selectionOptions'
+                          [list-sortsettings]='gridSortSettings'&gt;
+          &lt;/virtue-grid&gt;
+        &lt;/div&gt;
+
+      &lt;ng-content select='[footer-content]'&gt;&lt;/ng-content&gt;
+
+      &lt;/div&gt;</code>
+      </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #listts>
+  <pre>
+    <code>
+        // Angular
+        import &#123; Component, ViewEncapsulation, Input, Output, EventEmitter, OnChanges, SimpleChanges &#125; from '@angular/core';
+        import &#123; MatDialog &#125; from '@angular/material/dialog';
+        import &#123; MatSnackBar &#125; from '@angular/material/snack-bar';
+
+        // Models
+        import &#123; RecordData &#125; from '@virtuetec/lib/models';
+
+        // Rxjs
+        import &#123; Subject &#125; from 'rxjs';
+
+        // Syncfusion
+        import &#123; closest &#125; from '@syncfusion/ej2-base';
+        import &#123; ContextMenuItemModel, FilterSettingsModel, GridModel, PageSettingsModel, QueryCellInfoEventArgs, RecordClickEventArgs &#125;
+        from '@syncfusion/ej2-angular-grids';
+
+        import &#123; RowDataBoundEventArgs, RowSelectEventArgs, SelectionSettingsModel, RecordDoubleClickEventArgs &#125; from '@syncfusion/ej2-angular-grids';
+
+        // Virtue
+        import &#123; ListBase &#125; from '../base/list.base';
+        import &#123; ElectronService &#125; from '@virtuetec/lib/services';
+
+        @Component(&#123;
+          selector: 'virtue-list',
+          templateUrl: './list.component.html',
+          styleUrls: ['./list.component.scss'],
+          encapsulation: ViewEncapsulation.None
+        &#125;)
+        export class ListComponent extends ListBase implements OnChanges &#123;
+
+          //#region Constructor
+
+          constructor(
+            private _electronService: ElectronService,
+            protected _dialog: MatDialog,
+            protected _snackBar: MatSnackBar) &#123;
+
+            super(_snackBar);
+
+          &#125;
+
+          //#endregion
+
+          //#region Implements AfterViewInit
+
+          ngAfterViewInit() &#123;
+
+          &#125;
+
+          //#endregion
+
+          //#region Implements ngOnChanges
+
+          ngOnChanges(changes: SimpleChanges) &#123;
+
+          &#125;
+
+          //#endregion
+
+          //#region Implements OnDestroy
+
+          ngOnDestroy(): void &#123;
+
+            this.showSubject.next();
+            this.showSubject.complete();
+
+          &#125;
+
+          //#endregion
+
+          //#region Implements OnInit
+
+          ngOnInit(): void &#123;
+
+            if (this.gridFilterSettings != null && this.gridFilterSettings != undefined)
+              if (this.gridFilterSettings.length > 0)
+                this.filterSettings.columns = this.gridFilterSettings;
+
+          &#125;
+
+          //#endregion
+
+          //#region EventEmitters
+
+          @Output() listClearFiltering: EventEmitter&lt;any&gt; = new EventEmitter();
+
+          //#endregion
+
+          //#region Input Properties
+
+          // Flags
+          @Input("data-loaded") dataLoaded: boolean = false;
+
+          // List
+          @Input("list-aggregates") gridAggregates: Object[];
+          @Input("list-allowselection") allowSelection: boolean = false;
+          @Input("list-allow-excelexport") allowExcelExport: boolean = false;
+          @Input("list-allow-pdfexport") allowPdfExport: boolean = false;
+          @Input("list-allow-print") allowPrint: boolean = false;
+          @Input("list-childgrid") childGrid: GridModel;
+          @Input("list-columns") gridColumns: any;
+          @Input("list-contextmenuitems") gridContextMenuItems: ContextMenuItemModel[] = [];
+          @Input("list-filtersettings") gridFilterSettings: Object[];
+          @Input("list-headerstooltip") gridHeadersTooltip: any[];
+          @Input("list-hidedefaultbuttons") hideDefaultButtons: boolean = false;
+          @Input("list-icon") icon: string;
+          @Input("list-resourceid") resourceId: string;
+          @Input("list-selectionoptions") selectionOptions: SelectionSettingsModel = &#123; mode: 'Row', type: 'Single' &#125;;
+          @Input("list-showdeletebutton") showDeleteButton: boolean = false;
+          @Input("list-showeditbutton") showEditButton: boolean = false;
+          @Input("list-shownewbutton") showNewButton: boolean = false;
+          @Input("list-sortsettings") gridSortSettings: Object;
+          @Input("list-source") gridItemsSource: Object[];
+          @Input("list-showadvancedfilters") showAdvancedFilters: boolean = false;
+          @Input("list-title") title: string;
+
+          // Props
+          @Input("loader-image") loaderImageUrl: string;
+
+          //#endregion
+
+          //#region EventEmitters
+
+          @Output() gridDataBound: EventEmitter&lt;Object&gt; = new EventEmitter();
+          @Output() gridQueryCell: EventEmitter&lt;QueryCellInfoEventArgs&gt; = new EventEmitter();
+          @Output() gridRowDataBound: EventEmitter&lt;RowDataBoundEventArgs&gt; = new EventEmitter();
+          @Output() gridRowSelectionChange: EventEmitter&lt;RowSelectEventArgs&gt; = new EventEmitter();
+
+          //#endregion
+
+          //#region Private Methods
+
+          private getDate(): string &#123;
+            let date: string = '';
+            date += `$&#123;(new Date()).getDate().toString()&#125;/$&#123;(new Date()).getMonth().toString()&#125;`;
+            return date += `/$&#123;(new Date()).getFullYear().toString()&#125;`;
+          &#125;
+
+          private getExcelExportProperties(): any &#123;
+            return &#123;
+              header: &#123;
+                headerRows: 4,
+                rows: [
+                  &#123;
+                    index: 1,
+                    cells: [
+                      /* tslint:disable-next-line:max-line-length */
+                      &#123; index: 1, colSpan: 2, value: 'TECH SHOP INFORMÁTICA', style: &#123; fontColor: this.fontColorExportFile, fontSize: 14, bold: true &#125; &#125;
+                    ]
+                  &#125;,
+                  &#123;
+                    index: 2,
+                    cells: [
+                      /* tslint:disable-next-line:max-line-length */
+                      &#123; index: 1, colSpan: 2, value: `Relatório de $&#123;this.title&#125;`, style: &#123; fontColor: this.fontColorExportFile, fontSize: 11, bold: true &#125; &#125;
+                    ]
+                  &#125;,
+                  &#123;
+                    index: 3,
+                    cells: [
+                      &#123; index: 1, colSpan: 2, value: `Data: $&#123;this.getDate()&#125;`, style: &#123; fontColor: this.fontColorExportFile, fontSize: 11, bold: true &#125; &#125;
+                    ]
+                  &#125;
+                ]
+              &#125;,
+
+              footer: &#123;
+                footerRows: 4,
+                rows: [
+                  /* tslint:disable-next-line:max-line-length */
+                  &#123; cells: [&#123; colSpan: 6, value: 'Virtue Tecnologia', style: &#123; fontColor: this.fontColorExportFile, hAlign: 'Center', bold: true &#125; &#125;] &#125;,
+                  &#123; cells: [&#123; colSpan: 6, value: 'www.virtue.tec.br', style: &#123; fontColor: this.fontColorExportFile, hAlign: 'Center', bold: true &#125; &#125;] &#125;
+                ]
+              &#125;,
+
+              fileName: this.title.includes('VIRTUE') ? `$&#123;this.title&#125;.xlsx` : `VIRTUE$&#123;this.title&#125;.xlsx`
+            &#125;;
+          &#125;
+
+          private getPdfExportProperties(): any &#123;
+            return &#123;
+              header: &#123;
+                fromTop: 0,
+                height: 80,
+                contents: [
+                  &#123;
+                    type: 'Text',
+                    value: 'TECH SHOP INFORMÁTICA',
+                    position: &#123; x: 240, y: 0 &#125;,
+                    style: &#123; textBrushColor: this.fontColorExportFile, fontSize: 16 &#125;,
+                  &#125;,
+                  &#123;
+                    type: 'Text',
+                    value: `Relatório de $&#123;this.title&#125;`,
+                    position: &#123; x: 20, y: 30 &#125;,
+                    style: &#123; textBrushColor: this.fontColorExportFile, fontSize: 14 &#125;
+                  &#125;,
+                  &#123;
+                    type: 'Text',
+                    value: `Data: $&#123;this.getDate()&#125;`,
+                    position: &#123; x: 570, y: 30 &#125;,
+                    style: &#123; textBrushColor: this.fontColorExportFile, fontSize: 14 &#125;,
+                  &#125;
+                ]
+              &#125;,
+              footer: &#123;
+                fromBottom: 300,
+                height: 80,
+                contents: [
+                  &#123;
+                    type: 'Text',
+                    value: 'www.tsi.inf.br',
+                    position: &#123; x: 300, y: 45 &#125;,
+                    style: &#123; textBrushColor: this.fontColorExportFile, fontSize: 14 &#125;
+                  &#125;
+                ]
+              &#125;,
+
+              fileName: this.title.includes('VIRTUE') ? `$&#123;this.title&#125;.pdf` : `VIRTUE$&#123;this.title&#125;.pdf`
+            &#125;;
+          &#125;
+
+          //#endregion
+
+          //#region Private Properties
+
+          private fontColorExportFile = "#466884";
+          private showSubject = new Subject&lt;void&gt;();
+
+          //#endregion
+
+          //#region Public Functions
+
+          public getSelectedRecords(): Object[] &#123;
+            return this.virtueGrid.getSelectedRecords();
+          &#125;
+
+          //#endregion
+
+          //#region Public Methods
+
+          // Cria um novo registro
+          public addRecord(): void &#123;
+
+            // Cria o modal para um novo registro
+            this.requestAddSubject.next();
+
+          &#125;
+
+          public busyIndicatorHide(): void &#123;
+            this.busyIndicatorIsVisible = false;
+            this.busyIndicatorMessage = "";
+          &#125;
+
+          public busyIndicatorShow(message: string): void &#123;
+            this.busyIndicatorIsVisible = true;
+            this.busyIndicatorMessage = message;
+          &#125;
+
+          // Excluir o registro selecionado
+          public deleteRecord(rowId?: string): void &#123;
+
+            // Obtêmos o registro selecionado
+            var recordData = this.getRowData(rowId);
+
+            // Verifica se algo foi encontrado
+            if (recordData?.Data != null)
+              this.requestDeleteSubject.next(recordData);
+
+          &#125;
+
+          public doExportExcel(): void &#123;
+            this.virtueGrid.grid.excelExport(this.getExcelExportProperties());
+          &#125;
+
+          public doExportPdf(): void &#123;
+            this.virtueGrid.grid.pdfExport(this.getPdfExportProperties());
+          &#125;
+
+          public doPrintList(): void &#123;
+            this.virtueGrid.onGridPrint();
+          &#125;
+
+          // Edita o registro selecionado
+          public editRecord(rowId?: string): void &#123;
+
+            // Obtêmos o registro selecionado
+            var recordData = this.getRowData(rowId);
+
+            // Verifica se algo foi encontrado
+            if (recordData?.Data != null)
+              this.requestEditSubject.next(recordData);
+
+          &#125;
+
+          public onActionFailure(args: any): void &#123;
+
+            // Obtêm o erro
+            var error = args.error;
+
+            if (error.status == 401)
+              this.requestForceLoginSubject.next();
+
+          &#125;
+
+          public onClearFiltering(args: any): void &#123;
+            this.virtueGrid.clearFiltering();
+
+            this.listClearFiltering.emit(args);
+          &#125;
+
+          public onContextMenuClicked(args: any): void &#123;
+            this.requestGridContextMenuClick.next(args);
+          &#125;
+
+          public onDataBound(args: any): void &#123;
+            this.gridDataBound.emit(args);
+          &#125;
+
+          public onGridContextMenuOpen(args): void &#123;
+            this.requestGridContextMenuOpen.next(args);
+          &#125;
+
+          public onGridQueryCellInfo(args: QueryCellInfoEventArgs): void &#123;
+            this.gridQueryCell.emit(args);
+          &#125;
+
+          public onGridRecordClick(args: RecordClickEventArgs): void &#123;
+            // console.log(args);
+          &#125;
+
+          public onGridRecordDoubleClick(args: RecordDoubleClickEventArgs): void &#123;
+
+            // Obtêm o id da item que foi clicado
+            var gridRow = closest(&lt;Element&gt;args.target, ".e-row").getAttribute("data-uid");
+
+            this.editRecord(gridRow);
+          &#125;
+
+          public onGridAdvancedFilters(): void &#123;
+            // Seta que o botão foi pressionado
+            this.advancedFiltersTurnedOn = !this.advancedFiltersTurnedOn;
+          &#125;
+
+          public onGridRefresh(): void &#123;
+            this.refresh();
+          &#125;
+
+          public onRowDataBound(args: RowDataBoundEventArgs): void &#123;
+            this.gridRowDataBound.emit(args);
+          &#125;
+
+          public onRowSelected(args: RowSelectEventArgs): void &#123;
+            this.gridRowSelectionChange.emit(args);
+          &#125;
+
+          public onRowDeselected(args: RowSelectEventArgs): void &#123;
+            this.gridRowSelectionChange.emit(args);
+          &#125;
+
+          public refresh(): void &#123;
+            this.virtueGrid.refresh();
+          &#125;
+
+          //#endregion
+
+          //#region Public Properties
+
+          public busyIndicatorIsVisible: boolean;
+          public busyIndicatorMessage: string;
+
+          public advancedFiltersTurnedOn: boolean = false;
+          public contentWidth = '0.5em'
+          public filterSettings: FilterSettingsModel = &#123; type: 'Excel' &#125;;
+          public pageSettings: PageSettingsModel = &#123; pageSizes: true, pageSize: 20 &#125;;
+
+          public get IsElectron(): boolean &#123;
+            return this._electronService.isElectron;
+          &#125;
+
+          //#endregion
+
+          //#region Public Subject
+
+          public requestAddSubject = new Subject&lt;void&gt;();
+          public requestDeleteSubject = new Subject&lt;RecordData&gt;();
+          public requestEditSubject = new Subject&lt;RecordData&gt;();
+          public requestForceLoginSubject = new Subject&lt;void&gt;();
+          public requestGridContextMenuClick = new Subject&lt;any&gt;();
+          public requestGridContextMenuOpen = new Subject&lt;any&gt;();
+
+          //#endregion
+
+        &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #listcss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="listhtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="listts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="CSS">
+        <ng-container [ngTemplateOutlet]="listcss">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <h3>
+      Exemplo {{ componentitle }}
+    </h3>
+    <div style="justify-content: center;">
+
+      <virtue-list [data-loaded]="true" [list-aggregates]="teste" [list-allowselection]="false">
+
+
+        <div list-actions>
+          <button>
+            <i class="fas fa-code">
+            </i>
+          </button>
+        </div>
+
+      </virtue-list>
+
+
+    </div>
+  </div>
+</div> -->
+
+<div list-actions>
+
+  <!-- TEMPLATE DO MENU DE CONTEXTO -->
+  <mat-menu #toolsMenu="matMenu"
+            [overlapTrigger]="false">
+
+    <button *ngIf='true'
+            (click)='openCalcularForm()'
+            mat-menu-item>
+      <i class="fad fa-calculator"></i>
+      <span class="menu-title">Calcular Comissionamentos</span>
+    </button>
+
+    <button *ngIf='true'
+            (click)='openExpurgarForm()'
+            mat-menu-item>
+      <i class="fad fa-inbox-out"></i>
+      <span class="menu-title">Expurgar Comissionamentos</span>
+    </button>
+
+  </mat-menu>
+</div>

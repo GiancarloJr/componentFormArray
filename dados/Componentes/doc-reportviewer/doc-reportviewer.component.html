@@ -1,0 +1,260 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/public-api';
+          import &#123; DocReportviewerComponent &#125; from './doc-reportviewer.component';
+          import &#123; DocReportviewerRoutingModule &#125; from './doc-reportviewer-routing.module';
+          <span>import &#123; ReportViewerModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+          @NgModule(&#123;
+            declarations: [
+              DocReportviewerComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>ReportViewerModule,</span>
+
+              // Local
+              DocReportviewerRoutingModule
+            ]
+          &#125;)
+          export class DocReportviewerModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+        </code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableHostListener"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #reportviewerhtml>
+  <pre>
+    <code>
+      &lt;div class="iframe-container"&gt;
+        &lt;iframe [src]='source'
+                   scrolling="no"&gt;&lt;/iframe&gt;
+      &lt;/div&gt;</code>
+      </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #reportviewerts>
+  <pre>
+    <code>
+          // Angular
+          import &#123; Component, ViewEncapsulation, Input  &#125; from '@angular/core';
+
+          import &#123; Component, OnChanges, Input, Output, EventEmitter, SimpleChanges, ViewEncapsulation &#125; from '@angular/core';
+          import &#123; DomSanitizer, SafeResourceUrl &#125; from '@angular/platform-browser';
+
+          @Component(&#123;
+            selector: 'ssrs-reportviewer',
+            templateUrl: './reportviewer.component.html',
+            styleUrls: ['./reportviewer.component.scss'],
+            encapsulation: ViewEncapsulation.ShadowDom
+          &#125;)
+          export class ReportViewerComponent implements OnChanges &#123;
+
+            @Input()
+            reporturl: string;
+            @Input()
+            reportserver: string;
+            @Input()
+            showparameters?: string = "false";
+            @Input()
+            parameters?: any;
+            @Input()
+            language?: string = "en-us";
+            @Input()
+            width?: number = 100;
+            @Input()
+            height?: number = 100;
+            @Input()
+            toolbar?: string = "true";
+
+            @Output('error') onError = new EventEmitter&lt;any&gt;();
+            constructor(private sanitizer: DomSanitizer) &#123;
+
+            &#125;
+
+            source: SafeResourceUrl;
+
+            ngOnChanges(changes: SimpleChanges) &#123;
+              if (!this.reporturl) &#123;
+                this.onError.emit("Src cannot be null");
+              &#125;
+
+              if ('reporturl' in changes) &#123;
+                this.source = this.sanitizer.bypassSecurityTrustResourceUrl(this.buildReportUrl());
+              &#125;
+            &#125;
+
+            public buildParameterString(): string &#123;
+
+              var parameterString = "";
+
+              for (var param in this.parameters) &#123;
+                if (param) &#123;
+                  if (this.parameters[param] instanceof Array === true) &#123;
+                    for (var arrayParam in this.parameters[param]) &#123;
+                      if (arrayParam) &#123;
+                        parameterString += "&" + param + "=" + this.parameters[param][arrayParam];
+                      &#125;
+                    &#125;
+                  &#125;
+                  if (this.parameters[param] != null && this.parameters[param] instanceof Array === false) &#123;
+                    parameterString += "&" + param + "=" + this.parameters[param];
+                  &#125;
+                  if (this.parameters[param] == null) &#123;
+                    parameterString += "&" + param + ":isnull=true";
+                  &#125;
+                &#125;
+              &#125;
+              return parameterString;
+            &#125;
+
+            public buildReportUrl(): string &#123;
+              if (!this.reporturl)
+                return null;
+
+              var parameters = this.buildParameterString();
+              return this.reportserver + '?/'
+                + this.reporturl + '&rs:Embed=true'
+                + '&rc:Parameters=' + this.showparameters
+                + parameters
+                + '&rs:ParameterLanguage=' + this.language + "&rc:Toolbar=" + this.toolbar;
+            &#125;
+          &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #reportviewercss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="reportviewerhtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="reportviewerts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="CSS">
+        <ng-container [ngTemplateOutlet]="reportviewercss">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <h3>
+      Exemplo {{ componentitle }}
+    </h3>
+    <div style="justify-content: center;">
+
+    </div>
+  </div>
+</div> -->

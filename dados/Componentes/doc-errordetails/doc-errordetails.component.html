@@ -1,0 +1,364 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <p class="observation">   *Observação: HeaderModule e LoaderModule são importados dentro do {{ componentitle
+        | NameModule }} para utilização do mesmo.</p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/commom.modules';
+          import &#123; DocErrordetailsComponent &#125; from './doc-errordetails.component';
+          import &#123; DocErrordetailsRoutingModule &#125; from './doc-errordetails-routing.module';
+          <span>import &#123; ErrorDetailsModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+
+          @NgModule(&#123;
+            declarations: [
+              DocErrordetailsComponent,
+            ],
+            imports: [
+
+              // Library
+              CommomModules,
+              <span>ErrorDetailsModule,</span>
+
+              // Local
+              DocErrordetailsRoutingModule
+            ]
+          &#125;)
+          export class DocErrordetailsModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <button (click)="openErrorDetails()"
+                class="button-example mat-elevation-z4"
+                mat-button><span>TEST ERROR
+            DETAILS</span></button>
+
+      </div>
+
+      <div class="title">
+        <h3 id="html"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="demonstration-component">
+
+        <p> Para utilização do componente {{ componentitle }}, injetar 'MatDialog' no constructor.
+        </p>
+        <p> Criar método para 'chamar' o ErrorDetails.Show(dialog: MatDialog, messageDetails: string, titlecomplement:
+          string),
+          que é necessário passar três parâmetros: Service MatDialog do Angular Material, Mensagem de erro desejada e
+          Título da mensagem de Erro.
+        </p>
+
+      </div>
+
+      <pre>
+        <code>
+
+          import &#123; Component, ViewEncapsulation &#125; from '@angular/core';
+          import &#123; MatDialog &#125; from '@angular/material/dialog';
+          import &#123; ErrorDetails &#125; from 'projects/virtue/lib/components/errordetails/errordetails';
+
+          @Component(&#123;
+            selector: 'app-doc-errordetails',
+            templateUrl: './doc-errordetails.component.html',
+            styleUrls: ['./doc-errordetails.component.scss'],
+            encapsulation: ViewEncapsulation.None
+          &#125;)
+          export class DocErrordetailsComponent &#123;
+
+            path_component: string = 'doc-errordetails';
+            name_component: string = 'errordetails';
+            buttonShow: boolean = false;
+            componentitle: string = 'Error Details'
+
+            hiddenTabGroupButton(): void &#123;
+              this.buttonShow ? this.buttonShow = false : this.buttonShow = true;
+            &#125;
+
+            <strong>"INJETAR MATDIALOG"</strong>
+            <span>constructor(private dialog: MatDialog) &#123;
+            &#125;</span>
+
+            <strong>"CRIAR MÉTODO CHAMANDO A CLASSE 'ErrorDetails' PASSANDO OS PARÂMETROS NECESSÁRIOS"</strong>
+            <span>openErrorDetails(): void &#123;
+              ErrorDetails.Show(this.dialog,"Detalhe do Erro no Sistema","Titulo Complementar");
+            &#125;</span>
+          &#125;</code>
+      </pre>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #errordetailshtml>
+  <pre>
+    <code>
+        &lt;virtue-loader *ngIf='busyIndicatorIsVisible'
+                          [message]='busyIndicatorMessage'&gt;
+        &lt;/virtue-loader&gt;
+
+        &lt;div (ctrl.c)='copyToClipboard()'&gt;
+
+        &lt;div mat-dialog-title&gt;
+
+          &lt;virtue-header [header-titlecomplement]='titlecomplement'
+                            cdkDrag
+                            cdkDragBoundary=".content"
+                            cdkDragRootElement=".cdk-overlay-pane"
+                            cdkDragHandle
+                            header-icon="fad fa-info-square"
+                            header-title="Erro no Sistema - Detalhes"&gt;
+
+            &lt;div class="dialog-actions"
+                    fxLayout="row"
+                    header-actions&gt;
+
+              &lt;!-- BOTÕES DA JANELA --&gt;
+              &lt;div&gt;
+
+                &lt;button (click)="copyToClipboard()"
+                            class="clipboard-button"
+                            matTooltip="Copiar mensagem para área de trabalho"
+                            tabindex=-1
+                            type="button"&gt;
+                  &lt;i class="fad fa-clipboard"&gt;&lt;/i&gt;
+                &lt;/button&gt;
+
+                &lt;button (click)="closeDialog()"
+                            class="cancel-button"
+                            matTooltip="Cancela e fecha o formulário - [ESC]"
+                            tabindex=-1
+                            type="button"&gt;
+                  &lt;i class="fad fa-window-close"&gt;&lt;/i&gt;
+                &lt;/button&gt;
+
+              &lt;/div&gt;
+
+            &lt;/div&gt;
+
+          &lt;/virtue-header&gt;
+
+        &lt;/div&gt;
+
+        &lt;mat-dialog-content&gt;
+          &lt;div #container
+                  class="content"
+                  fxLayout="column"
+                  fxLayoutAlign="center center"&gt;
+
+            &lt;span class="message-details"
+                     [innerHTML]='messageDetails'&gt;&lt;/span&gt;
+
+          &lt;/div&gt;
+        &lt;/mat-dialog-content&gt;
+
+        &lt;/div&gt;</code>
+      </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #errordetailsts>
+  <pre>
+    <code>
+          // Angular
+          import &#123; Clipboard &#125; from '@angular/cdk/clipboard';
+          import &#123; Component, ViewEncapsulation, OnInit, AfterViewInit, Input, OnDestroy, Inject &#125; from '@angular/core';
+          import &#123; MatDialog, MatDialogRef, MAT_DIALOG_DATA &#125; from '@angular/material/dialog';
+
+          // Syncfusion
+          import &#123; DialogComponent &#125; from '@syncfusion/ej2-angular-popups';
+
+          @Component(&#123;
+            selector: 'virtue-error-details',
+            templateUrl: './errordetails.component.html',
+            styleUrls: ['./errordetails.component.scss'],
+            encapsulation: ViewEncapsulation.None
+          &#125;)
+          export class ErrorDetailsComponent implements AfterViewInit, OnInit, OnDestroy &#123;
+
+            //#region Constructor
+
+            constructor(
+              private _clipboard: Clipboard,
+              protected _dialog: MatDialog,
+              public _dialogRef: MatDialogRef&lt;DialogComponent&gt;,
+              @Inject(MAT_DIALOG_DATA) protected dialogData: any) &#123;
+
+              // Obtêm os parâmetros da mensagem
+              if (dialogData) &#123;
+                // Obtêm os detalhes da mensagem
+                if (dialogData.messageDetails)
+                  this.messageDetails = dialogData.messageDetails;
+
+                // Obtêm o título de complementar
+                if (dialogData.titlecomplement)
+                  this.titlecomplement = dialogData.messtitlecomplementageDetails;
+              &#125;
+
+            &#125;
+
+            //#endregion
+
+            //#region Life Cycles
+
+            ngAfterViewInit(): void &#123;
+
+            &#125;
+
+            ngOnInit(): void &#123;
+
+            &#125;
+
+            ngOnDestroy(): void &#123;
+
+            &#125;
+
+            //#endregion
+
+            //#region Public Methods
+
+            public busyIndicatorHide(): void &#123;
+              this.busyIndicatorIsVisible = false;
+              this.busyIndicatorMessage = "";
+            &#125;
+
+            public busyIndicatorShow(message?: string): void &#123;
+              this.busyIndicatorIsVisible = true;
+              this.busyIndicatorMessage = message;
+            &#125;
+
+            public closeDialog(): void &#123;
+              this._dialogRef.close(true);
+            &#125;
+
+            public copyToClipboard(): void &#123;
+              this._clipboard.copy(this.messageDetails);
+            &#125;
+
+            //#endregion
+
+            //#region Public Properties
+
+            public busyIndicatorIsVisible: boolean = false;
+            public busyIndicatorMessage: string = "";
+
+            public messageDetails: string = "Não há dados para serem exibidos.";
+            public titlecomplement: string = "";
+
+            //#endregion
+
+          &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #errordetailscss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="errordetailshtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="errordetailsts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="CSS">
+        <ng-container [ngTemplateOutlet]="errordetailscss">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+
+  </div>
+</div> -->

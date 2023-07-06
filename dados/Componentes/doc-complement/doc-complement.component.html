@@ -1,0 +1,424 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar o {{ componentitle | NameModule }} adicionando no
+        módulo
+        destino:</p>
+
+      <p class="observation">   *Observação: GridModule e DialogSearchModule são importados dentro do {{
+        componentitle | NameModule }} para utilização do mesmo.</p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/commom.modules';
+          <span>import &#123; ComplementModule &#125; from 'projects/virtue/lib/components/complement/complement.module';</span>
+          import &#123; DocComplementRoutingModule &#125; from './doc-complement-routing.module';
+          import &#123; DocComplementComponent &#125; from './doc-complement.component';
+
+          @NgModule(&#123;
+            declarations: [
+              DocComplementComponent
+            ],
+            imports: [
+
+              // Library
+              CommomModules,
+              <span>ComplementModule,</span>
+
+              // Local
+              DocComplementRoutingModule
+            ]
+          &#125;)
+          export class DocComplementModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+        </code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+      </div>
+
+      <div id="diretivas">
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #complementhtml>
+  <pre>
+    <code>
+        &lt;mat-form-field class="chip-list"
+                           appearance="fill"&gt;
+          &lt;div fxLayout="column"
+                  class="virtue-complement mat-elevation-z4"&gt;
+
+                &lt;div class="header"
+                        fxLayout="row"
+                        fxLayoutAlign="start center"&gt;
+
+                          &lt;div fxFlex="95"
+                                  fxLayoutAlign="start end"&gt;
+                            &lt;i [ngClass]="icon"&gt;&lt;/i&gt;
+                            &lt;span class="header-title"&gt;&#123; &#123;title&#125;&#125;&lt;/span&gt;
+                            &lt;mat-icon class="icons-warning-complement"
+                                         matTooltip="Obrigatório adicionar 1 item na lista"
+                                         *ngIf="showIconWarning"&gt;
+                             error_outline
+                            &lt;/mat-icon&gt;
+                          &lt;/div&gt;
+
+                          &lt;div class="header-actions"
+                                  fxLayoutAlign="end end"
+                                  fxFlex&gt;
+
+                            &lt;button *ngIf='showAddButton'
+                                       (click)='doComplementAdd()'
+                                       [disabled]='!canAddOrList'
+                                       matTooltip="Adiciona um registro a lista"
+                                       type="button"&gt;
+                              &lt;i class="fad fa-plus-square"&gt;&lt;/i&gt;
+                            &lt;/button&gt;
+
+                            &lt;button *ngIf='showListButton'
+                                       (click)='doComplementList()'
+                                       [disabled]='!canAddOrList'
+                                       matTooltip="Adiciona um registro a lista"
+                                       type="button"&gt;
+                              &lt;i class="fad fa-list-alt"&gt;&lt;/i&gt;
+                            &lt;/button&gt;
+                          &lt;/div&gt;
+
+                &lt;/div&gt;
+                  &lt;mat-divider&gt;&lt;/mat-divider&gt;
+
+                &lt;div class="content"
+                        fxLayout="column"
+                        fxLayoutAlign="center center"&gt;
+
+                  &lt;virtue-grid #grid
+                                  (gridContextMenuClick)='onContextMenuClicked($event)'
+                                  (gridContextMenuOpen)='onGridContextMenuOpen($event)'
+                                  (gridDataBound)='onDataBound($event)'
+                                  (gridRecordDoubleClick)='onGridRecordDoubleClick($event)'
+                                  [list-aggregates]='gridAggregates'
+                                  [list-allowfiltering]='false'
+                                  [list-allowpaging]='allowPaging'
+                                  [list-columns]='gridColumns'
+                                  [list-contextmenuitems]='gridContextMenuItems'
+                                  [list-filtersettings]='gridFilterSettings'
+                                  [list-pagesettings]='pageSettings'
+                                  [list-source]='gridItemsSource'
+                                  [list-rowheight]='24'&gt;
+                  &lt;/virtue-grid&gt;
+
+                &lt;/div&gt;
+          &lt;/div&gt;</code>
+          </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #complementts>
+  <pre>
+    <code>
+          // Angular
+          import &#123; Component, ViewEncapsulation, Input, OnDestroy, OnInit, Output, EventEmitter &#125; from '@angular/core';
+          import &#123; MatDialog, MatDialogConfig &#125; from '@angular/material/dialog';
+          import &#123; MatSnackBar &#125; from '@angular/material/snack-bar';
+
+          // Models
+          import &#123; RecordData &#125; from '@virtuetec/lib/models';
+
+          // Rxjs
+          import &#123; Subject &#125; from 'rxjs';
+
+          // Syncfusion
+          import &#123; closest &#125; from '@syncfusion/ej2-base';
+          import &#123; ContextMenuItemModel, FilterSettingsModel, PageSettingsModel, RecordDoubleClickEventArgs &#125; from '@syncfusion/ej2-angular-grids';
+
+          // Virtue
+          import &#123; DialogState &#125; from '@virtuetec/lib/services';
+          import &#123; ListBase &#125; from '../base/list.base';
+
+          @Component(&#123;
+            selector: 'virtue-complement',
+            templateUrl: './complement.component.html',
+            styleUrls: ['./complement.component.scss'],
+            encapsulation: ViewEncapsulation.None
+          &#125;)
+          export class ComplementComponent extends ListBase implements OnDestroy, OnInit &#123;
+
+            //#region Constructor
+
+            constructor(
+              protected _dialog: MatDialog,
+              protected _snackBar: MatSnackBar,
+              protected _state: DialogState) &#123;
+              super(_snackBar);
+            &#125;
+
+            //#endregion
+
+            //#region Implements OnDestroy
+
+            ngOnDestroy(): void &#123;
+
+              this.refreshGridSubject.next();
+              this.refreshGridSubject.complete();
+
+            &#125;
+
+            //#endregion
+
+            //#region Implements OnInit'
+
+            ngOnInit(): void &#123;
+
+              // Define as configurações de paginação do Grid
+              this.pageSettings = &#123;
+                pageSizes: true,
+                pageSize: 4
+              &#125;
+
+            &#125;
+
+            //#endregion
+
+            //#region Input Properties
+
+            // Flags
+            @Input() customAddOrListVerify: boolean = true;
+            @Input() disabled: boolean = false;
+            @Input() showAddButton: boolean = true;
+            @Input() showListButton: boolean = false;
+            @Input() showIconWarning: boolean;
+
+            // List
+            @Input("list-aggregates") gridAggregates: Object[];
+            @Input("list-columns") gridColumns: any;
+            @Input("list-contextmenuitems") gridContextMenuItems: ContextMenuItemModel[] = [];
+            @Input("list-filtersettings") gridFilterSettings: FilterSettingsModel;
+            @Input("list-icon") icon: string;
+            @Input("list-source") gridItemsSource: Object[];
+            @Input("list-title") title: string;
+
+            // Search
+            @Input("search-title") searchTitle: string;
+            @Input("search-titlecomplement") searchTitleComplement: string;
+            @Input("search-itemscolumns") searchItemsColumns: any;
+            @Input("search-itemssource") searchItemsSource: any;
+
+            //#endregion
+
+            //#region Private Properties
+
+            private refreshGridSubject = new Subject&lt;void&gt;();
+
+            //#endregion
+
+            //#region Public Getters
+
+            public get canAddOrList(): boolean &#123;
+
+              if (this._state.isReadOnly)
+                return false
+
+              return this.customAddOrListVerify;
+
+            &#125;
+
+            //#endregion
+
+            //#region Public Properties
+
+            public allowPaging: boolean;
+            public isDialogOpen: boolean;
+            public pageSettings: PageSettingsModel = &#123; pageSizes: true, pageSize: 20 &#125;; ''
+
+            //#endregion
+
+            //#region Public Methods
+
+            // Cria um novo registro
+            public doComplementAdd(): void &#123;
+
+              this.isDialogOpen = true;
+
+              this.requestAddSubject.next();
+
+            &#125;
+
+            public doComplementList(): void &#123;
+
+              this.isDialogOpen = true;
+
+              let searchData = &#123;
+                'gridColumns': this.searchItemsColumns,
+                'gridSource': this.searchItemsSource,
+                'icon': this.icon,
+                'selectionSettings': &#123; mode: 'Row', type: 'Multiple' &#125;,
+                'title': this.searchTitle,
+                'titleComplement': this.searchTitleComplement,
+              &#125;;
+
+              this.requestAddSelectionSubject.next(searchData);
+
+            &#125;
+
+            public onContextMenuClicked(args: any): void &#123;
+              this.requestGridContextMenuClick.next(args);
+            &#125;
+
+            public onDataBound(args: any): void &#123;
+            &#125;
+
+            public onGridContextMenuOpen(args): void &#123;
+              this.requestGridContextMenuOpen.next(args);
+            &#125;
+
+            public onGridRecordDoubleClick(args: RecordDoubleClickEventArgs): void &#123;
+
+              // Obtêm o id da item que foi clicado
+
+              var rowId = closest(&lt;Element&gt;args.target, ".e-row").getAttribute("data-uid");
+
+              // Obtêmos o registro selecionado
+              var recordData = this.virtueGrid.getRowData(rowId);
+
+              this.requestEditSubject.next(recordData);
+
+            &#125;
+
+            public refreshGrid(): void &#123;
+              this.virtueGrid.refresh();
+            &#125;
+
+            //#endregion
+
+            //#region Public Subjects
+
+            public requestAddSubject = new Subject&lt;void&gt;();
+            public requestAddSelectionSubject = new Subject&lt;any&gt;();
+            public requestEditSubject = new Subject&lt;RecordData&gt;();
+            public requestGridContextMenuClick = new Subject&lt;any&gt;();
+            public requestGridContextMenuOpen = new Subject&lt;any&gt;();
+
+            //#endregion
+
+          &#125;
+</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #complementcss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-complement">
+
+        <div class="header-box-complement">
+          <span class="header-title-complement">
+            <h3 class="header-box-h3">{{ componentitle }} Code</h3>
+          </span>
+          <span class="button-tab-hidden">
+            <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+              <i class="fas fa-code">
+              </i>
+            </button>
+          </span>
+        </div>
+
+        <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+          <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+            <mat-tab label="HTML">
+              <ng-container [ngTemplateOutlet]="complementhtml">
+              </ng-container>
+            </mat-tab>
+            <mat-tab label="TYPESCRIPT">
+              <ng-container [ngTemplateOutlet]="complementts">
+              </ng-container>
+            </mat-tab>
+            <mat-tab label="CSS">
+              <ng-container [ngTemplateOutlet]="complementcss">
+              </ng-container>
+            </mat-tab>
+          </mat-tab-group>
+
+          <mat-divider></mat-divider>
+
+          <h3>
+            Exemplo {{ componentitle }}
+          </h3>
+
+          <div style="justify-content: center;">
+
+            <virtue-complement [customAddOrListVerify]="false" [disabled]="false" [showAddButton]="true"
+              [showListButton]="true" [showIconWarning]="false" [list-aggregates]="list"></virtue-complement>
+
+          </div>
+        </div>
+      </div> -->

@@ -1,0 +1,270 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/public-api';
+          import &#123; DocSectiontotalComponent &#125; from './doc-sectiontotal.component';
+          import &#123; DocSectiontotalRoutingModule &#125; from './doc-sectiontotal-routing.module';
+          <span>import &#123; SectionTotalModule &#125; from 'projects/virtue/lib/public-api';</span>
+
+          @NgModule(&#123;
+            declarations: [
+              DocSectiontotalComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>SectionTotalModule,</span>
+
+              // Local
+              DocSectiontotalRoutingModule
+            ]
+          &#125;)
+          export class DocSectiontotalModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+                &lt;virtue-section [section-showdivider]='false'
+                                fxFlex=50
+                                section-icon="fad fa-equals"
+                                section-title="Total de Vendas"&gt;
+
+                    &lt;div fxLayout="row"
+                        fxLayoutAlign="space-between stretch"&gt;
+
+                      &lt;!-- TOTAL ENTRADAS  --&gt;
+                      &lt;virtue-sectiontotal fxFlex
+                                          title="A - Entradas (R$)"
+                                          value-color="#3c763d"&gt;
+                        {{totalEntradas | number:'.2-2'}}
+                      &lt;/virtue-sectiontotal&gt;
+
+                      &lt;!-- TOTAL SAÍDAS  --&gt;
+                      &lt;virtue-sectiontotal fxFlex
+                                          title="B - Saídas (R$)"
+                                          value-color="#a94442"&gt;
+                        {{totalSaidas | number:'.2-2'}}
+                      &lt;/virtue-sectiontotal&gt;
+
+                      &lt;!-- SALDO  --&gt;
+                      &lt;virtue-sectiontotal fxFlex
+                                          title="(A-B) Saldo (R$)"
+                                          value-color="#a94442"&gt;
+                        {{(totalEntradas - totalSaidas) | number:'.2-2'}}
+                      &lt;/virtue-sectiontotal&gt;
+
+                    &lt;/div&gt;
+
+                &lt;/virtue-section&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <virtue-section [section-showdivider]='false'
+                        fxFlex=50
+                        section-icon="fad fa-equals"
+                        section-title="Total de Vendas">
+
+          <div fxLayout="row"
+               fxLayoutAlign="space-between stretch">
+
+            <!-- TOTAL ENTRADAS  -->
+            <virtue-sectiontotal fxFlex
+                                 title="A - Entradas (R$)"
+                                 value-color="#3c763d">
+              {{totalEntradas | number:'.2-2'}}
+            </virtue-sectiontotal>
+
+            <!-- TOTAL SAÍDAS  -->
+            <virtue-sectiontotal fxFlex
+                                 title="B - Saídas (R$)"
+                                 value-color="#a94442">
+              {{totalSaidas | number:'.2-2'}}
+            </virtue-sectiontotal>
+
+            <!-- SALDO  -->
+            <virtue-sectiontotal fxFlex
+                                 title="(A-B) Saldo (R$)"
+                                 value-color="#a94442">
+              {{(totalEntradas - totalSaidas) | number:'.2-2'}}
+            </virtue-sectiontotal>
+
+          </div>
+
+        </virtue-section>
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableHostListener"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #sectiontotalhtml>
+  <pre>
+    <code>
+        &lt;div class="section-total"
+                fxFlex
+                fxLayout="column"
+                fxLayoutAlign="center center"&gt;
+           &lt;div class="section-total-info"
+                   fxLayout="column"
+                   fxLayoutAlign=" end"&gt;
+             &lt;span [ngStyle]='&#123;"font-size" : titleFontSize,  "font-weight" : titleFontWeight&#125;'&gt;&#123; &#123;title&#125;&#125;&lt;/span&gt;
+             &lt;span [ngStyle]='&#123;"color" : valueColor, "font-size" : valueFontSize, "font-weight" : valueFontWeight&#125;'&gt;
+               &lt;ng-content&gt;&lt;/ng-content&gt;
+             &lt;/span&gt;
+           &lt;/div&gt;
+         &lt;/div&gt;</code>
+  </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #sectiontotalts>
+  <pre>
+    <code>
+        // Angular
+        import &#123; Component, ViewEncapsulation, Input &#125; from '@angular/core';
+
+        @Component(&#123;
+            selector: 'virtue-sectiontotal',
+            templateUrl: './sectiontotal.component.html',
+            styleUrls: ['./sectiontotal.component.scss'],
+            encapsulation: ViewEncapsulation.None,
+        &#125;)
+        export class SectionTotalComponent &#123;
+
+            //#region Input Properties
+
+            @Input() title: string;
+            @Input("title-font-size") titleFontSize: string = "0.96em";
+            @Input("title-font-weight") titleFontWeight: string = "0.96em";
+            @Input("value-color") valueColor: string;
+            @Input("value-font-size") valueFontSize: string = "1.2em";
+            @Input("value-font-weight") valueFontWeight: string = "800";
+
+            //#endregion
+
+        &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #sectiontotalservice>
+  <pre>
+    <code>
+    </code>
+  </pre>
+</ng-template>
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="sectiontotalhtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="sectiontotalts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="SERVICE">
+        <ng-container [ngTemplateOutlet]="sectiontotalservice">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <h3>
+      Exemplo {{ componentitle }}
+    </h3>
+    <div style="justify-content: center;">
+
+    </div>
+  </div>
+</div> -->

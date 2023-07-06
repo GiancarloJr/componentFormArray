@@ -1,0 +1,579 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <h3 id="comousarcomponente"
+          class="body-h3"> Como utilizar componente: </h3>
+      <mat-divider class="button-speed-divider"></mat-divider>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <p class="observation">   *Observação: NgScrollbarModule é importado dentro do {{ componentitle | NameModule }}
+        para utilização do mesmo.</p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/public-api';
+          import &#123; DocNavigationComponent &#125; from './doc-navigation.component';
+          import &#123; DocNavigationRoutingModule &#125; from './doc-navigation-routing.module';
+          <span>import &#123; NavigationModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+
+          @NgModule(&#123;
+            declarations: [
+              DocNavigationComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>NavigationModule,</span>
+
+              // Local
+              DocNavigationRoutingModule
+            ]
+          &#125;)
+          export class DocNavigationModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+                &lt;div class="layout-default"
+                  fxLayout="column"
+                  fxLayoutAlign="space-evenly stretch"&gt;
+
+                  &lt;!-- CONTEÚDO --&gt;
+                  &lt;div class="content"
+                        fxFlex
+                        fxLayout="row"&gt;
+
+                    &lt;!-- MENU --&gt;
+                    &lt;div [class.menu-opened]='menuShow'
+                        [class.menu-closed]='!menuShow'
+                        class="menu-navigation"&gt;
+
+                      &lt;virtue-vertical-menu #menuVertical
+                                            (iconClicked)='onMenuItemIconClicked($event)'
+                                            [menu-showprogress]='false'
+                                            [menu-source]='menuResources'
+                                            [menu-show]='menuShow'
+                                            [menu-collapse]='menuShow'
+                                          &gt;
+                      &lt;/virtue-vertical-menu&gt;
+
+                    &lt;/div&gt;
+
+                    &lt;!-- CONTENT --&gt;
+                    &lt;section&gt;
+                      &lt;router-outlet&gt;&lt;/router-outlet&gt;
+                    &lt;/section&gt;
+
+                  &lt;/div&gt;
+
+              &lt;/div&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <div class="layout-default"
+             fxLayout="column"
+             fxLayoutAlign="space-evenly stretch">
+
+          <!-- CONTEÚDO -->
+          <div class="content"
+               fxFlex
+               fxLayout="row">
+
+            <!-- MENU -->
+            <div [class.menu-opened]='menuShow'
+                 [class.menu-closed]='!menuShow'
+                 class="menu-navigation">
+
+              <virtue-vertical-menu #menuVertical
+                                    (iconClicked)='onMenuItemIconClicked($event)'
+                                    [menu-showprogress]='false'
+                                    [menu-source]='menuResources'
+                                    [menu-show]='menuShow'
+                                    [menu-collapse]='menuShow'>
+              </virtue-vertical-menu>
+
+            </div>
+
+            <!-- CONTENT -->
+            <section>
+              <router-outlet></router-outlet>
+            </section>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="diretivas">
+
+        <div class="title">
+          <h3> Navigation: </h3>
+          <mat-divider></mat-divider>
+        </div>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInputNavigation"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutputNavigation"></doc-tablediretivas>
+
+        <div class="title">
+          <h3> Vertical Menu: </h3>
+          <mat-divider></mat-divider>
+        </div>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInputVerticalMenu"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutPutVerticalMenu"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #navigationhtml>
+  <pre>
+    <code>
+          &lt;mat-progress-bar *ngIf='menuShowProgress'
+          mode="indeterminate"&gt;&lt;/mat-progress-bar&gt;
+
+          &lt;!-- Menu do tipo item --&gt;
+          &lt;ng-scrollbar&gt;
+          &lt;virtue-vertical-menu-item *ngFor="let item of menuResources"
+                                        (iconClicked)='onIconClicked($event)'
+                                        (menuClicked)='onMenuClicked($event)'
+                                        [HideLeftBorder]=false
+                                        [ItemDetailsShow]="menuShow"
+                                        [item]="item"&gt;
+          &lt;/virtue-vertical-menu-item&gt;
+          &lt;/ng-scrollbar&gt;</code>
+      </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #navigationts>
+  <pre>
+    <code>
+        // Angular
+        import &#123; AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation &#125; from '@angular/core';
+
+        // Models
+        import &#123; Resource &#125; from '@virtuetec/lib/models';
+
+        @Component(&#123;
+          selector: 'virtue-vertical-menu',
+          templateUrl: './menu.component.html',
+          styleUrls: ['./menu.component.scss'],
+          encapsulation: ViewEncapsulation.None
+        &#125;)
+        export class VerticalMenuComponent implements AfterViewInit, OnChanges &#123;
+
+          //#region Constructor
+
+          constructor(private _cdRef: ChangeDetectorRef) &#123;
+          &#125;
+
+          //#endregion
+
+          //#region Event Emitters
+
+          @Output() public iconClicked = new EventEmitter&lt;boolean&gt;();
+
+          //#endregion
+
+          //#region Implements OnChange
+
+          ngOnChanges(changes: SimpleChanges): void &#123;
+            if (changes["menuShow"] != null || changes["menuShow"] != undefined)
+              this.onMenuClicked();
+          &#125;
+
+          //#endregion
+
+          //#region Input Properties
+
+          @Input("menu-source") public menuResources: Resource[];
+          @Input("menu-showprogress") public menuShowProgress: boolean = true;
+          @Input("menu-show") public menuShow: boolean = true;
+          @Input("menu-collapse") public menuCollapse: boolean = false;
+
+          //#endregion
+
+          //#region Implements AfterViewInit
+
+          ngAfterViewInit() &#123;
+
+            // Força o "colapsamento" de todo o menu
+            this.onMenuClicked();
+
+            this._cdRef.detectChanges();
+
+          &#125;
+
+          //#endregion
+
+          //#region Private Method
+
+          private colapseMenus(resources: Resource[]): void &#123;
+            resources.forEach(item => &#123;
+              item.Expanded = false;
+
+              var chieldResources = item.Recursos.filter(x => x.Expanded);
+
+              if (chieldResources.length > 0)
+                this.colapseMenus(chieldResources);
+
+            &#125;);
+          &#125;
+
+          //#endregion
+
+          //#region Public Methods
+
+          public onIconClicked(open: boolean): void &#123;
+            // Dispara o evento quando icone é clicado para abrir o menu
+            this.iconClicked.emit(open);
+          &#125;
+
+          public onMenuClicked(menuid: string = ""): void &#123;
+
+            if (this.menuResources == undefined || this.menuResources == null)
+              return;
+
+            // Colapsa todos os menus, exceto o passado por parâmetro
+            var resources = this.menuResources.filter(x => x.Id != menuid && x.Url == "" && x.Expanded);
+
+            if (resources.length > 0)
+              this.colapseMenus(resources);
+          &#125;
+
+          //#endregion
+
+        &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #navigationcss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #navigationverticalmenuhtml>
+  <pre>
+    <code>
+       <!-- <mat-list-item> -->
+        &lt;div (click)='onMenuClick(item)'
+        [matRippleCentered]='centered'
+        [matRippleUnbounded]='unbounded'
+        [ngClass]='&#123;"menu-item-leftborder": !HideLeftBorder, "menu-item-expanded": item.Expanded&#125;'
+        class="menu-item"
+        matRipple&gt;
+
+        &lt;span *ngIf="item.IconeStack != '' && item.IconeStack != undefined"
+          class="menu-icon fa-stack"&gt;
+        &lt;i class="&#123; &#123;item.IconeStack&#125;&#125; fa-stack-2x"&gt;&lt;/i&gt;
+        &lt;i class="&#123; &#123;item.Icone&#125;&#125; fa-stack-1x"
+          [ngStyle]="&#123; 'color': (item.CorIconeStack != '' && item.CorIconeStack != null ? item.CorIconeStack : '#2d323e') &#125;"&gt;&lt;/i&gt;
+        &lt;/span&gt;
+
+        &lt;i *ngIf="item.IconeStack == '' || item.IconeStack == undefined"
+        class="menu-icon"
+        (click)="doOpenMenu()"
+        [matTooltip]='ItemDetailsShow ? "" : item.Titulo'
+        [ngClass]='item.Icone'&gt;&lt;/i&gt;
+
+        &lt;div *ngIf="ItemDetailsShow"
+          id="ItemDetails"
+          [ngClass]="&#123;'menu-in': ItemDetailsShow, 'menu-out': !ItemDetailsShow &#125;"&gt;
+        &lt;div class="menu-title"&gt;
+        &lt;span class="menu-caption"&gt;&#123; &#123;item.Titulo&#125;&#125;&lt;/span&gt;
+        &lt;span class="menu-hint"&gt;&#123; &#123;item.ToolTip&#125;&#125;&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;span class="menu-badge"
+            *ngIf='item.badge && !HideBadge'&gt;
+        &#123; &#123;item.Badge&#125;&#125;
+        &lt;/span&gt;
+
+        &lt;mat-icon *ngIf='item.Recursos.length &gt; 0'
+                [@isExpandedLTR]='item.Expanded ? "yes" : "no"'&gt;
+        keyboard_arrow_down
+        &lt;/mat-icon&gt;
+
+        &lt;mat-spinner *ngIf='showMenuItemProgress'
+                    class="spinner-progress"
+                    diameter="20"&gt;
+        &lt;/mat-spinner&gt;
+
+        &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;mat-divider&gt;&lt;/mat-divider&gt;
+
+        &lt;div *ngIf='item.Recursos && item.Expanded'
+        [@slideInOut]
+        [ngClass]="classes"&gt;
+        &lt;virtue-vertical-menu-item *ngFor='let item of item.Recursos'
+                                [item]='item'
+                                [level]='level + 1'
+                                [HideLeftBorder]=true&gt;
+        &lt;/virtue-vertical-menu-item&gt;
+        &lt;/div&gt;</code>
+  </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #navigationverticalmenuts>
+  <pre>
+    <code>
+        // Angular
+        import &#123; AfterViewInit, ElementRef, EventEmitter, Injector, Input, OnInit, Output, Renderer2, ViewChild &#125; from "@angular/core";
+        // Angular
+        import &#123; Component, ViewEncapsulation, Input, Output, EventEmitter &#125; from '@angular/core';
+        import &#123; transition, trigger, state, style, group, animate &#125; from '@angular/animations';
+        import &#123; Router &#125; from '@angular/router';
+
+        // Lib
+        import &#123; Resource &#125; from '@virtuetec/lib/models';
+
+        @Component(&#123;
+          selector: 'virtue-vertical-menu-item',
+          templateUrl: './item.component.html',
+          styleUrls: ['./item.component.scss'],
+          encapsulation: ViewEncapsulation.None,
+          animations: [
+            trigger('slideInOut', [
+              state('in', style(&#123; height: '*', opacity: 0 &#125;)),
+              transition(':leave', [
+                style(&#123; height: '*', opacity: 0.2 &#125;),
+                group([
+                  animate(200, style(&#123; height: 0 &#125;)),
+                  animate('200ms ease-out', style(&#123; opacity: 0 &#125;))
+                ])
+              ]),
+              transition(':enter', [
+                style(&#123; height: '0', opacity: 0 &#125;),
+                group([
+                  animate(200, style(&#123; height: '*' &#125;)),
+                  animate('400ms ease-out', style(&#123; opacity: 1 &#125;))
+                ])
+              ])
+            ]),
+            trigger('isExpandedLTR', [
+              state('no', style(&#123; transform: 'rotate(-90deg)' &#125;)),
+              state('yes', style(&#123; transform: 'rotate(0deg)', &#125;)),
+
+              transition('no => yes',
+                animate(200)
+              ),
+              transition('yes => no',
+                animate(200)
+              )
+            ]),
+            trigger('isExpandedRTL', [
+              state('no', style(&#123; transform: 'rotate(90deg)' &#125;)),
+              state('yes', style(&#123; transform: 'rotate(0deg)', &#125;)),
+
+              transition('no => yes',
+                animate(200)
+              ),
+              transition('yes => no',
+                animate(200)
+              )
+            ])
+          ]
+        &#125;)
+        export class VerticalMenuItemComponent &#123;
+
+          //#region Constructor
+
+          constructor(private _router: Router) &#123; &#125;
+
+          //#endregion
+
+          //#region Event Emitters
+
+          @Output() public menuClicked = new EventEmitter&lt;string&gt;();
+          @Output() public iconClicked = new EventEmitter&lt;boolean&gt;();
+
+          //#endregion
+
+          //#region Input Properties
+
+          @Input() public HideBadge: boolean;
+          @Input() public HideLeftBorder: boolean = false;
+          @Input() public ItemDetailsShow: boolean = true;
+          @Input() public item: any;
+          @Input() public level = 1;
+
+          //#endregion
+
+          //#region Public Methods
+
+          public doOpenMenu(): void &#123;
+            if (!this.ItemDetailsShow) &#123;
+              this.ItemDetailsShow = !this.ItemDetailsShow;
+
+              // Dispara o evento quando icone é clicado para abrir o menu
+              this.iconClicked.emit(this.ItemDetailsShow);
+            &#125;
+          &#125;
+
+          public async onMenuClick(item: Resource): Promise&lt;void&gt; &#123;
+
+            // Dispara o evento quando menu é clicado
+            this.menuClicked.emit(item.Id);
+
+            if (item.Url !== "") &#123;
+
+              let currentUrl = `$&#123;item.Url.startsWith("/") ? "" : "/"&#125;$&#123;item.Url&#125;`;
+
+              if (this._router.url == currentUrl) &#123;
+                // Se houve sucesso, esconde o loader
+                setTimeout(() => this.showMenuItemProgress = false, 100);
+                return;
+              &#125;
+
+              // Apresenta loader do menu
+              setTimeout(() => this.showMenuItemProgress = true, 100);
+
+              var ret = await this._router.navigate([item.Url]);
+
+              // Se houve sucesso, esconde o loader
+              setTimeout(() => this.showMenuItemProgress = false, 100);
+
+
+            &#125; else &#123;
+              setTimeout(() => item.Expanded = !item.Expanded, 100);
+            &#125;
+
+            this.setClasses();
+
+            this.doOpenMenu();
+
+          &#125;
+
+          public setClasses(): void &#123;
+            this.classes = &#123;
+              'menu-submenu': true
+            &#125;;
+          &#125;
+
+          //#endregion
+
+          //#region Public Properties
+
+          public centered: boolean = true;
+          public classes: &#123; [index: string]: boolean &#125;;
+          public disabled: boolean = false;
+          public showMenuItemProgress: boolean = false;
+          public unbounded: boolean = false;
+
+          //#endregion
+
+        &#125;</code>
+  </pre>
+</ng-template>
+
+<!--
+<div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="navigationhtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="navigationts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="CSS">
+        <ng-container [ngTemplateOutlet]="navigationcss">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <h3>
+      Exemplo {{ componentitle }}
+    </h3>
+    <div style="justify-content: center;">
+
+    </div>
+  </div>
+</div> -->

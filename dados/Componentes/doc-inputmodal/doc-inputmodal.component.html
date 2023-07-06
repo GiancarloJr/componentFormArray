@@ -1,0 +1,312 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/public-api';
+          import &#123; DocInputmodalComponent &#125; from './doc-inputmodal.component';
+          import &#123; DocInputmodalRoutingModule &#125; from './doc-inputmodal-routing.module';
+          <span>import &#123; InputModalModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+          @NgModule(&#123;
+            declarations: [
+              DocInputmodalComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>InputModalModule,</span>
+
+              // Local
+              DocInputmodalRoutingModule
+            ]
+          &#125;)
+          export class DocInputmodalModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+          &lt;div class="virtue-inputmodal-example" [formGroup]="formData"&gt;
+
+            &lt;virtue-input-modal (call-modal)="callModal()"
+                                [showClear]='formData.get("nome").value == ""'
+                                formControlName="nome"
+                                fxFlex="35"
+                                labelText="Nome"
+                                [readyonly]="false"
+                                tooltip="Tooltip Teste"&gt;
+            &lt;/virtue-input-modal&gt;
+
+          &lt;/div&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <div [formGroup]="formData"
+             class="virtue-inputmodal-example">
+
+          <virtue-input-modal (call-modal)="callModal()"
+                              [readyonly]="false"
+                              [showClear]='formData.get("nome").value == ""'
+                              formControlName="nome"
+                              fxFlex="35"
+                              labelText="Nome"
+                              tooltip="Tooltip Teste">
+          </virtue-input-modal>
+
+        </div>
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableHostListener"></doc-tablediretivas>
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #inputmodalhtml>
+  <pre>
+    <code>
+         &lt;mat-form-field&gt;
+         &lt;div class="mat-form-field-with-button"
+                 fxFlex&gt;
+
+            &lt;mat-form-field class="outline-color"&gt;
+              &lt;mat-label&gt;&#123; &#123; labelText&#125;&#125;&lt;/mat-label&gt;
+              &lt;input #inputModal
+                        (click)="onClickInput($event)"
+                        [formControl]='control'
+                        [readonly]='readOnly'
+                        matInput&gt;
+              &lt;i *ngIf="showClear"
+                    (click)="doClearField()"
+                    class="fad fa-times-circle btn-clear"
+                    matTooltip="Clique para limpar"
+                    matIconSuffix&gt;&lt;/i&gt;
+
+              &lt;ng-content select="[input-errors]"&gt;&lt;/ng-content&gt;
+
+            &lt;/mat-form-field&gt;
+
+          &lt;/div&gt;
+
+          &lt;!-- BOTÃO CHAMAR MODAL --&gt;
+          &lt;div fxFlex="2"&gt;
+            &lt;button [matTooltip]="tooltip"
+                       (click)="onCallModal()"
+                       class="btn-call-modal"
+                       color="primary"
+                       mat-button
+                       mat-flat-button&gt;
+              &lt;i class="fad fa-window-restore"&gt;&lt;/i&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;</code>
+      </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #inputmodalts>
+  <pre>
+    <code>
+        // Angular
+        import &#123; Component, ViewEncapsulation, OnInit, Injector, ElementRef, forwardRef, Input, Renderer2, Output, EventEmitter &#125; from '@angular/core';
+        import &#123; NG_VALUE_ACCESSOR, &#125; from '@angular/forms';
+
+        // Angular Material
+        import &#123; MatDialog, MatDialogConfig &#125; from '@angular/material/dialog';
+        import &#123; Observable &#125; from 'rxjs';
+
+        // Virtue
+        import &#123; ValueAccessor &#125; from '@virtuetec/lib/core';
+
+        @Component(&#123;
+          selector: 'virtue-input-modal',
+          templateUrl: './inputmodal.component.html',
+          styleUrls: ['./inputmodal.component.scss'],
+          encapsulation: ViewEncapsulation.None,
+          providers: [&#123;
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => InputModalComponent),
+            multi: true
+          &#125;]
+        &#125;)
+        export class InputModalComponent extends ValueAccessor implements OnInit &#123;
+
+          //#region Constructor
+
+          constructor(
+            protected _dialog: MatDialog,
+            protected _el: ElementRef,
+            protected _injector: Injector,
+            protected _renderer: Renderer2) &#123;
+            super(_el, _injector, _renderer);
+          &#125;
+
+          //#endregion
+
+          //#region Events Emitter
+
+          @Output("call-modal") callModal = new EventEmitter();
+          @Output("clear-value") clearValue = new EventEmitter();
+          @Output("click-input") clickInput = new EventEmitter();
+
+          //#endregion
+
+          //#region Implementation OnInit
+
+          ngOnInit(): void &#123;
+            if (this.control != null) &#123;
+              this.control.disable();
+            &#125;
+          &#125;
+
+          //#endregion
+
+          //#region Inputs
+
+          @Input("labelText") labelText: string = 'Não Definido';
+          @Input("readyonly") readOnly: boolean;
+          @Input("showClear") showClear: boolean = false;
+          @Input("tooltip") tooltip: string = "Clique para abrir o modal";
+          //#endregion
+
+          //#region Public Methods
+
+          public doClearField(): void &#123;
+            this.control.setValue("");
+
+            this.clearValue.emit(null);
+          &#125;
+
+          public onCallModal(): void &#123;
+            this.callModal.emit(null);
+          &#125;
+
+          public onClickInput(event: any) &#123;
+            event.preventDefault();
+
+            this.clickInput.emit(null);
+          &#125;
+
+          //#endregion
+        &#125;</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #inputmodalcss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="inputmodalhtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="inputmodalts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="CSS">
+        <ng-container [ngTemplateOutlet]="inputmodalcss">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <h3>
+      Exemplo {{ componentitle }}
+    </h3>
+    <div style="justify-content: center;">
+
+    </div>
+  </div>
+</div> -->

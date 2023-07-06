@@ -1,0 +1,513 @@
+﻿<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/commom.modules';
+          import &#123; DocDropdownlistRoutingModule &#125; from './doc-dropdownlist-routing.module';
+          import &#123; DocDropdownlistComponent &#125; from './doc-dropdownlist.component';
+          <span>import &#123; DropdownListModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+          @NgModule(&#123;
+            declarations: [
+              DocDropdownlistComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>DropdownListModule,</span>
+
+              // Local
+              DocDropdownlistRoutingModule
+            ]
+          &#125;)
+          export class DocDropdownlistModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+          &lt;virtue-dropdownlist [allowFiltering]='showAllowFiltering'
+                               [dataSource]='exemploCargoSource'
+                               [fields]='exemploFields'
+                               [showButtonModal]='showButtonModal'
+                               [showClearButton]='showButtonClear'
+                               [showButtonInfo]='showButtonInfo'
+                               fxFlex="40"
+                               filterBarPlaceholder="Pesquisa..."
+                               placeholder='Teste de Componente'
+                               tooltipButton="Testando ToolTip"&gt;
+
+            &lt;/virtue-dropdownlist&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <div class="option-1">
+
+          <mat-slide-toggle (click)="buttonInfo()">Ativar Informação ('showButtonInfo').</mat-slide-toggle>
+
+        </div>
+        <div class="option-2">
+
+          <mat-slide-toggle (click)="allowFiltering()">Ativar Pesquisa/Filtro ('showButtonModal').</mat-slide-toggle>
+
+        </div>
+        <div class="option-3">
+
+          <mat-slide-toggle (click)="buttonModal()">Ativar Modal ('showButtonModal').</mat-slide-toggle>
+
+        </div>
+        <div class="option-4">
+
+          <mat-slide-toggle (click)="buttonClear()">Ativar Botão para Limpar Campo ('showClearButton').</mat-slide-toggle>
+
+        </div>
+        <div class="component">
+          <virtue-dropdownlist (call-modal)="callModal()"
+                               [allowFiltering]='showAllowFiltering'
+                               [dataSource]='exemploCargoSource'
+                               [fields]='exemploFields'
+                               [showButtonModal]='showButtonModal'
+                               [showClearButton]='showButtonClear'
+                               [showButtonInfo]='showButtonInfo'
+                               [(ngModel)]="valueBinding"
+                               fxFlex="60"
+                               filterBarPlaceholder="Pesquisa..."
+                               placeholder='Teste de Componente'
+                               tooltipButton="Testando ToolTip">
+
+          </virtue-dropdownlist>
+        </div>
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #dropdownlisthtml>
+  <pre>
+    <code>
+        &lt;div [class.with-buttons]='showActionButtons'
+                class="form-field"
+                fxFlex
+                fxLayout="column"&gt;
+
+          &lt;ejs-dropdownlist #dropdownList
+                               (change)="onChanged($event)"
+                               (created)="onCreated($event)"
+                               (filtering)="onFiltering($event)"
+                               (keyup.enter)="onEnterKeyUp($event)"
+                               (open)="onOpen($event)"
+                               (select)="onSelect($event)"
+                               [(value)]="valueBinding"
+                               [allowFiltering]='allowFiltering'
+                               [dataSource]="dataSource"
+                               [fields]="fields"
+                               [filterBarPlaceholder]='filterBarPlaceholder'
+                               [formControl]='control'
+                               [ignoreAccent]="true"
+                               [itemTemplate]='itemTemplate'
+                               [popupHeight]="popupHeight"
+                               [popupWidth]="popupWidth"
+                               [placeholder]='placeholder'
+                               [showClearButton]='showClearButton'
+                               autofill='true'
+                               cssClass="e-outline"
+                               floatLabelType='Always'
+                               fxFlex&gt;
+          &lt;/ejs-dropdownlist&gt;
+
+          &lt;ng-content select="[input-errors]"&gt;&lt;/ng-content&gt;
+
+        &lt;/div&gt;
+
+        &lt;div *ngIf='showActionButtons'
+                class="action-buttons field-size"
+                fxLayout="row"&gt;
+
+          &lt;!-- BOTÃO INFORMAÇÕES --&gt;
+          &lt;button *ngIf='showButtonInfo ?? false'
+                     [matTooltip]='infoMessage'
+                     class="info"
+                     mat-button
+                     mat-flat-button
+                     type="button"&gt;
+            &lt;i class="fad fa-info"&gt;&lt;/i&gt;
+          &lt;/button&gt;
+
+          &lt;!-- BOTÃO CHAMAR MODAL --&gt;
+          &lt;button *ngIf='showButtonModal ?? false'
+                     (click)='onClickModal()'
+                     [matTooltip]='tooltipButton'
+                     color="primary"
+                     mat-button
+                     mat-flat-button
+                     type="button"&gt;
+            &lt;i *ngIf='canAdd'
+                  class="fad fa-plus"&gt;&lt;/i&gt;
+            &lt;i *ngIf='canEdit'
+                   class="fad fa-pencil"&gt;&lt;/i&gt;
+            &lt;i *ngIf='!canAdd && !canEdit'
+                   class="fad fa-eye"&gt;&lt;/i&gt;
+          &lt;/button&gt;
+
+        &lt;/div&gt;</code>
+      </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #dropdownlistts>
+  <pre>
+    <code>
+          // Angular
+          import &#123; Component, ViewEncapsulation, Inject, OnInit, OnDestroy, ViewChild, EventEmitter &#125; from '@angular/core';
+
+          // Angular
+          import &#123; AfterViewInit, ElementRef, EventEmitter, Injector, Input, Optional, Output, Renderer2, ViewChild &#125; from "@angular/core";
+          import &#123; Component, ViewEncapsulation &#125; from "@angular/core";
+          import &#123; NG_VALUE_ACCESSOR &#125; from "@angular/forms";
+          import &#123; MatDialog, MatDialogConfig &#125; from "@angular/material/dialog";
+          import &#123; DropDownListComponent &#125; from "@syncfusion/ej2-angular-dropdowns";
+
+          // Rxjs
+          import &#123; Observable &#125; from "rxjs";
+
+          // Virtue
+          import &#123; Library, ValueAccessor &#125; from "@virtuetec/lib/core";
+          import &#123; DialogState &#125; from "@virtuetec/lib/services";
+
+          @Component(&#123;
+            selector: "virtue-dropdownlist",
+            templateUrl: './dropdownlist.component.html',
+            styleUrls: ['./dropdownlist.component.scss'],
+            encapsulation: ViewEncapsulation.None,
+            providers: [
+              &#123;
+                provide: NG_VALUE_ACCESSOR,
+                useExisting: DropdownListComponent,
+                multi: true
+              &#125;
+            ]
+          &#125;)
+          export class DropdownListComponent extends ValueAccessor implements AfterViewInit &#123;
+
+            //#region Constructor
+
+            constructor(
+              protected _dialog: MatDialog,
+              protected _el: ElementRef,
+              protected _injector: Injector,
+              protected _renderer: Renderer2,
+              @Optional() protected _state: DialogState = null) &#123;
+              super(_el, _injector, _renderer);
+            &#125;
+
+            ngAfterViewInit(): void &#123;
+
+            &#125;
+
+            //#endregion
+
+            //#region Event Emitters
+
+            @Output("call-modal") callModal = new EventEmitter&lt;DropdownListComponent&gt;();
+            @Output("change") changeEvent = new EventEmitter&lt;any&gt;();
+            @Output("clear-value") clearValue = new EventEmitter();
+            @Output("created") createdEvent = new EventEmitter&lt;any&gt;();
+            @Output("filtering") filteringEvent = new EventEmitter&lt;any&gt;();
+            @Output("keyup.enter") keyupEnterEvent = new EventEmitter&lt;any&gt;();
+            @Output("open") openEvent = new EventEmitter&lt;any&gt;();
+            @Output("select") selectEvent = new EventEmitter&lt;any&gt;();
+
+            //#endregion
+
+            //#region Input Properties
+
+            @Input("allowFiltering") allowFiltering: boolean = false;
+            @Input("dataSource") dataSource: any[];
+            @Input("fields") fields: Object = &#123; text: 'Nome', value: 'Id' &#125;;
+            @Input("filterBarPlaceholder") filterBarPlaceholder: string = "Pesquisar...";
+            @Input("infoMessage") infoMessage: string = "...";
+            @Input("itemTemplate") itemTemplate: any;
+            @Input("placeholder") placeholder: string = null;
+            @Input("popupHeight") popupHeight: string = "300px";
+            @Input("popupWidth") popupWidth: string = "100%";
+            @Input("showButtonInfo") showButtonInfo: boolean = false;
+            @Input("showButtonModal") showButtonModal: boolean = false;
+            @Input("showClearButton") showClearButton: boolean = false;
+            @Input("value") valueBinding: any;
+            @Input("tooltipButton") tooltipButton: string = "Clique para abrir o modal";
+
+            //#endregion
+
+            //#region Public Getters
+
+            public get canAdd(): boolean &#123;
+
+              if (this.control == null)
+                return false;
+
+              if (this._state == null)
+                return false;
+
+              if (this._state.isReadOnly)
+                return false;
+
+              if (this.control.value == null
+                || this.control.value == ''
+                || Library.isGuidEmpty(this.control.value))
+                return true;
+
+              return false;
+            &#125;
+
+            public get canEdit(): boolean &#123;
+
+              if (this.control == null)
+                return false;
+
+              if (this._state == null)
+                return false;
+
+              if (this._state.isReadOnly)
+                return false;
+
+              if (this.control.value != null
+                && this.control.value != ''
+                && !Library.isGuidEmpty(this.control.value))
+                return true;
+
+              return false;
+
+            &#125;
+
+            public get showActionButtons(): boolean &#123;
+
+              if (this.showButtonInfo == null && this.showButtonModal == null)
+                return false;
+
+              return this.showButtonInfo || this.showButtonModal;
+
+            &#125;
+
+            //#endregion
+
+            //#region Public Methods
+
+            public focus(): void &#123;
+              setTimeout(() => this.dropdownList?.focusIn());
+            &#125;
+
+            public doCallModal(component: any, parentfields: object = null): Observable&lt;any&gt; &#123;
+
+              // Instância os objetos do formulário
+              let dialogConfig = new MatDialogConfig();
+
+              dialogConfig.position = &#123; 'top': '2vh' &#125;;
+
+              dialogConfig.data = &#123;
+                Ids: this.control.value,
+                parentFields: parentfields,
+                ReadOnly: this._state.isReadOnly
+              &#125;;
+
+              // Evita que o modal seja fechado quando clicar fora do modal
+              dialogConfig.disableClose = true;
+
+              // Abre o modal do componente
+              return this._dialog.open(component, dialogConfig).afterClosed();
+            &#125;
+
+            public onClickModal(): void &#123;
+              this.callModal.emit(this);
+            &#125;
+
+            public onChanged(value: any): void &#123;
+              this.changeEvent.emit(value);
+            &#125;
+
+            public onCreated(value: any): void &#123;
+              this.createdEvent.emit(value);
+            &#125;
+
+            public onFiltering(value: any): void &#123;
+              this.filteringEvent.emit(value);
+            &#125;
+
+            public onEnterKeyUp(value: any): void &#123;
+              this.keyupEnterEvent.emit(value);
+            &#125;
+
+            public onOpen(value: any): void &#123;
+              this.openEvent.emit(value);
+            &#125;
+
+            public onSelect(value: any): void &#123;
+              this.selectEvent.emit(value);
+            &#125;
+
+            public refresh(): void &#123;
+              this.dropdownList?.refresh();
+            &#125;
+
+            public setValue(value: any): void &#123;
+
+              this.valueBinding = value;
+
+              // Verifica se a lista já possui valor
+              if (this.dataSource != null && value != null) &#123;
+
+                // Obtêm o registro selecionado
+                let itemData = this.dataSource.find(x => x[this.fields["value"]] == value);
+
+                // Se encontrou algo
+                if (itemData != null)
+                  // Dispara o evento com o valor selecionado
+                  this.changeEvent.emit(&#123;
+                    itemData: itemData,
+                    name: "setValue",
+                    previousItem: null,
+                    previousItemData: null,
+                    value: value
+                  &#125;);
+              &#125;
+
+            &#125;
+
+            //#endregion
+
+            //#region Public Properties
+
+            public height: string = '220px';
+            public isValid: boolean;
+
+            //#endregion
+
+            //#region View Objects
+
+            @ViewChild("dropdownList") dropdownList: DropDownListComponent;
+
+            //#endregion
+
+          &#125;
+        </code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #dropdownlistcss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="dropdownlisthtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="dropdownlistts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="CSS">
+        <ng-container [ngTemplateOutlet]="dropdownlistcss">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <h3>
+      Exemplo {{ componentitle }}
+    </h3>
+    <div style="justify-content: center;">
+
+    </div>
+  </div>
+</div> -->

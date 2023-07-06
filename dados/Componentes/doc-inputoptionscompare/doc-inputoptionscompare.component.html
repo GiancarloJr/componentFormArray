@@ -1,0 +1,389 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"> Como utilizar componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/public-api';
+          import &#123; DocInputoptionscompareComponent &#125; from './doc-inputoptionscompare.component';
+          import &#123; DocInputoptionscompareRoutingModule &#125; from './doc-inputoptionscompare-routing.module';
+          <span>import &#123; InputOptionsCompareModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+
+          @NgModule(&#123;
+            declarations: [
+              DocInputoptionscompareComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>InputOptionsCompareModule,</span>
+
+              // Local
+              DocInputoptionscompareRoutingModule
+            ]
+          &#125;)
+          export class DocInputoptionscompareModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+            &lt;div class="virtue-inputoptionscompare-example" [formGroup]="formData"&gt;
+
+              &lt;virtue-input-options-compare (selection-change)='selectionOptionChangeEntidade($event)'
+                                            [disabledButton]="false"
+                                            [decimal]="false"
+                                            [readOnly]="false"
+                                            comparisonType="String"
+                                            labelText="Descrição"
+                                            formControlName="nome"
+                                            fxFlex&gt;
+              &lt;/virtue-input-options-compare&gt;
+
+            &lt;/div&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <div class="virtue-inputoptionscompare-example"
+             [formGroup]="formData">
+
+          <virtue-input-options-compare (selection-change)='selectionOptionChangeEntidade($event)'
+                                        [decimal]="false"
+                                        [disabledButton]="false"
+                                        [readOnly]="false"
+                                        comparisonType="String"
+                                        formControlName="nome"
+                                        fxFlex
+                                        labelText="Descrição">
+          </virtue-input-options-compare>
+
+        </div>
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableHostListener"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #inputoptionscomparehtml>
+  <pre>
+    <code>
+         &lt;div class="mat-form-field-with-button"
+                 fxFlex="100"&gt;
+
+            &lt;mat-form-field class="outline-color"&gt;
+              &lt;mat-label&gt;&#123; &#123; labelComplete&#125;&#125;&lt;/mat-label&gt;
+              &lt;input #inputModal
+                        [formControl]='control'
+                        [readonly]='readOnly'
+                        [style.text-align]='textAlign'
+                        matInput&gt;
+
+              &lt;ng-content select="[input-errors]"&gt;&lt;/ng-content&gt;
+
+            &lt;/mat-form-field&gt;
+
+            &lt;mat-error *ngIf='control.hasError("pattern")'
+                          class="error-pattern"&gt;
+              &lt;strong&gt;Inválido!&lt;/strong&gt;!
+            &lt;/mat-error&gt;
+
+          &lt;/div&gt;
+
+          &lt;!-- OPÇÕES --&gt;
+          &lt;button (select)="onSelected($event)"
+                     [content]='iconCss == "" ? selectedOption : ""'
+                     [disabled]='disabledButton'
+                     [iconCss]='iconCss'
+                     [items]='itemsSource'
+                     [matTooltip]='tooltip'
+                     class="dropdownbutton"
+                     ejs-dropdownbutton&gt;
+          &lt;/button&gt;</code>
+      </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #inputoptionscomparets>
+  <pre>
+    <code>
+        // Angular
+        import &#123; Component, ViewEncapsulation, OnInit, Injector, ElementRef, forwardRef, Input, Renderer2, Output, EventEmitter &#125; from '@angular/core';
+        import &#123; NG_VALUE_ACCESSOR, Validators, &#125; from '@angular/forms';
+
+        // Angular Material
+        import &#123; MatDialog &#125; from '@angular/material/dialog';
+
+        // Syncfusion
+        import &#123; ItemModel &#125; from '@syncfusion/ej2-angular-splitbuttons';
+
+        // Virtue
+        import &#123; ValueAccessor &#125; from '@virtuetec/lib/core';
+
+        @Component(&#123;
+          selector: 'virtue-input-options-compare',
+          templateUrl: './inputoptionscompare.component.html',
+          styleUrls: ['./inputoptionscompare.component.scss'],
+          encapsulation: ViewEncapsulation.None,
+          providers: [&#123;
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => InputOptionsCompareComponent),
+            multi: true
+          &#125;]
+        &#125;)
+        export class InputOptionsCompareComponent extends ValueAccessor implements OnInit &#123;
+
+          //#region Constructor
+
+          constructor(
+            protected _dialog: MatDialog,
+            protected _el: ElementRef,
+            protected _injector: Injector,
+            protected _renderer: Renderer2) &#123;
+            super(_el, _injector, _renderer);
+          &#125;
+
+          //#endregion
+
+          //#region Events Emitter
+
+          @Output("clear-value") clearValue = new EventEmitter();
+          @Output("selection-change") selectionChange: EventEmitter&lt;any&gt; = new EventEmitter&lt;any&gt;();
+
+          //#endregion
+
+          //#region Implementation OnInit
+
+          ngOnInit(): void &#123;
+            if (this.control == null) &#123;
+              this.control.disable();
+            &#125;
+
+            // Carrega a listagem do combo conforme tipo informado
+            this.loadListByType();
+
+            if (this.isDecimal) &#123;
+              this.control.setValidators([Validators.pattern(/^(\d+(\.\d&#123;3&#125;)*(\,\d&#123;1,2&#125;)?)?$/)]);
+              this.textAlign = 'right';
+            &#125;
+
+          &#125;
+
+          //#endregion
+
+          //#region Inputs
+
+          @Input("decimal") isDecimal: boolean;
+          @Input("decimalCounter") decimalCounter: number = 2;
+          @Input("disabledButton") disabledButton: boolean = false;
+          @Input("itemsSource") itemsSource: ItemModel[] = [];
+          @Input("labelText") labelText: string = `Não Definido (=)`;
+          @Input("tooltip") tooltip: string = "Clique para selecionar a opção";
+          @Input("readOnly") readOnly: boolean = false;
+          @Input("selectedOption") selectedOption;
+          @Input("comparisonType") comparisonType: string = "NUMBER";
+
+          //#endregion
+
+          //#region Private Methods
+
+          private loadListByType(): void &#123;
+            // Se NÃO FOI informado listagem especifica na carga do componente, carrega as informações DEFAULT conforme o tipo
+            if (this.itemsSource.length === 0) &#123;
+              switch (this.comparisonType.toUpperCase()) &#123;
+                case "NUMBER":
+                  this.itemsSource = this.itemsCompareNumber;
+                  this.iconCss = "";
+                  this.labelComplete = `$&#123;this.labelText&#125; (=)`;
+                  this.selectedOption = this.itemsSource[0].id;
+                  break;
+                case "STRING":
+                  this.itemsSource = this.itemsCompareString;
+                  this.iconCss = this.itemsSource[0].iconCss;
+                  this.labelComplete = `$&#123;this.labelText&#125; ($&#123;this.itemsSource[0].text&#125;)`;
+                  this.selectedOption = this.itemsSource[0].id;
+                  break;
+                default:
+                  console.log(`O tipo '$&#123;this.comparisonType.toUpperCase()&#125;' não foi implementado no componente, ` +
+                              `utilize a propriedade 'itemsSource' do componente para especificar uma listagem com opções exclusivas!`);
+                  break;
+              &#125;
+            &#125;
+
+            // Se FOI informado uma listagem especifica, carrega as informações
+            else if (this.itemsSource.length > 0) &#123;
+              this.iconCss = this.itemsSource[0].iconCss;
+              this.labelComplete = `$&#123;this.labelText&#125; ($&#123;this.itemsSource[0].text&#125;)`;
+              this.selectedOption = this.itemsSource[0].id;
+            &#125;
+          &#125;
+
+          //#endregion
+
+          //#region Public Methods
+
+          public doClearField(): void &#123;
+            this.control.setValue("");
+          &#125;
+
+          public onSelected(event: any): void &#123;
+            this.selectedOption = event.item.id;
+            this.selectionChange.emit(this.selectedOption);
+
+            if (event.item.iconCss == "")
+              this.labelComplete = `$&#123;this.labelText&#125; ($&#123;this.selectedOption&#125;)`;
+            else &#123;
+              this.labelComplete = `$&#123;this.labelText&#125; ($&#123;event.item.text&#125;)`;
+              this.iconCss = event.item.iconCss;
+            &#125;
+          &#125;
+
+          //#endregion
+
+          //#region Properties
+
+          public iconCss: string = ""; //= "e-icons e-more-horizontal-1";
+          public labelComplete: string;
+          public textAlign: string = "left";
+
+          public itemsCompareNumber: ItemModel[] = [
+            &#123; id: '=', text: 'Igual a' &#125;,
+            &#123; id: '!=', text: 'Diferente de' &#125;,
+            &#123; id: '>', text: 'Maior que' &#125;,
+            &#123; id: '>=', text: 'Maior ou igual a' &#125;,
+            &#123; id: '<', text: 'Menor que' &#125;,
+            &#123; id: '<=', text: 'Menor ou igual a' &#125;
+          ];
+
+          public itemsCompareString: ItemModel[] = [
+            &#123; id: '1', text: 'Começa com', iconCss: 'e-icons e-last-page' &#125;,
+            &#123; id: '2', text: 'Qualquer parte', iconCss: 'e-icons e-chevron-down' &#125;,
+            &#123; id: '3', text: 'Termina com', iconCss: 'e-icons e-first-page' &#125;
+          ];
+
+          //#endregion
+
+        &#125;
+</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #inputoptionscomparecss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="inputoptionscomparehtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="inputoptionscomparets">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="CSS">
+        <ng-container [ngTemplateOutlet]="inputoptionscomparecss">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <h3>
+      Exemplo {{ componentitle }}
+    </h3>
+    <div style="justify-content: center;">
+
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,45 @@
+<div class="menu-navigation">
+
+  <virtue-vertical-menu #menuVertical
+                        (iconClicked)='onMenuItemIconClicked($event)'
+                        [menu-showprogress]='menuShowProgress'
+                        [menu-source]='menuResources'
+                        [menu-show]='menuShow'
+                        [menu-collapse]='menuShow'>
+  </virtue-vertical-menu>
+
+</div>
+
+<!--
+<mat-sidenav-container class="container">
+  <mat-sidenav class="sidenav mat-elevation-z1"
+               mode="side"
+               opened
+               fixedInViewport="true"
+               fixedTopGap="56"
+               fixedBottomGap="64">
+    <mat-nav-list class="nav-list">
+      <a mat-list-item
+         routerLink="/button-speed-dial"
+         routerLinkActive="link-activated"
+         [disableRipple]="true">
+        Button Speed Dial
+      </a>
+      <a mat-list-item
+         routerLink="/teste"
+         routerLinkActive="link-activated"
+         [disableRipple]="true">
+        Chips
+      </a>
+      <a mat-list-item
+         routerLink="/teste"
+         routerLinkActive="link-activated"
+         [disableRipple]="true">
+        Complement
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="content">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container> -->

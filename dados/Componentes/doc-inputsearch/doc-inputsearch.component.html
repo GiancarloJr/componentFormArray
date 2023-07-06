@@ -1,0 +1,614 @@
+<mat-tab-group class="tab-group"
+               dynamicHeight
+               mat-align-tabs="start"
+               mat-stretch-tabs="false">
+  <mat-tab label="OVERVIEW">
+    <ng-container [ngTemplateOutlet]="overview">
+    </ng-container>
+  </mat-tab>
+  <!-- <mat-tab label="API">
+    <ng-container [ngTemplateOutlet]="api">
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="EXAMPLE">
+    <ng-container [ngTemplateOutlet]="example">
+    </ng-container>
+  </mat-tab> -->
+</mat-tab-group>
+
+<!-- TEMPLATE 1 -->
+<ng-template #overview>
+  <div class="content">
+
+    <div class="overview">
+
+      <doc-explicacaocomponente [nome-componente]="name_component"
+                                [titulo-componente]="componentitle"></doc-explicacaocomponente>
+
+      <div class="title">
+        <h3 id="comousarcomponente"
+            class="body-h3"> Como utilizar componente: </h3>
+        <mat-divider class="button-speed-divider"></mat-divider>
+      </div>
+
+      <p> Para utilização do componente {{ componentitle }}, importar {{ componentitle | NameModule }} adicionando no
+        módulo destino:
+      </p>
+
+      <p class="observation">   *Observação: DialogSearchModule é importado dentro do {{ componentitle | NameModule }}
+        para utilização do mesmo.</p>
+
+      <pre>
+        <code>
+          import &#123; NgModule &#125; from '@angular/core';
+
+          import &#123; CommomModules &#125; from 'projects/virtue/lib/modules/public-api';
+          import &#123; DocInputsearchComponent &#125; from './doc-inputsearch.component';
+          import &#123; DocInputsearchRoutingModule &#125; from './doc-inputsearch-routing.module';
+          <span>import &#123; InputSearchModule &#125; from 'projects/virtue/lib/components/public-api';</span>
+
+
+          @NgModule(&#123;
+            declarations: [
+              DocInputsearchComponent
+            ],
+            imports: [
+              // Library
+              CommomModules,
+              <span>InputSearchModule,</span>
+
+              // Local
+              DocInputsearchRoutingModule
+            ]
+          &#125;)
+          export class DocInputsearchModule &#123; &#125;</code>
+      </pre>
+
+      <div class="title">
+        <h3 id="html"> Inserindo HTML para utilização do componente: </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <pre>
+        <code>
+
+          &lt;div class="virtue-input-search-example" [formGroup]="formData"&gt;
+
+            &lt;virtue-input-search #inputSearch
+                                 (call-modal)="callModal()"
+                                 Icon="fab fa-docker"
+                                 [AutoCheck]='true'
+                                 [CheckAfterSearch]='true'
+                                 [Columns]='exemploFields'
+                                 [ShowButtonModal]="true"
+                                 [IsValid]="true"
+                                 [ItemsSource]='exemploCargoSource'
+                                 DialogTitle="Lista de Cargos"
+                                 DisplayMember="Id"
+                                 formControlName='cargo'
+                                 Label='label teste'
+                                 TooltipMember="Nome"&gt;
+
+              &lt;div input-search-errors&gt;
+                &lt;ng-content select="[input-errors]"&gt;&lt;/ng-content&gt;
+              &lt;/div&gt;
+
+            &lt;/virtue-input-search&gt;</code>
+      </pre>
+
+      <div class="title">
+        <h3>
+          Exemplo {{ componentitle }}
+        </h3>
+        <mat-divider></mat-divider>
+      </div>
+
+      <div class="example-component">
+
+        <div class="virtue-input-search-example"
+             [formGroup]="formData">
+
+          <virtue-input-search #inputSearch
+                               (call-modal)="callModal()"
+                               [AutoCheck]='true'
+                               [CheckAfterSearch]='true'
+                               [Columns]='exemploFields'
+                               [ShowButtonModal]="true"
+                               [IsValid]="true"
+                               [ItemsSource]='exemploCargoSource'
+                               DialogTitle="Lista de Carlos"
+                               DisplayMember="Id"
+                               formControlName='cargo'
+                               Icon="fab fa-docker"
+                               Label='label teste'
+                               TooltipMember="Nome">
+
+            <div input-search-errors>
+              <ng-content select="[input-errors]"></ng-content>
+            </div>
+
+          </virtue-input-search>
+
+        </div>
+
+      </div>
+
+      <div id="diretivas">
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableInput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableOutput"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableViewChild"></doc-tablediretivas>
+
+        <doc-tablediretivas [nameComponent]="name_component"
+                            [sectionType]="sectionTypeTableHostListener"></doc-tablediretivas>
+
+      </div>
+
+    </div>
+
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+    <doc-sidenav [nomeComponente]="name_component"
+                 [paramComponente]="path_component"
+                 [tituloComponente]="componentitle"></doc-sidenav>
+    <!-- ---------------------- NAVIGATION ON RIGHT SIDE -------------------------- -->
+  </div>
+</ng-template>
+
+
+<!--------- HTML BUTTON SPEED DIAL --------->
+<ng-template #inputsearchhtml>
+  <pre>
+    <code>
+      &lt;mat-form-field [ngClass]='showButtonModal ? "input-with-modal" : ""'
+                         fxFlex
+                         tabindex=-1&gt;
+
+        &lt;mat-label&gt;&#123; &#123;label&#125;&#125;&lt;/mat-label&gt;
+          &lt;input #inputSearch
+                    (keyup.enter)='onEnterOrTabPressed($event)'
+                    (keydown.tab)='onEnterOrTabPressed($event)'
+                    [formControl]='control'
+                    [matTooltip]='tooltipInfo'
+                    [maxlength]='inputMaxLength'
+                    matInput
+                    trimValue&gt;
+
+            &lt;!-- BOTÃO SEARCH --&gt;
+            &lt;i *ngIf="canSearch && !control.disabled"
+                  (click)="doSearch()"
+                  [ngClass]="showButtonModal ? 'btn-search btn-search' : ''"
+                  class="fad fa-search"
+                  matIconSuffix
+                  matTooltip='Pesquisar'&gt;
+            &lt;/i&gt;
+
+
+            &lt;!-- BOTÃO LIMPAR --&gt;
+            &lt;i *ngIf="canClear && !control.disabled"
+                  (click)="doClearField()"
+                  class="btn-delete fad fa-times"
+                  matIconSuffix
+                  matTooltip='Limpar'
+                  style="margin-left: 3px; margin-right: 8px;"&gt;
+            &lt;/i&gt;
+
+            &lt;!-- BOTÃO CHAMAR MODAL --&gt;
+            &lt;!-- &lt;i *ngIf="showButtonModal && !control.disabled"
+                          (click)="onClickModal()"
+                          [matTooltip]='control.value == null || control.value == "" ? "Adicionar" : "Editar"'
+                          [ngClass]="control.value == null || control.value == '' ? 'btn-add fad fa-plus' : 'btn-edit fad fa-pencil'"
+                          matIconSuffix&gt;
+            &lt;/i&gt; --&gt;
+
+            &lt;div class="input-search-errors"&gt;
+              &lt;ng-content select="[input-search-errors]"&gt;&lt;/ng-content&gt;
+            &lt;/div&gt;
+      &lt;/mat-form-field&gt;
+
+      &lt;!-- BOTÃO CHAMAR MODAL --&gt;
+      &lt;div *ngIf="showButtonModal"
+              class="btn-call-modal"&gt;
+        &lt;button (click)="onClickModal()"
+                   [matTooltip]='control.value == null || control.value == "" ? "Adicionar" : "Editar"'
+                   color="primary"
+                   mat-button
+                   mat-flat-button
+                   type="button"&gt;
+          &lt;i *ngIf="control.value == null || control.value == ''"
+          class="fad fa-plus"&gt;&lt;/i&gt;
+          &lt;i *ngIf="control.value != null && control.value != ''"
+        class="fad fa-pencil"&gt;&lt;/i&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;</code>
+      </pre>
+</ng-template>
+
+<!-- -------- TS BUTTON SPEED DIAL------- -->
+<ng-template #inputsearchts>
+  <pre>
+    <code>
+        // Angular
+        import &#123; Component, ViewEncapsulation, OnInit, Injector, ViewChild, ElementRef, forwardRef, Input, Renderer2 &#125; from '@angular/core';
+        // Angular
+        import &#123; Component, ViewEncapsulation, OnInit, Injector, Output, EventEmitter, Input, ViewChild, ElementRef, AfterViewInit, Renderer2, Optional &#125; from '@angular/core';
+        import &#123; MatDialog, MatDialogConfig &#125; from '@angular/material/dialog';
+        import &#123; ControlContainer, FormControl, NG_VALUE_ACCESSOR, &#125; from '@angular/forms';
+
+        // Rxjs
+        import &#123; debounceTime, distinctUntilChanged &#125; from 'rxjs/operators';
+
+        // Virtue
+        import &#123; DialogSearch &#125; from '../dialogsearch/dialogsearch';
+        import &#123; DialogState &#125; from '@virtuetec/lib/services';
+        import &#123; Library, ValueAccessor &#125; from '@virtuetec/lib/core';
+
+        @Component(&#123;
+          selector: 'virtue-input-search',
+          templateUrl: './inputsearch.component.html',
+          styleUrls: ['./inputsearch.component.scss'],
+          encapsulation: ViewEncapsulation.None,
+          providers: [&#123;
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: InputSearchComponent,
+            multi: true
+          &#125;]
+        &#125;)
+        export class InputSearchComponent extends ValueAccessor implements AfterViewInit, OnInit &#123;
+
+          //#region Constructor
+
+          constructor(
+            private _dialog: MatDialog,
+            protected _el: ElementRef,
+            protected _injector: Injector,
+            protected _renderer: Renderer2,
+            @Optional() protected _state: DialogState = null) &#123;
+            super(_el, _injector, _renderer);
+          &#125;
+
+          //#endregion
+
+          //#region Implements AfterViewInit
+
+          ngAfterViewInit(): void &#123;
+
+            // Monitora o campo de pesquisa
+            if (this.autoCheck)
+              this.control.valueChanges.pipe(
+                debounceTime(300),
+                distinctUntilChanged()).subscribe(() => &#123;
+                  this.doCheck();
+                &#125;);
+
+          &#125;
+
+          //#endregion
+
+          //#region Implements OnInit
+
+          ngOnInit(): void &#123;
+            if (this.autoCheck)
+              if (this.control !== null && this.control !== undefined)
+                this.control.valueChanges.pipe(
+                  debounceTime(200),
+                  distinctUntilChanged())
+                  .subscribe(() => &#123;
+                    this.doCheck();
+                  &#125;)
+          &#125;
+
+          //#endregion
+
+          //#region Event Emitters
+
+          @Output("call-modal") callModal = new EventEmitter&lt;InputSearchComponent&gt;();
+          @Output("check-value") checkValue = new EventEmitter&lt;any&gt;();
+          @Output("clear-value") clearValue = new EventEmitter();
+
+          //#endregion
+
+          //#region Input Properties
+
+          @Input("AutoCheck") autoCheck: boolean = false;
+          @Input("CheckAfterSearch") checkAfterSearch: boolean = false;
+          @Input("Columns") gridColumns: object;
+          @Input("DialogTitle") dialogTitle: string;
+          @Input("DialogTitleComplement") dialogTitleComplement: string;
+          @Input("DisplayMember") displayMember: string;
+          @Input("InputMaxLength") inputMaxLength: number;
+          @Input("Icon") icon: string;
+          @Input("ItemsSource") itemsSource: any;
+          @Input("IsValid") isValid: boolean;
+          @Input("Label") label: string;
+          @Input("SelectTextAfterCheck") selectTextAfterCheck: boolean;
+          @Input("ShowButtonModal") showButtonModal: boolean = false;
+          @Input("Tooltip") tooltip: string = "";
+          @Input("TooltipButton") tooltipButton: string = "Clique para abrir o modal";
+          @Input("TooltipMember") tooltipMember: string;
+          @Input("ValidateField") validateField: boolean;
+          @Input("ValueMember") valueMember: string;
+
+          //#endregion
+
+          //#region Overriden Methods
+
+          // setDisabledState(isDisabled: boolean): void &#123;
+          //   super.setDisabledState(isDisabled);
+
+          //   this.handleControlFlags();
+          // &#125;
+
+          //#endregion
+
+          //#region Public Getters
+
+          public get control(): FormControl &#123;
+            return this.formControl || this.controlContainer.control.get(this.formControlName) as FormControl;
+          &#125;
+
+          public get controlContainer() &#123;
+            return this._injector.get(ControlContainer);
+          &#125;
+
+          public get tooltipInfo(): string &#123;
+
+            if (this.tooltipMember != null && this.tooltipMember != "") &#123;
+              if (this.selectedValue != null) &#123;
+
+                // Se foi informado uma propriedade para o tooltip, apresenta ela
+                if (this.tooltipMember != "")
+                  if (Library.objectHasProperty(this.selectedValue, this.tooltipMember))
+                    return this.selectedValue[this.tooltipMember]?.toUpperCase();
+
+              &#125;
+
+            &#125;
+
+            return this.tooltip;
+
+          &#125;
+
+          public get value(): string &#123;
+            return this.control.value;
+          &#125;
+
+          //#endregion
+
+          //#region Public Methods
+
+          public doCallModal(component: any, parentfields: object = null): void &#123;
+
+            // this.selectedValue != null ? this.selectedValue[this.valueMember] : null
+
+            // Obtêm o ID do registro, se existir
+            let id: any = this.control.parent.get(this.valueMember).value;
+
+            // Instância os objetos do formulário
+            let dialogConfig = new MatDialogConfig();
+
+            // Seta as propriedades do modal
+            dialogConfig.position = &#123; 'top': '2vh' &#125;;
+            dialogConfig.data = &#123;
+              Ids: id,
+              parentFields: parentfields,
+              ReadOnly: this._state.isReadOnly
+            &#125;;
+
+            // Evita que o modal seja fechado quando clicar fora do modal
+            dialogConfig.disableClose = true;
+
+            // Abre o modal do componente
+            this._dialog.open(component, dialogConfig).afterClosed().subscribe(&#123;
+              next: ret => &#123;
+
+                if (ret) &#123;
+
+                  // Atualiza o conteúdo do campo
+                  this.control.setValue(ret);
+
+                  // Verifica o código selecionado
+                  if (this.checkAfterSearch)
+                    this.doCheck();
+                &#125;
+
+              &#125;
+            &#125;);
+          &#125;
+
+          public doClearField(): void &#123;
+
+            // Limpa os campos do controle
+            this.selectedValue = null;
+            this.control.setValue("");
+
+            // Solicita a verificação do valor informado é válido
+            this.clearValue.emit(null);
+
+            // Altera os flags do controle
+            this.handleControlFlags();
+
+          &#125;
+
+          public doCheck(): void &#123;
+
+            // Solicita a verificação do valor informado é válido
+            this.checkValue.emit(this.control.value);
+
+            // Altera os flags do controle
+            this.handleControlFlags();
+
+            if (this.selectTextAfterCheck)
+              this.inputSearch.nativeElement.select();
+
+          &#125;
+
+          public doSearch(): void &#123;
+
+            DialogSearch.Show(
+              this._dialog,
+              this.icon,
+              this.gridColumns,
+              this.itemsSource,
+              this.dialogTitle,
+              this.dialogTitleComplement,
+              this.displayMember).subscribe(ret => &#123;
+                if (ret) &#123;
+
+                  // Obtêm o valor que será apresentado para o usuário
+                  let displayValue = ret[this.displayMember];
+
+                  if (this.control.value != null && this.control.value != undefined)
+                    if (this.control.value.split('*').length == 2) &#123;
+                      displayValue = `$&#123;this.control.value.split('*')[0]&#125;*$&#123;displayValue&#125;`;
+                    &#125;
+
+                  // Atualiza o conteúdo do campo
+                  this.control.setValue(displayValue)
+
+                  // Armazenda o valor selecionado
+                  this.selectedValue = ret;
+
+                  // Verifica o código selecionado
+                  if (this.checkAfterSearch)
+                    this.doCheck();
+
+                &#125;
+              &#125;)
+
+          &#125;
+
+          public focus(): void &#123;
+            this.inputSearch.nativeElement.focus();
+          &#125;
+
+          public handleControlFlags(): void &#123;
+            // Se o controle não possui valor
+            if (this.control.disabled) &#123;
+              this.canSearch = false;
+              this.canClear = false;
+            &#125; else if (this.control.value == "" || this.control.value == null || this.control.value == undefined) &#123;
+              // Altera os flags do controle
+              this.canSearch = true;
+              this.canClear = false;
+            &#125; else &#123;
+              // Altera os flags do controle
+              this.canSearch = false;
+              this.canClear = true;
+            &#125;
+          &#125;
+
+          public onClickModal(): void &#123;
+            this.callModal.emit(this);
+          &#125;
+
+          public onEnterOrTabPressed(event): void &#123;
+
+            var hasCodeValue = (this.control.value != undefined && this.control.value != null && this.control.value != "");
+
+            if (hasCodeValue)
+              if (this.control.value.split('*').length == 2) &#123;
+                hasCodeValue = this.control.value.split('*')[1] != "";
+              &#125;
+
+            if (!hasCodeValue && event.key == "Enter") &#123;
+              this.doSearch();
+            &#125; else &#123;
+              this.doCheck();
+            &#125;
+
+          &#125;
+
+          //#endregion
+
+          //#region Public Properties
+
+          public canClear: boolean = false;
+          public canSearch: boolean = true;
+          public searching: boolean;
+          public selectedValue: any;
+
+          //#endregion
+
+          //#region Public Setters
+
+          public set value(value: string) &#123;
+
+            // Atualiza o conteúdo do campo
+            this.control.setValue(value);
+
+          &#125;
+
+          //#endregion
+
+          //#region Input Properties
+
+          @Input() formControl: FormControl;
+          @Input() formControlName: string;
+
+          //#endregion
+
+          //#region View Object
+
+          @ViewChild("inputSearch") inputSearch: ElementRef;
+
+          //#endregion
+
+        &#125;
+</code>
+  </pre>
+</ng-template>
+
+<!---------- CSS BUTTON SPEED DIAL------- -->
+<ng-template #inputsearchcss>
+  <pre>
+    <code>
+
+    </code>
+  </pre>
+</ng-template>
+
+
+<!-- <div class="border-box-complement">
+
+  <div class="header-box-complement">
+    <span class="header-title-complement">
+      <h3 class="header-box-h3"> {{ componentitle }} Code</h3>
+    </span>
+    <span class="button-tab-hidden">
+      <button (click)="hiddenTabGroupButton()" mat-fab aria-label="Example icon button with a heart icon">
+        <i class="fas fa-code">
+        </i>
+      </button>
+    </span>
+  </div>
+
+  <div class="mat-tab-group-complement" *ngIf="buttonShow">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="HTML">
+        <ng-container [ngTemplateOutlet]="inputsearchhtml">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="TYPESCRIPT">
+        <ng-container [ngTemplateOutlet]="inputsearchts">
+        </ng-container>
+      </mat-tab>
+      <mat-tab label="CSS">
+        <ng-container [ngTemplateOutlet]="inputsearchcss">
+        </ng-container>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-divider></mat-divider>
+    <h3>
+      Exemplo {{ componentitle }}
+    </h3>
+    <div style="justify-content: center;">
+
+    </div>
+  </div>
+</div> -->
